@@ -1,0 +1,1245 @@
+<!-- ===== Code Created by Nikko Nabil Valerian ===== -->
+<!-- ===== https://www.linkedin.com/in/nikko-nabil/ ===== -->
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>FinPersona — Kuesioner Kepribadian Keuangan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --red:#d32f2f; --red-dk:#b71c1c; --red-lt:#fdecea;
+  --orange:#fb8c00; --org-lt:#fff3e0;
+  --yellow:#ffd702; --cream:#efdaab; --crm-lt:#fdf8ef; --crm-bg:#fff8f2;
+  --dark:#1a1a1a; --mid:#4a4a4a; --muted:#888; --border:#e8d8c8; --white:#ffffff;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{
+  font-family:"Nunito",sans-serif; min-height:100vh;
+  background:#fdf5ec;
+  background-image:radial-gradient(ellipse 700px 500px at 0% 0%,#fde8e0 0%,transparent 55%),
+    radial-gradient(ellipse 600px 500px at 100% 100%,#fff8e8 0%,transparent 55%);
+  padding:0 0 72px; display:flex; flex-direction:column; align-items:center; overflow-x:hidden;
+}
+/* NAV */
+.topnav{width:100%;background:var(--white);border-bottom:1.5px solid var(--border);
+  padding:10px 24px;display:flex;align-items:center;gap:14px;
+  position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(180,80,0,.08);}
+.topnav img{width:42px;height:42px;border-radius:6px;object-fit:contain;flex-shrink:0;}
+.topnav-div{width:1.5px;height:32px;background:var(--border);flex-shrink:0;}
+.topnav-org{font-size:9px;font-weight:800;color:var(--muted);letter-spacing:.5px;text-transform:uppercase;}
+.topnav-name{font-size:12.5px;font-weight:900;color:var(--dark);}
+/* LAYOUT */
+.wrap{width:100%;max-width:600px;padding:28px 16px 0;}
+.screen{display:none;}
+.screen.active{display:block;animation:screenIn .4s cubic-bezier(.22,1,.36,1);}
+@keyframes screenIn{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
+.card{background:var(--white);border-radius:24px;box-shadow:0 4px 28px rgba(180,80,0,.11),0 1px 4px rgba(0,0,0,.05);overflow:hidden;}
+/* INTRO */
+.intro-hero{background:var(--crm-bg);border-bottom:1.5px solid var(--border);padding:36px 32px 28px;text-align:center;}
+.animal-row{display:flex;justify-content:center;gap:10px;margin-bottom:22px;}
+.a-bub{width:58px;height:58px;border-radius:50%;font-size:28px;display:flex;align-items:center;justify-content:center;border:1.5px solid var(--border);animation:floatBub 2.8s ease-in-out infinite;}
+.a-bub:nth-child(1){background:#fff0f0;animation-delay:0s;}
+.a-bub:nth-child(2){background:#fffde8;animation-delay:.2s;}
+.a-bub:nth-child(3){background:#fff3e0;animation-delay:.4s;}
+.a-bub:nth-child(4){background:#f0fff4;animation-delay:.6s;}
+.a-bub { font-family:"Fredoka One",sans-serif; font-size:20px; font-weight:900; }
+.a-vs { background:#fdecea; color:#d32f2f; }
+.a-bs { background:#fff3e0; color:#fb8c00; }
+.a-ns { background:#e8f5e9; color:#2e7d32; }
+.a-ex { background:#e8eaf6; color:#3949ab; }
+@keyframes floatBub{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
+.intro-title{font-family:"Fredoka One",sans-serif;font-size:42px;color:var(--dark);margin-bottom:4px;}
+.intro-title span{color:var(--red);}
+.intro-sub{font-size:13px;color:var(--muted);font-weight:700;margin-bottom:18px;}
+.intro-desc{font-size:14px;color:var(--mid);line-height:1.8;margin-bottom:22px;}
+.intro-desc strong{color:var(--dark);}
+.pills-row{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;}
+.pill{padding:6px 16px;border-radius:50px;font-size:12px;font-weight:800;}
+.pill-r{background:var(--red-lt);color:var(--red);border:1px solid #f5b8b8;}
+.pill-o{background:var(--org-lt);color:#bf5000;border:1px solid #ffd09a;}
+.intro-body{padding:26px 32px;}
+.btn-main{display:block;width:100%;padding:17px;border:none;border-radius:14px;
+  font-family:"Nunito",sans-serif;font-size:16px;font-weight:900;color:var(--white);
+  cursor:pointer;background:var(--red);letter-spacing:.3px;margin-bottom:18px;
+  transition:background .18s,transform .15s;}
+.btn-main:hover{background:var(--red-dk);transform:translateY(-2px);}
+.meta-row{display:flex;justify-content:center;gap:20px;}
+.meta-item{font-size:12px;color:var(--muted);font-weight:700;display:flex;align-items:center;gap:5px;}
+.meta-dot{width:5px;height:5px;border-radius:50%;background:var(--orange);flex-shrink:0;}
+/* STEPPER */
+.stepper-wrap{display:flex;align-items:center;justify-content:center;gap:0;margin-bottom:22px;}
+.step-item{display:flex;flex-direction:column;align-items:center;}
+.step-circle{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;border:2px solid var(--border);background:var(--white);color:var(--muted);transition:all .3s;}
+.step-circle.done{background:var(--orange);border-color:var(--orange);color:var(--white);}
+.step-circle.current{background:var(--red);border-color:var(--red);color:var(--white);box-shadow:0 3px 12px rgba(211,47,47,.35);}
+.step-label{font-size:9px;font-weight:800;color:var(--muted);margin-top:4px;text-align:center;max-width:54px;line-height:1.2;}
+.step-label.current{color:var(--red);}
+.step-label.done{color:var(--orange);}
+.step-line{width:28px;height:2px;background:var(--border);margin-bottom:18px;flex-shrink:0;transition:background .3s;}
+.step-line.done{background:var(--orange);}
+/* SECTION */
+.sec-header{background:var(--crm-bg);border-bottom:1.5px solid var(--border);padding:22px 28px;}
+.sec-num{font-size:10px;font-weight:900;letter-spacing:1.8px;text-transform:uppercase;color:var(--red);margin-bottom:4px;}
+.sec-title{font-family:"Fredoka One",sans-serif;font-size:22px;color:var(--dark);margin-bottom:4px;}
+.sec-desc{font-size:13px;color:var(--muted);font-weight:600;line-height:1.6;}
+.sec-body{padding:24px 28px 28px;display:flex;flex-direction:column;gap:26px;}
+/* QUESTIONS */
+.q-block.error .q-label{color:var(--red);}
+.q-block.error .input-text{border-color:var(--red)!important;}
+.q-block.error .mc-opts,.q-block.error .cb-opts,.q-block.error .scale-track{outline:1.5px solid var(--red);border-radius:12px;}
+.q-label{font-size:14.5px;font-weight:800;color:var(--dark);margin-bottom:6px;line-height:1.45;}
+.q-note{font-size:12px;color:var(--muted);font-weight:600;margin-bottom:10px;}
+.req{color:var(--red);}
+.input-text{width:100%;padding:13px 16px;border:1.5px solid var(--border);border-radius:12px;
+  font-family:"Nunito",sans-serif;font-size:14px;font-weight:600;color:var(--dark);
+  background:#fafaf8;outline:none;transition:border-color .18s;}
+.input-text:focus{border-color:var(--red);background:var(--white);}
+.input-text::placeholder{color:#ccc;}
+/* MC */
+.mc-opts{display:flex;flex-direction:column;gap:8px;}
+.mc-opt{display:flex;align-items:center;gap:12px;background:#fafaf8;
+  border:1.5px solid var(--border);border-radius:12px;padding:12px 15px;
+  font-family:"Nunito",sans-serif;font-size:13.5px;font-weight:700;color:var(--dark);
+  cursor:pointer;text-align:left;line-height:1.4;transition:all .16s;}
+.mc-opt:hover{border-color:var(--red);background:var(--red-lt);}
+.mc-opt.sel{border-color:var(--red);background:var(--red-lt);color:var(--red-dk);}
+.mc-opt-ltr{min-width:28px;height:28px;border-radius:50%;background:var(--white);
+  border:1.5px solid #ddd;display:flex;align-items:center;justify-content:center;
+  font-weight:900;font-size:11px;flex-shrink:0;transition:all .16s;}
+.mc-opt.sel .mc-opt-ltr{background:var(--red);border-color:var(--red);color:var(--white);}
+/* CHECKBOX */
+.cb-limit{font-size:11px;font-weight:800;color:var(--orange);margin-bottom:10px;}
+.cb-opts{display:flex;flex-direction:column;gap:7px;}
+.cb-opt{display:flex;align-items:center;gap:11px;background:#fafaf8;
+  border:1.5px solid var(--border);border-radius:12px;padding:11px 14px;
+  font-family:"Nunito",sans-serif;font-size:13px;font-weight:700;color:var(--dark);
+  cursor:pointer;text-align:left;line-height:1.4;transition:all .16s;}
+.cb-opt:hover:not(.maxed){border-color:var(--orange);background:var(--org-lt);}
+.cb-opt.sel{border-color:var(--orange);background:var(--org-lt);color:#bf5000;}
+.cb-opt.maxed:not(.sel){opacity:.42;cursor:not-allowed;}
+.cb-box{min-width:22px;height:22px;border-radius:5px;background:var(--white);
+  border:1.5px solid #ddd;display:flex;align-items:center;justify-content:center;
+  font-size:12px;flex-shrink:0;transition:all .16s;}
+.cb-opt.sel .cb-box{background:var(--orange);border-color:var(--orange);color:var(--white);}
+/* SCALE */
+.scale-stmt{background:var(--crm-lt);border-left:3px solid var(--orange);
+  border-radius:0 12px 12px 0;padding:13px 16px;
+  font-size:14px;font-weight:700;color:var(--dark);line-height:1.6;margin-bottom:16px;}
+.scale-track{position:relative;display:flex;justify-content:space-between;align-items:center;padding:4px 0;}
+.scale-track::before{content:"";position:absolute;left:22px;right:22px;height:2px;background:var(--border);z-index:0;}
+.scale-btn{position:relative;z-index:1;width:44px;height:44px;border-radius:50%;
+  border:1.5px solid var(--border);background:#fafaf8;
+  font-family:"Nunito",sans-serif;font-size:15px;font-weight:900;color:#bbb;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  cursor:pointer;transition:all .16s;}
+.scale-btn:hover{border-color:var(--orange);color:var(--orange);transform:scale(1.1);}
+.scale-btn.sel{background:var(--red);border-color:var(--red);color:var(--white);transform:scale(1.15);box-shadow:0 4px 14px rgba(211,47,47,.32);}
+.scale-labels{display:flex;justify-content:space-between;font-size:10.5px;font-weight:700;color:var(--muted);padding:0 2px;margin-top:8px;}
+.scale-labels span:last-child{text-align:right;}
+/* NAV */
+.sec-nav{display:flex;gap:10px;margin-top:12px;}
+.btn-back{background:var(--white);border:1.5px solid var(--border);padding:12px 20px;border-radius:12px;
+  font-family:"Nunito",sans-serif;font-size:13px;font-weight:800;color:#bbb;cursor:pointer;transition:all .15s;}
+.btn-back:hover{border-color:#ccc;color:#888;}
+.btn-lanjut{flex:1;background:var(--red);border:none;border-radius:12px;padding:14px;
+  font-family:"Nunito",sans-serif;font-size:14px;font-weight:900;color:var(--white);
+  cursor:pointer;transition:all .16s;}
+.btn-lanjut:hover{background:var(--red-dk);transform:translateY(-2px);}
+.val-error{background:var(--red-lt);border:1.5px solid #f5b8b8;border-radius:10px;
+  padding:10px 14px;font-size:12.5px;font-weight:700;color:var(--red);margin-top:10px;display:none;}
+.val-error.show{display:block;}
+/* PRIZE SCREEN */
+.prize-pad{padding:36px 32px 32px;text-align:center;}
+
+.prize-title{font-family:"Fredoka One",sans-serif;font-size:26px;color:var(--dark);margin-bottom:10px;}
+.prize-desc{font-size:14px;color:var(--mid);line-height:1.78;margin-bottom:26px;}
+.prize-form{text-align:left;display:none;animation:screenIn .35s ease;}
+.prize-form.show{display:block;}
+.prize-form-inner{display:flex;flex-direction:column;gap:16px;margin-bottom:20px;}
+.prize-btns{display:flex;flex-direction:column;gap:10px;}
+.btn-prize-yes{display:block;width:100%;padding:16px;border:none;border-radius:14px;
+  font-family:"Nunito",sans-serif;font-size:15px;font-weight:900;color:var(--white);
+  cursor:pointer;background:var(--red);transition:all .16s;}
+.btn-prize-yes:hover{background:var(--red-dk);transform:translateY(-2px);}
+.btn-prize-skip{display:block;width:100%;padding:14px;border:1.5px solid var(--border);border-radius:14px;
+  font-family:"Nunito",sans-serif;font-size:14px;font-weight:800;color:var(--muted);
+  cursor:pointer;background:var(--white);transition:all .16s;}
+.btn-prize-skip:hover{border-color:#ccc;color:#666;}
+.prize-continue{display:none;margin-top:0;}
+.prize-continue.show{display:flex;flex-direction:column;gap:10px;}
+/* LOADING */
+#screenLoading .card{padding:56px 32px;text-align:center;}
+.ld-dots{display:flex;justify-content:center;gap:14px;margin-bottom:28px;}
+.ld-dot{width:16px;height:16px;border-radius:50%;animation:ldBounce 1.15s ease-in-out infinite;}
+.ld-dot:nth-child(1){background:var(--red);animation-delay:0s;}
+.ld-dot:nth-child(2){background:var(--orange);animation-delay:.14s;}
+.ld-dot:nth-child(3){background:var(--yellow);animation-delay:.28s;}
+.ld-dot:nth-child(4){background:var(--cream);animation-delay:.42s;border:1.5px solid var(--border);}
+@keyframes ldBounce{0%,100%{transform:translateY(0);}50%{transform:translateY(-16px);}}
+.ld-title{font-family:"Fredoka One",sans-serif;font-size:26px;color:var(--dark);margin-bottom:6px;}
+.ld-sub{font-size:13px;color:var(--muted);font-weight:700;margin-bottom:28px;}
+.ld-steps{text-align:left;}
+.ld-step{display:flex;align-items:center;gap:12px;padding:8px 0;font-size:13.5px;font-weight:700;color:#ccc;transition:color .35s;}
+.ld-step.active{color:var(--red);}
+.ld-step.done{color:#5cb85c;}
+.ld-step-dot{width:9px;height:9px;border-radius:50%;background:currentColor;flex-shrink:0;}
+/* RESULT HERO */
+.result-hero{border-bottom:1.5px solid var(--border);padding:36px 32px 28px;text-align:center;}
+.result-badge{display:inline-block;padding:4px 14px;border-radius:50px;font-size:10px;font-weight:900;letter-spacing:1.6px;text-transform:uppercase;background:var(--red-lt);color:var(--red);margin-bottom:16px;}
+.result-icon{font-size:86px;display:block;text-align:center;line-height:1;margin:0 auto 16px;animation:popIn .65s cubic-bezier(.68,-.55,.27,1.55);}
+@keyframes popIn{0%{transform:scale(0) rotate(-18deg);opacity:0;}100%{transform:scale(1) rotate(0);opacity:1;}}
+.result-name{font-family:"Fredoka One",sans-serif;font-size:34px;color:var(--dark);margin-bottom:6px;}
+.hl-bar{height:3px;background:var(--yellow);border-radius:50px;width:48px;margin:0 auto 8px;}
+.result-tag{font-size:13px;color:var(--muted);font-weight:700;}
+.result-body{padding:24px 32px 32px;}
+.result-desc{background:var(--crm-lt);border-radius:16px;padding:18px 20px;font-size:14px;color:var(--mid);line-height:1.82;margin-bottom:24px;}
+
+/* SECTION TITLE (reusable) */
+.res-sec-ttl{font-size:10px;font-weight:900;letter-spacing:1.6px;text-transform:uppercase;color:var(--muted);margin-bottom:12px;}
+/* SNAPSHOT CARDS */
+.snapshot-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:24px;}
+.snap-card{border-radius:14px;padding:14px 10px;text-align:center;}
+
+.snap-label{font-size:9px;font-weight:900;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:5px;margin-top:2px;}
+.snap-value{font-size:11.5px;font-weight:800;color:var(--dark);line-height:1.35;}
+/* GAUGE */
+.gauge-wrap{margin-bottom:24px;}
+.gauge-track{background:linear-gradient(90deg,#e8f5e9,#fff3e0 50%,#fdecea);border-radius:50px;height:14px;position:relative;margin-bottom:6px;}
+.gauge-thumb{position:absolute;top:50%;transform:translate(-50%,-50%);width:22px;height:22px;border-radius:50%;background:var(--white);border:2.5px solid var(--red);box-shadow:0 2px 8px rgba(0,0,0,.15);transition:left .9s cubic-bezier(.4,0,.2,1);}
+.gauge-scale{display:flex;justify-content:space-between;font-size:9.5px;font-weight:700;color:var(--muted);margin-bottom:8px;}
+.gauge-status{text-align:center;font-size:12.5px;font-weight:800;color:var(--mid);padding:8px 14px;border-radius:10px;}
+/* DECISION CARDS */
+.decisions-wrap{display:flex;flex-direction:column;gap:10px;margin-bottom:24px;}
+.decision-card{background:#fafaf8;border:1.5px solid var(--border);border-radius:14px;padding:14px 15px;}
+.decision-q-num{font-size:9px;font-weight:900;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:4px;}
+.decision-q-txt{font-size:12px;font-weight:700;color:var(--muted);margin-bottom:7px;line-height:1.4;}
+.decision-a-txt{font-size:13px;font-weight:800;color:var(--dark);line-height:1.45;margin-bottom:8px;}
+.decision-badge{display:inline-flex;align-items:center;gap:5px;padding:3px 11px;border-radius:50px;font-size:10.5px;font-weight:900;}
+/* TRAITS */
+.traits-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:22px;}
+.trait-box{border-radius:16px;padding:16px 15px;}
+.trait-str{background:#f0fdf4;border:1px solid #c6f6d5;}
+.trait-cau{background:#fffbeb;border:1px solid #fde68a;}
+.trait-ttl{font-size:10px;font-weight:900;letter-spacing:1.3px;text-transform:uppercase;margin-bottom:9px;}
+.trait-str .trait-ttl{color:#166534;}
+.trait-cau .trait-ttl{color:#92400e;}
+.trait-li{font-size:12.5px;font-weight:700;color:var(--mid);padding:2px 0;}
+.trait-li::before{content:"• ";color:var(--orange);}
+/* TIP */
+.tip-box{background:var(--red-lt);border-left:3px solid var(--red);border-radius:0 14px 14px 0;padding:18px 20px;margin-bottom:22px;}
+.tip-ttl{font-size:10px;font-weight:900;letter-spacing:1.2px;text-transform:uppercase;color:var(--red);margin-bottom:8px;}
+.tip-txt{font-size:13.5px;font-weight:600;color:var(--mid);line-height:1.78;}
+/* OTHERS */
+.others-ttl{font-size:10px;font-weight:900;letter-spacing:1.6px;text-transform:uppercase;color:var(--muted);margin-bottom:12px;}
+.others-row{display:flex;gap:10px;margin-bottom:20px;}
+.oc{flex:1;padding:12px 8px;border-radius:14px;text-align:center;font-size:12.5px;font-weight:800;cursor:default;background:transparent;}
+.oc-icon{font-size:26px;display:block;margin:0 auto 5px;line-height:1;}
+.oc:nth-child(1) .oc-icon{font-size:26px;display:block;margin:0 auto 5px;line-height:1;}
+.oc:nth-child(2) .oc-icon{font-size:26px;display:block;margin:0 auto 5px;line-height:1;}
+.oc:nth-child(3) .oc-icon{font-size:26px;display:block;margin:0 auto 5px;line-height:1;}
+/* SAVE / RETRY */
+.save-status{text-align:center;font-size:11.5px;font-weight:700;color:var(--muted);margin:4px 0;min-height:18px;}
+.save-status.ok{color:#2e7d32;}
+.save-status.err{color:var(--red);}
+.btn-retry{display:block;width:100%;padding:16px;border:none;border-radius:14px;
+  font-family:"Nunito",sans-serif;font-size:15px;font-weight:900;color:var(--white);
+  background:var(--red);cursor:pointer;transition:all .16s;margin-top:8px;}
+.btn-retry:hover{background:var(--red-dk);transform:translateY(-2px);}
+/* FOOTER */
+.footer{text-align:center;padding-top:20px;font-size:11.5px;color:#b8a898;font-weight:700;}
+/* CONFETTI */
+#confetti-host{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999;overflow:hidden;}
+.conf{position:absolute;top:-14px;animation:confDrop linear forwards;}
+@keyframes confDrop{to{transform:translateY(105vh) rotate(720deg);opacity:0;}}
+/* RESPONSIVE */
+@media(max-width:520px){
+  .topnav-org{display:none;}
+  .intro-hero,.intro-body,.prize-pad,.sec-header,.result-hero,.result-body{padding-left:20px;padding-right:20px;}
+  .sec-body{padding:18px 20px 24px;}
+  #screenLoading .card{padding:44px 20px;}
+  .intro-title{font-size:36px;}
+  .traits-grid{grid-template-columns:1fr;}
+  
+  .snapshot-grid{grid-template-columns:1fr 1fr 1fr;}
+  .snap-value{font-size:10.5px;}
+  .others-row{flex-wrap:wrap;}
+  .oc{min-width:calc(50% - 5px);}
+  .scale-btn{width:38px;height:38px;font-size:13px;}
+  .scale-track::before{left:19px;right:19px;}
+  .step-label{display:none;}
+}
+
+</style>
+</head>
+<body>
+<div id="confetti-host"></div>
+
+<nav class="topnav">
+  <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAMCAgMCAgMDAwMEAwMEBQgFBQQEBQoHBwYIDAoMDAsKCwsNDhIQDQ4RDgsLEBYQERMUFRUVDA8XGBYUGBIUFRT/2wBDAQMEBAUEBQkFBQkUDQsNFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBT/wgARCADIAMgDASIAAhEBAxEB/8QAHAAAAwADAQEBAAAAAAAAAAAAAAYHBAUIAgMB/8QAHAEAAQQDAQAAAAAAAAAAAAAABAAFBwgCAwYB/9oADAMBAAIQAxAAAAGz5SVsoKd8zMlbSUt/s4205Jg9Tz1vTa54UpDVuAZfQBIMeePGup87+sObG/Smx13bDg0P7ZlGC0q+Hs/AdcLDoW7bVke4xQMTdlpR9vWDpSQbr4GKrQ7cMgCdQOf9NHnwfvRRtY8t08zsb4b/AIwjWa3f6U/HQp7ayyWFvFacUMZRYCSheowKjPn6oN+S+6uavFz54sG10ypcv0DhSrIBDJ568+j8Iy7SvoKSxMP4bMik4A1oASw0eiLzj4sT69c42FafiB0erqMCoz4AJZfP97iMyN6H78Erh9O6/KVa9ufn4ybDlYKkVyC3eMDPYHAlACQAkY2Th5JZnbctzcAkG5O+D6KAqi9gCX2iNuiMvgIYEuhdK7LXZ1TXpZgPT3MNjGksEfetOVqPUlho+sHMTH0uq9Gj3kblml3WBh7hxetTmaW+4AQsf+AavQBL7RG0wuYAE4CXAuls5CdatvHvmDqDl+b24bVL6dRq6gzorWK8OcXR7rCrCNew6L5ktcflvP5hxqPyfjV1uivWv9Ajsr8D9x9/EbE/e+FUdN0fEpFFQwO5HoSb0TlxyTLZa0K/cDj+gPAmTpM+h/rHZUGTKxJ5ODGJdqAOabU3L9hg8A4cn9Ay8/NCwy3tR8yhhze77RG3RGTA0MCXQulc/Az6lvfx5h6e5hsI1DukO7jjbQKxPCjCbtCbPsxYI/YGXbRAK9OgAl+gZeZEnQXuYQWtnldUis/7RG3RGUAEMCXQulc/Az6lvXx5h6e5hsA2DukPDphbAKxvChCrrCrPsxYI/YGXbRAK9OgAl+gZectVaUu1j2p9cUpjr67beM2LX9+FzUZONNoHRG855stfHNi5a6wi3fCzhrVDudHUhKKdWt20ED6u52nNtWqpK/u6Y9OiG9VvdfQDbn+gZectMK9b7Us3xyVFrhNyaNhP9jyO9sQmL31Y6FmMzIT5gypgl3WDsjG/Z3O7ZXv3UZdpl4hzG1SW6idqPLm5jGjYAcnv/QMvOWrHHHixzVconv8ALYdmpdJAtZe3HOh/ls2VFYwnQzCa15ijnLEVn2jqnM76Z9tV8NaYM5YXUqbhIHvJNW4XNLin/wCkr3yVCE0b1EwLYsgAkAJDMDVnfvwKtPPjRhsXjZBksL5h6vltAS1mwBIxg8XrIBL8Ax8//8QALBAAAgICAQIFBAIDAQEAAAAABAUCAwEGABAgERMVNTYSFDM0FiElMDEjJP/aAAgBAQABBQJm0qUjhFwOFYvxlhTRpSooVPxm9jA+paKt2UVoSz2QVURHdV+cil0m091EcTt2OP0vO7HN39o14uitLtdsLnm8e0g/4XYdvsyVfrcMVbRtGPHZbk4RFaqc0Gydl5FYtZ25Qjy3YGRMvTWBMrVxVGOLB1ZXI6UBLH8IC5smt0pB8c3f2hVqI569wprTtd49p2cTxU6/ZN2/1/5Zs3ybhcvUNy6tm1Smi4gx8ZhCGmoWl1RIGNLKWKnJDC0oqlqY20aVcVbolNaGZUfRvvt2ObUBexXJB7BFWyJyz221gXsV5S+RSHVlVisBOnMF2HZE55bayGylx1/XIqOpxla4T/6thZUj0KOf+jEQRJioscSAsgV1S6laqmBaSXZeUcgzsCpSytRnbzZG1VjsdsTw+XuDb81NjKcrNwliVdkbYdcY+rO4svumGtqvTwixKjqAl9YOOy0WFpFptp5G2KLLALWUrlWOuM+HIEzhx9rlDofOMxzzVW+RyOsrsCCpRvUW/wDoLpiLeCMSVVfTIe7HaNP6bdsHwO/5GWYSos86g1uIv5ncQfFvsgZiDSqvEr/QT53k2htbp7ZT5OwY7avy7t8g6L4QmtO0WkiJYloN/EDj0kiE8WQ7zJ1ViqmR2LNzl47FhMf4dlX5d2+QdAP0YyzDO6LoHKumnH5uG72RVlPFTqs5g1t9TeY/qHZV+XdvkHQD9HjL+0HTTpeDXyp2Q2EJ2JzF9mMg7IaHlU3pa1dDAaGFTTyEgOqBfcs+2r8u7fIOgH6PGHsXTVyaxWvKLubalioYcBNsXkjERLH5mUYRft5OjkSz0sHt82FOdsLpNd9F20heRQRUTA/2PpGEp8R7R5GK7I3Q3yP1qOmn3ZsVlm0g1O9hsa51vX/tu5zs9YGaV7TY7G6ySg3pZpRv2kZErCB9vxcq6aVLEXDrSYE8rIPRXttmtbr+i94QsHqFOeXp9apXd2xvZVzS6tAfFX5N2+QdFtkoAnACO6nqC9Hf00/3aMswzbKsqvb0YS8HpqS4YqjGMRx2vmfpC3V0/lV8q/Lu3yDoB+hxxjBKDpqHu/TefY+ml/pdsY/VJr/ndp/50q/Lu3yDoB+hxh7F01D3fpvPsnTSv0u2qWKo6hTm/P2zMXmOVfl3b5B0X/ocYexdNQ936bz7J00r9Lty3NzFHmMNcWDwtO5V+XdvkHRf+hxh7F01D3bpvPsnTSv0u7VjoiKLm5kKuVfk3qrNb3olKgWs4VVm9P01kqArbpu1WbEHTSyoYj3aqRGJt6usWoNiOf02BNHYQSB7BLuKW9ym5e9EY4Gt8qe3a76bf0TbX5UaCaioeXWaK7REJCOU3TGtVbXQTGMsTx2UAWYVfcZb1YusGsCKwaJGeYZNGDa1k6IPPOdEIxmnSK45CBrDr29xg0nXEEXMrtCljMdFt8QtTFDnj+uZtjdUZpi4rM9CuxmGjZ8VyEdZns0bFdyoiojTmpma2YNcZqVa427AgLLJma2OCFyhpI2PNh2PA0AAbWJIIdYAv+3S/byR6G4pythqhPr4jauErL1ylfcKaGDZUL/ilEWm1Xm4AW3MZ63gDAwTcVjZBoNM6e1LYSnsi+uEdgBmNhmNIAI+lhRQ7DJH/liznqo3hazGpGOYULqarY318RbBWpG/mtPI77T9DQlYVmMsxzhiXHnmEmzH1ZlfwHTaaszphQGPfJPSlqgqaQYUU5dZ8XbbN8dleZIkhqjmJYRn2WopixRXoXy2X/Arr6735Ys2uol+es79a/p30nH64YSD+RejovsJBqKCynplNgkqYkegVfben1eoUIBx4HLaj5VLaqmHotHCE9BK0RfAS2hbUOd//8QAJhEAAgIBAwQCAgMAAAAAAAAAAQIAAxEQEjEEITJBICITMBRRYf/aAAgBAwEBPwH5s6pzLbPyHtoFLcQoy8/ott2/VeYtHt+ZtX+oa1PqPWavssss/ImrhiPrDuB7yq452tozbRmULklz8bF2tj4dSO+j2Mo7CNazDBlBG3Hx6n1MHXqeRoOJYNrYlJw4j2hIOpHsQEHuNLfvZt+HU8jRWBHaXeZinacwFblhGDOnbvtllgQf7Ka8fZtS7OdtctTZo1JXuISTzEGWAjUMDlYc57ysMW+sSkL3POtzHxHuKoQYE6n1oOJaMOZX5jR/Iyjz+CN+S3OnU+tBxLvMyvzGj+RlHn8KThxp1C+9KrQwx7l64bMU7TmI6vxLVw0RtjZisG41AzxKrN4/3Q0KYOnWXNuOxYOnGO8WhVjKG5n8dYtKp31pYK2TH2eSGL1BHM/kj+pust7CV1BP1p5D9X//xAA4EQABAgQCBgcIAgIDAAAAAAABAgMABAURBiEQEjFBUXETFCJhkbHwMjVCgaHB0eEzchUgI1Lx/9oACAECAQE/ATLJ6ml5O29oEk3eXB+PbDkg31lCUewRf8x1FjrfRfDq3hLEvNIV0FwpOdjv00+kTtTNpVu447vGMN0NdFbUZgp1zw4ZZXgEHZE1U5SSNplerziWq0lOL6OXcCj3QYRNKYkUhpVlXjrCXHJVa1Z53jraBJrT8QuByMB5rroOsLanGGQ3T0rWpYUoiwAz0Yew+idSZ6eOqwn6/qJ7E7mTNPHRsDhttxHDzh6ou6xIdUTlvO0QxW5hhS1NOnLYD6+8SNWYrDXU6ggZ+suXiIpFDXRqsoDNtQ7J+x74VopL1PYe155BWPp8+MSQp86wCy2nV5C0Ykwoz0KpyQTqlOZTuI7uGiQlTOzSJcfEYxjOCTYapMvkLXPLcPv4R0itXUvlplHy2u/xDZ3bf/YoU6KhKJWdohWnArqi242dg/UEXyMUiiyc8+pMy9qi57I2+vGJHDFPkHkzLF7jvjGks+3Ui+sdhQGqeQz+v+iPaEYOC0BxCrfKHJuXQdVTgB5jTgPY7oeUUTClJOdz5xh6aVOSCHV7YxTLImaS7rfD2h8v1FIw8/Vu0FhKe/8AETGA5pCLsPBR4Wt+YmJd2VcLLydVQ3Q0UpWCvZFA6Ol0d2oWsMz+PHKCtTh1lm504DB1XToqNPm5R1Sn2ykEndl4xhH3Wj1vMTssmdlnJZZsFC0TMnP4bmwpXyO5Q9bokH+syyHeMY5kELlkzoHaSbHkf3FBoD1XdCiLNDafsO/yjFNaaeCaZJfxI295G7kPOBolKRKUxhM9Wd/st7zz9c+EYcrP+U10obDaE7ANEjiuXm3FSs0m27PYYlJdiXb1ZYWTFZeXL0951vaBEljCWmGugqSMvEevV4kiyphJlxZG6K0/Jy8mp2eRrIFsvKKtimYn0dXlh0TXAbT64DQIwxItOOrnpn+NkX+cVKoO1OZVMvb/AKDhGA9juiZ/nXzMYWcW7TUKWbmK/wC6pj+p0UT3e1yHlGMvdC+afPSInqWuiUFctrXK1C5HP9RNp1FAHyt+owHsd0TP86+ZjCXutHrfFf8AdUx/U6KJ7va5DyjGPuhfNPnpEYnlus0twW9myvA5/S8PoSUhTQy4i9vrGCZ1th1bKzmY2xiDDszT31vNJ1mjnfhz/MYNnmnJIMX7Qiclkzsu5LL2KFoqdGnKU4Uvoy47jGGp5qakW0pOYForFOFVklyt7E7OYiep01TnOjmUW8jyOgRPTCJZsKc2EgeMVmkKpzoKB/wK2Hhc+z3c+EFlSFF1k7Dl+olcT1WTGoqyvXhE3jKqZtpASfGMM01ck2uq1E2UrjuHEw/jiZ6dZYQNTdyidxdUpxBbuEg8PzEpPTEivpGFWMNY2qCE2UkGKjieo1JBaWqyeA0CMTyb89TVMyydZVxFH/yyG+qVGW1kHkfHP6xNYNlpjOWUW+4jWH5+sHBUwtRK5gWy3Hd8/vHU6HQT08470jg2Xz8E/mKnW3sQIU0nsIvkOP8AaBT0LWoIvawtzIvn3QiXYXq5HME7eF+6ESjTiNcbjxvkLX84MgkBw59nZ8tv6jqrKjZN9iTt4kd3fBkUh1KNozJt3bucPNdA6pvh/pVSRT5i3/RXkdCXFo9kx0zhtnsgPugghUF5xW0wX3CrXKs46Zzj6GyOlXqlN8oKivNUf//EAEUQAAIBAgIECQgIBAUFAAAAAAECAwARBBIQEyExICIyQVFhcXOxBRQjUnKBkcEkMDNCYoOh0TRTgvAGFUPh8WOSk6Ky/9oACAEBAAY/AhNMGKlsvEFRzx3yOLjNUeHlEhdxcZRs30s0wYqWy8QU6Q5wyi/HFNPLfIvRvrUQrKHtfjCtTMshe2biit0y9ZWhLBIJEPOOGAd1YwDdrPqI++HgawqtNGrBdxYdNYUxurjIu1Tf7xqLvh4GsKd0UyL8GH71gvJ6cqV8x8B86mRdirrAPjWHB2iyeNFGwsVj0LY02DzXidsnbfkngmSVxGg5zRXCRZ/xybvhWzEOvVFxfCi/muJlJ3tq2N6vJhpox+KMjQExWImwr9NgVoEYyUg84Ar+Lm/7RUEsUzyaw24w0R98PA1DiHmlVnF7C1YeGN2cMFa7dtRd8PA15OxS70RUPwpsbINkMY+NrfvWJ7ZPGsN/R46F1XGAlXaPw7/DgZ34znkR9NAbZXO5F3LSYjykXmuwXLHyR21JDh0ijjyh42hHLX/mscuvfziN5I1YdW6oWWT0SQAyDpc8399NYmNvJkOLihORmjbLLfnrW+T31y/ym5XurVtdor8aJub9qWaFsyn9KwPtfLQkeHTWOJA1r22WNYeKVcsijaKw80EOeNUAJzAc5qOPDx6xxKGte2yxrzUj0mpAt+ICmEy5Jna5HhU+JkhywsXs2Yc5pMRhYc4VV25hvrVsBEp3kFRRlkYSYltlxuXs0yYiXkruHrHor1pH+Cj9qXAWaLzhbDFg7S/R1VicFNsxcQHGG4+q36VBjEvhny+kgG1bnfUzJf0r52v000cAyhmLbeml1iQzBcxXEgWk29NJipUxCRNdcJqOWD62XrqKd1WLyoE41tmY9BohwQl8ssZrye6HMrG4Pu4JXDYGVgN8xQkVd8VJ2BrVdMVKP6r0Exq3H81R8qDowZTtBHAsK81Q+hw/F7W56DsPTy7W6uqmhlXMhpspeR35UkjZmPBhma+eK+X31gDrpMOJVdckMlssg6aw/lNlAxGRRiQvT01Fg326qQsh6jzcHfftpp8Oojxg6Pv9RogixHNoGEkPopOT1NwMRiT/AKUZaog/GGbO/wBSJ8PgBPin2ZxZbdpqeLyhPGY5UyCCNdi++pIm5SMVPCHXWKC7mIf4jQGGwjaKjk9ZQatNMFb1RtNcmY/0j96xEUEh1zkcRhY2vWIk9VAPj/x9S2oya37us3VBI8sLmOZH1MSb9vSaxYHOQ3xF+EnbU3sr4aYFcuLxLtTspnwWJbWb8s22/vpoZ0Mci7wdBzC8Mls/SKDKcynaCPqJTO2WG3GNR+bpPjEMm6VLALfZx+ysT1Bf/kUreZzZTuOQ8FO2pvZXw04fu18KuKGNUemh3+zpkwzHbFtXs+ohihya2ZrBpOSthcmkiWJxG2bVzHkvbfU7Jt1suVfAUq3NhsHBTtqb2V8NOH7tfDR5QH/Sbw0sOmM/Kjq2RX5s9GSeUvB60Bso7RVxIwPbQvJr09WTb+tZo+K45SHeNOrxEYkW99tSYtbibJ5vh0vsTpsKEhHEhGb383CTtqb2V8NOH7tfDR5R7lvDSpkbKGUrfr0ZH4yHZtr0Qth5uMg6OkaEmjO1ebpqOZOS4uNBZmCIouWPNQEYOoTixJ8/fSoftW4z9vCDyMEQHazGwqWSBxJHYDMOzTFFIXiZVC3ZdlZopFkXpU3ryj3LeGk5VJsLm3NSwYwlo/uy847aDowdTuIrCS84kt+h/bSUP+nIQPGtZPII16+etTEDHhr8nnbtoYrEr6X7iH7vCMMFpZ+f1VoO1yh3PIbL7v8AamwzuHYAG40x4jDsmIV0DZRsatmsw8y7xuNYzC4tbSvEyrIu4m3PpOYZlMTAj4UZ/JpCnngO73UU4+HbnRxsNRYaWFVKPnzqd+/m9+l4oMozm+Yi5FZgHmPO7bhQll9NiOnmXs4XmODN5zsdl5uoddCbGASS80fMtJ21N7K+GnDWNvRr4Vq8VHx/uyDeKs/HhbkSjn0/lmrg2rJiYUnToYVDicLGYmeTKRm2bjpllmgWV1ewz7f0oACwHMOEZF+3k4kXzNeezC8r8i/MOnQnbU3sr4acN3a+GjGiRQ+SMkX6bafyzpwve/I6Z+8+XCApcMNuHw/FPu3/AK7NKdtTeyvhpw3dr4aPKPdN4afyzpwve/I6Z+8+XCklO6NS1Y3EMTnfi5v1Pyr0WKjxS+riFsfiNCdtTeyvhpw3dr4aPKPdN4afyzpwve/I6Z+8+XCZTi58rCxGsO2py2GbFgy/ZIL33VFJI0mCObi4aNJAP6idCdtTeyvhpw3dr4aPKPdN4afyzpwve/I6Z+8+XDxbuCRE2chd9rf7Vr/MNVh1sWaWTbbsGhe2ix3OikeGmBk5lCnqI0Y6NdrNEwA92lM5sHGS+mFhuSUE/A6Z8Odj3zjr4cmGk2x4hMpH9++gcZ5QlbBR7ontbqB6abUvmI3ggg/roGSy4qLkn5U0UyGORd6tozJxkPKQ89DJJkk/lvsNbdxo4qG3msrbvVOlYcbcgbBL+9ZoZFkX8JqTCTC6OLUVkGaI8iUbjoWSNsjrtBFBMTaCX1vumrqQR0jg/wCYxE3hmyt1brGsFjY4fOdSTrMPf73T/fTUvlPHKILJq44FNzv8ainCldYuaxq42VlxkAfoYbxV8NjSn4ZVvX8Zh7e+vTYsv1RLb9TQjizH2mvS4WJrwYfn9ZuepTNI0UKiwZfWr0WOiYfjFq4+NhHsgmg5lllcc98g/TQYp4xNGd4YUWw8z4U9HKWuJjYCOu4r0uNQd2hNXjaR26Wb5cHFYeVc0ckhBB7BRteTCybvxD96mxsDNORCVjiA5DHee2vO5x9JEQiii9ToHb000008WJgjQlpFXK4I3gilvhpYQ650Y2II7RUmKjUjKH4rdIoxzqIsUozFRuKncRofC4VrzHY8g+51dtLDENp3noFJBHyV/X66bvfkKOGxS3B3HnFa2Ji0B3SDknqNRpiy+ElRs6yJuzUwhxEGKm9a3Fbtt1VJIIfNMMUtqNZmBa+8dFY6FrKJJJCm3mNYd2l+lRDaYmzM2zd2UY4Po8X/ALGjq14i8pzuWnGCfWsPtHK2JqRMPJnZN+w02DEn0hd62oqZzcbOQ1RO0xtILrxD02qScSnVRkBjkPPXngk+j2vmtWugfNHuva1TTxy5o4eWcp2V9uf/ABt+1Yk6z+G+02HZUWIZ/Ry2ybDdr7tla3EPkS9t1JIhujC4Oh43iZ8zZrg1/DP8aKSYRpEOyxIovhcPLhX9W4K1cGx6q2YmYfmGhHmlnc7luWJrbh9SOmU5aDYmXXH1V2LTpGoRAh2LUUsYP0zC5Rb+YN1eUVPJhhTMf6dtYTGh/pmvZ5hlPJbr/vfXkU/ib5Vg/NlRpdS1hIdnPTedKiy6xdkZuOUKfyJbiedaz8vlWqcg2d5GjX30kWFfNBNCEPFI44/v9a8o90vgK/xL7vA15IxWKQDCW1MYP3dnK99QYbFNaCONnbYTtOwVqr3aBsnu5vqML2nwOllO4i1YSI5iMK2ZCfnWLcvIpxQCvlPR0U2FYWiK5dnNWCYvIThNibd/bSTtLNFIi5QYmtUkD4jEyq5BvI9yLV55b02TV9VqgUNIVhkMqgnnqBnLK0L51ZKmxgLa2VQpHNWN4z/S+Xt3dlJgnzapAADfjbKmlDO8ktszP1VPikLB5rZl+7X/xAAoEAEAAQIEBgMBAQEBAAAAAAABEQAhEDFBUWFxgZGh8CCxwdHxMOH/2gAIAQEAAT8hLVQgLKLubUCRhAhoCZmNgo34UJKxgWYXc2od51AJOELWQ+CDKli1D0BTMIOtB4kyNIevCh4g2MHZr/NBy7fO6OqC3gvnmMI7ywSMl1HMYQBPAwlvUK9F9fWknsODf0cKGSQLYKAUEFHW+orSiTDkmVJxnsdHkXPPxzqcPFOyHldGb6qFouX+xS43mieqKSDGv3BhNBd59czr3oW/SJDhxMYeBEETWYwjzeBrIu8KZURhmZmnLCW56GE2Snke9WRBBof7OA3iffgRVB+g/T4cHrG7/DjUWOEa/DjVoUxsrwXekdajn/ySWVdUHkq5gsoRTp6VKRhcf+cC9FE5CFtrjKQyzOtJWwzOQ5sn3OlIEhbq1jdXnINbPGvL0zFS11IMg1eJVsdc4xd2rIsdYRnN2al7AQZBN3iUrjxScgRfmVIDecMBYSdXrUpLMpORYZqwx9FsVyWntoNnuYz2oEJNkbf1js1456IrMt379BTxZNB9o1KiCd4RmfXJpDSdSOfQLL2vGWxT2TYlaQFu1JucW66jKeUJFcF5mXWr7WOsbqzNnKMyj/PmIQerpW7PkiNeZQOVAZJGsxiCsF2hMqAzyD7aT8xR7FB+AFjs0Ex7WSc/4oPDyUifBxzG1Zo5bOr/ADpQRGBNmNKdskUdEdGplwG1HKXh8R6WXtrIaHclwXn8smtMyiLQ87dql0G0AX7vusxijkUdyktPa6jU/Og9GdO2VCsxwm4vE/a/38I1YKHVi1PeYmdYuzzfv/jOX+wOJKXyKATajutAzBnxGGsx8W21jRfR1gC+Vwc2XIaNaYeZJr0FJsUKETcoBVGybAvDSi1vuKf+LU7jNesXoxauFYZvbTQHoOyq8rWY+Pia9nsxgwMkhLNaLJzmgvI80l04wWn+oaEwndoJwTIE/wCFyJSZIG2l+1H6BJ8hkJHRmNEQ0LRoorYk+PgfuvV7MffbKMvCUCMhkZqYTos98ZAyXt+nR+/+FgxmWCI3yyphEQBLpUjy9Xcn6IpsyGAuXx8D917PZj67ZhdVwTEhmQ3vSCwrhTyKA3zrkCE6964nEHNS86r/APoUnX0t1OOJwLgJEPMoyat4WbSsTPCnmSU8P66fLwP3Xs9mPrtmF3o34iaOVlKInCHLuxd6UDYA7j+Fu+EBZr6BqNNDJcJhwFYAZrWgqmu8m/8AFALM1+nT5Ac4QA60w1GyVLsQuVkhIRpNcFZKnqd+JukaTDdpTQWzODuKO0crkaNzKz5zYlMnoJD7LSTQTVyGtRwDmOj/ABT24ifKPH6+RWisnM47vCl6cyL5P4p+Gw4Lk4slCGikmIbPelMlISS5lRMCLdIAac/rG/6AbTSQ23RC5tOTblWZy/iDZ50LTUloES/WIGXnlhFtKaSHC/NkcqZYBlDtP35L2MztfsdqzJJS/O3fFW8pXs9mLI38SoPAEWPLfzKgl+WFuB2eGOb63KliXCuHrG1dgiJhJk8sZrXGQCDketG2tgID5SCh3gP4/aVHQnIzt9n654eB+69nsx9lswk9DhkJDzx9nlj4vH97g+TE5rFcKjGUXd/0UAACAyDDwP3Xs9mPstmHu9+Ps8sfH4/rcHy/NchRByW8xZSmhnwn5+pUoJz1ivA/dez2Y+i2Ye734+zyx8fj+lwfJOqQ4Bs3pMWpmLY/VAqoVA5wOHpbDwP3Xs9mPotmHu9+Jl+tzHx+P6XB80ofEmQf1T0WATPJj+2Hh6Gy7Xrhi70xvYQmAawgas4xZZskyFy8mJXzwREPtMXKlAOiIe1u/wAyhFmZLt2h1pugCkKMwE8tXRwUdDkwC3GhhmkNyC2TuuDSwYgEJgp3/rfy8aGAT/wN+lDyU0hPQDn3jlnGOmondDg151x5dJROV0PddaUKqws/jwwe8rYqRfIy+/TrQ1rySR+OjMpwruW6lQPZCREFk2Y0mgem7LGV0zSFjKjEIDPKm7KhTY2XKcykwXT7Aj6rPDumX1R5O9r+FRp3Gb3/ACrz6CG2q5GXeorigu7OUfldWdX4mgWTx38rQE48C7zQgBpRSriUmngPWQdG/mucFFP2j2Jsj5iuX7Wdlu8/EkWQAZtUNC4Sy/m9zrKkqoCQc38zpNMNVwWDNUw/+KXe1oNP+Dyoa7xTcMPBrjSScqQxyoE4d5Tg/wBwjxtZyah9HPKQ5yzWWhVsZ6rVf+3mqOpciaI6NJ0BA5HZ0fSgKPKyRk6+TrShGZxBOQXJV4nT6ZSKDFC2zT5XWkIaaXRYr8MUUitlGzz06UMRXMtcf5U2UksjTPTOuF1ujuXqX2Eytpzy1oPZlGt2o2B0byCWm41MNIRhyWitYSvshjLPOsyiZVcZ51n819AjDhnpHrYvlpUJO9jaAQmgczBZN3SCoqFm1G5gy1skaB+V/m6eAqTklIp97p6ZnTtQJRaqKIgzY/pQPfhUFIkmzodM/FJiP/ezfFRf8CgLU/gNxxC7J3pj4fDgFfdLMd1QuWRYKEYyLiVebjAN7KnHNyILGdSwTHBb+B3ruKALPqXpSUZKWLnc1DviysQWw1xEHzX5FK7MJNOCAciWr/nMt86+zpUO1Q7VDtUO1Q7VDtUO1JcSNMs4DMpSigwnXCVOTL+VC8rUghs4U+YaGcGUcoKNcUqNAaL5G1RGcHt7UI7f3MSRa1AqaXeJnnR7/DQvVtppQI/OAjtcbUjegkiEZW4UoHo7dstnxpIoixDQzGfSrvt9FsgyCiUzdFxkxGf9r//aAAwDAQACAAMAAAAQZTdtp885Y29689JZit89VXzNT88+1487d888Zm8882usFX888+y/88U83/p58884C88S8XW879OtnD43c8d1ps/q18D92U8+e58X888DlOU8/wDK/P8ArzwP/iP7Vf7pzzXwPql/Jh0fw+27wPmA6hwEcNndPfDzzzxzyB5zyLz/AP/EACURAQACAgICAgAHAAAAAAAAAAEAERAxIUEgoVGBMGFxsdHw8f/aAAgBAwEBPxDN+G8wg5UY124RZrHfki2KF80BcAm/hKyAHybzVHUdZNysW77xd/Gd0vBBKZdeAAuDTZ+fU69R1WzfjtA3IeIAkYaiLU74nHpbEtUQGyzHCH6SgKPEHhXjKJ6lM/0lwRx9GVohrbmOHH2MvFtrgLfGb2hOaZYn+ZzO0ACpjG/BgA3wZlthqhAJ7uPcmv7ywSroxthqxvdx7k1/eWDe74wyBwGTUMvRiieoJa+oj3KyR7d4YygaHSIJTH7OIHlVghpP3lNbmJXuD0Ys8LGqcuGAVohtwWcMbnwQ8do/vc5V5ZfjcfD2j8Fn/8QAJhEBAAEDBAICAwADAAAAAAAAAREAITFBUWFxEIGR8KGxwSDR4f/aAAgBAgEBPxBAStraIdKaS5ZbRjagNOc2CcvX5q2A8m890vka4EBmGM/evEjBZwHagngl4pwRW+RuAORYxLVxU0LI3GA9OH1XFiVPjdAmQSYjbakgUXJLYzt7oQEm3UoscWSet6ZoYmETtO/FMVojq1XTHi+gLdi3N9Bql3BvVr8UkA5xgQzoEHKLAy5UlSERJmIS9rP4I8iE2Z1W76glDYYqWIm4oi6yzOpLmrmkBZz2X4G+Euahl4FDGDRyJHpjcaUsZgtOoiPXCVYiSLAyjUF4LJgHNaeoPWV+BqwsgTYx1SKOKAsqd40+2Pg28ghgZyGGpQCW7iNaWwdm9yzHAzHCVl5Zi4x7P6v7aAISNBZACCYLlZg6OUVtw6QjPr9VYtpoWAcJJjZH/AKATctEz616rCubQjbJBfue4qBqaIP5fP5f8PD2AMJkZXKz2i/eH5RfdQiuRNlf2R7o280SpXof1OJpkbalPgZE9wc0jpMKyf8ANRLJctQwSPfVpJhvEk4pXwAB1cD2OEtrU1Qmqy+bL2nPo8RO4FUpXGD81+zQsBJJkkz6o8EJszxPZlXM7NcYB9Nz8VD+M280T1CO2k5M74+Rf7OgtyWZGLAG+5huLAuNZpM2bw+e8g4kC0pZM7CeiLZsHwB4HslYQbkRszshsK1FitwMEssGl3GmLUh0PTW5UGqrMk/qF9IxS3aCHEWjiMVIw0oTLOhQb723pwWCNA2UgDoNFTxjRL3D5BJ3G26Unl1Y00BwHyyt2vy/4ePpt2nfIZc2U/QV9tt4+22V9Zs840wQJBGZ6xoC6Hqp5CxdP53dny1+X/Dx9Nu1+7+1OPrW8fTbK+82ecac6TYGxNKxxLIbECyvmdLkVDMhTkiH4s9S6UIJMU9RKATezBLkaYJF5koA3KJ7U+RtyJT0QpJkkifWaRNfYilpDo8MJtQkoCOQBPxPIjWI8K0EkniSHhtelT3ox7MCde7+MaXoyDDhD3jup2CwcyJFswpYkS6lEqNGQImZzC4teSXE1ZECF92YuOxvE2uzRXdMEuEW19LNOdEsu+VkwuY0A6o7BPOZhhc3cwRExeJoKloYwp2lPUVIW2dR7Gz+zShTLe/9X90RZ8jE9t31IO3jGmiKoCFhvlCrmAQqknGXwGdSb0URRmIDmC4B1JnFFCq5Gdje93VUA5nCEObFi+FoOEqTUBG53VWsAoEAmrepHV4zgsNkaZL0MwJeTGCJxlJnTbWnapJNgikGCXQ4jTWjGIT2IsmMo+w2aRQGoDixhgXbHVXUoMg2SQgwgHlxGWR1J60fZepqamnBQ0zdlomENbbwn6U90yK8E4gA+APilaSCHSqntWp6W8/mB+YPigyITfuZ+ZZoBkeA9QR6gjql0uUqdovyg+ilpJYD0EHwV//EACcQAQABAwMEAwADAQEAAAAAAAERACExQVFhEHGBkSCh8DCxwdHh/9oACAEBAAE/EIqvwHCRsQ9dqXGwQJKXBTJvQoQ0YTKlmVpREcqRxSNiHrtQc3r1WJuEMTjJSDzmMkABSW85wNBATWfJuNm+1KW14+IXSzdpTJ83X7kr6KXUEDYdQbrhB+YKSWQY0WikgoTOh8/tHTyIHJ1tQWSlUhxiXCpvCe+lfWWzQQnsSPaqfQANDKeLtpH/AGPYA9BR5xjkDIJqVMHpcnBCuRpSle2AMGIRryPjhsUYnY3eC7StQsSNyFx3eyiabgsidBAvK04i5qG7IrzWSDAM8h0UiiLx+B4UFBZgEw4RMlfvv8qYjqCCJIr7R08qJNd1BaU6VZkdQKMQCIPt6V2MZMYozpAO9UTiMuoCOFjr87f1/AqU7ggb8fT8CCQ0gja8OvgS2pEImJGpgWAtKe7QMBW8YikGQ34IkVHi3TliCUAy4kvVrs5HRAAYTi5SOncYCImJ0smpQ2iSS9NZRsbw8CbyjGLKDEOzDyqYCObktW43th1NQOIoRtrD0G3m4jX7O2vtFMtJmMHMkZsTN6l6+ybmiUjZMNNGI2FKg1gGxrS0DjjB0iMhEzejTQHLoN0YyZiityZ00hEcWGrBlyhEbyJNzvTnLIyRyGsSaRQenmnLlH7VPpSFm5kurF0GwF56I0pCEO951dAXSlWl9cgtDYvd5W6sZBV6zMBArDcuzKn7cMXe1jI6gYisDEtg8jC2m4cRrESFBDCEECHeksgBOAJ7AAGxR9bkJxaN1ELYxQdmE5P2EgcSIMQI0m0kgLALCkRqWwQWJsRCKEDhp73NafZV8qQTxX2jqKBRgAlaCzLzxpLxwHCXqX1W4D6z6psEMy73RHyU4CjyTKycwjZoxxxSWET4FtLgKhJTSVmy9m3aUZo/yaG744GXldirAoNmGZGuDcSktaDw0FdBYCAl3fiIwYoTGqasEDpLvWS0sjRYCCyBBzZuviQ2tEsta/E52zSXPlZ/pS47tivtHUKNYSGibLVe7zmnlqmBgTCWV0zmJthyCDYAwiaI9E93U2bAcO0bh1fgYSwkC0eUjzTSN4DGfqA/wnvEjWm9+JGJBWEo5Ic1W4n6YJuFcRZAd9g19o+JGOnd8fdG9NAOjcTGbkgZE81BRCNNIP8AVJMGyScVpSd2Ck5lNKfYfqmWtYMODErIs60oiRLtKv4aEWKQZnCdtE41inkqfLt0shvkI1qPQ5GrVB9o+P4O58EQZ+FZ28ZDyYpH6kExogJN0pDYAfpEsiXEsnSFixQsrkovGpT7bmlRIjsn8EZImvukNpvE3bVakw6ebhupmtyr2D3lJ/tItcusiRGLiX+P6Oz4wmyUcZKYisNZC94BnBy6tKIVXlZ7P6O38D4y8VCIEUFki6XgqEFs4HfkNRSGHDarOIhezfyKSVvCQBB9Hx/R2fJFWAAgId5v9h1SSzHZv8pS2wU3vIKdko6LbhPQB3ATlUShZjPaaFgjcGnCubXThpcoicSOvJoPMNuopvNIFpEEspZ1pT8DCDZMoFcsSb3kTIyWXId5mkz8f0dnyRVhC5OpYqCeEQWgpE7p0AJAIMAbIjlYRqE/KYBgeEo4Jp0a9fBhfpJ/jkKu0GGQTDyMjydInQGHSjYKn8m8M6St1DGhDS6gDRb3Fi7CDvLrRn4lJkEMl1IFKlxNSBB1h1LdYrwKkUi1FtQoCy6UHZjDw/D+shsqwUGDAKX5oYAkRJoGQ3LnOkOehz7iUMondUO+x6s6gR0qDBCZkrmxXXAUwBhJ2zg6GQ2G92ESsSJcpj3mDyvijPwlU+1OyRg2NtWSKikDu3YwXO5zSB3dSnAm9pz1a1jtjwJYmLSYxQzCYOATJwkNIns5oQclSy18dT8QIBFAyNntV6pZ0ss2f/Ii1TKLJzvxQbDw1Fw6IQzRGqdmOrPWUCIWF2ajTBPIgOy7Bs8FXCOLccmXlfYOpnoCoBK6UAiU8pa3yhHAvMMcURfbcfU5zRAhAGBoSfBEycug2d4oW2kA7676pWzV1ppo4zRM+Qp1UctSQ3BVKmDQI7giDyRRr8Bl1gjDJwxm3UqAipNRJzOho6eQ4ewFg4PgZ6QEhBzFh4tqAvb141JO/M7uXT9HZ8kUa9OApSHsEz1yfi/yzvrfjGaxurspipFMbtecjihtjQCANjp+js/hRTtGT8X+Xd9D8YzQnS/8j/Q0EYohtIKN5V4rOxNHdhmc0SRQiQUk8V+js/hRBtGT8X+Xd9N8QzTUXMKREMhFId6KzcmouAuAhkmIw0MSXUkGgKEAjXp+js/hRBtEx2b5N76b4hnoNjyUBWFDUumGp/nlLYKRCCt/bogdwf2lJNIpWQFfb6lJUz3ER6k4R16KNyNFgeW3Uzkv0QLLhA89V3MQ3TfA89Qkrs0QHMF/4fiZ6JUBuBii7ruCgFOjRDBkIRkwZqPAcgoXIVDAIpADCMjWMjTZS60gEdEOavzHYH+jkSyXOkSEMhCMI6F49pLVE94VJdpMeZ8UwFBybbNMkYkGeiauFDFxiBaxQKDAF0wK8Nku45o8waePDGHhoOS6mGHZ0DAdymIf7bh2TK8SQ9DCzUuv9NEbIxQY0CsJuavFnOlE8eSgbiWepnpAsO2lH+zV/wBKiDigNomiMULEi5UEO+TCNocFgTOrSaniEk4z35KIPHU170Ux4E9ioHEo6lPPtwPGaPtSyP0MD/uijbJZ+RqabUCWPKDsA4qQrpWRYd7g8iyVASWRUiXCIkuG916Sumol7VPbxfVkH3S1zklHkf3agmAAC6vuoUkIEcjZq4Q+8HCA+tINnekj/VHoblK7KNb00RLuQ/hPUz0xuNKRK7mKblSqg7hcE8eZxSZOvphQ3YgvgG66sluHwCmDQXYgtQU5ALMEhQnfibqJuCaLESBGjae8UpIUQAVSHLpcNTwYSjCSVWIN1BDms0bOcMFsFlYUxkolB6VLTK0D7YC6VAhhrLu/KW/1g/kM9EjDCXKjfXZsB7Mz2bjIpRXIp5C12dzy2j/nu4kKbmzBNG9dE52TIW44m8RancRolIYCwBItM4KJ3chhymJssM2pwaJE5ardeGBaIqQGMj2icHb2SnmAS0ASqMsYErtTFiLHRZAEsgFi+WVcAcTFEoIgXDiaHu/EwAIIyQDAznZqRtsqAwm+9MRvknBBMsrxicVP+zmZBFNl2GKZBQyLcLC6CREzUkmGJ2BG1KIJDFEKMpIw4HDV2L+1AewAXiopHAtVKZikEIgJqMxFquWbGpKAFwLjSgLlagMJfcTorz5EBaX6N0CaFiWREhOGpOooJuLfKg0ph7wxHkrhd6n1RgMwCwJtcthbbUyp8+0t/hVdBYmybKt9qgJFNvuhQ1QY3k+J7CiPY+D74ReaE3g5lgCCBADqighPQkRIJQD5IiJuN2Jim8YnOMTdOZpIxjkxye3lVXTit5nEkXkrGNLZJDEFKlkyvQb9CiKRu6wBDYZAv0jU4FxZrlBQWIvRrf8AQRZsG4QgNeZ6rmeq5nquZ6rmeq5nquZ6qCJQJZKkSqq6vR+AgZAkMe6lqYmYUFYyRQDDzFrqCEAk4kIzMy4qV2JwgJpEFISOKYF+Sy8rRi3UkvztGq3m3lLOKJozNsY2IXNrwYoaXbZOCROyZwRFMOSnGghM6oRCszRDAkl1XCgk4L0hgTYEiLhtyutMqGHFA95miuofkMAsWELoWxT9NkrI8sCJ8tAiEeYIDcMtXK1f/9k=" alt="Logo HMD Matematika FMIPA UI"/>
+  <div class="topnav-div"></div>
+  <div>
+    <div class="topnav-org">Himpunan Mahasiswa Departemen Matematika FMIPA UI</div>
+    <div class="topnav-name">FinPersona — Kuesioner Kepribadian Keuangan</div>
+  </div>
+</nav>
+
+<div class="wrap">
+
+<!-- ===== INTRO ===== -->
+<div class="screen active" id="screenIntro">
+  <div class="card">
+    <div class="intro-hero">
+      <div class="animal-row">
+        <div class="a-bub a-vs">🦊</div><div class="a-bub a-bs">🦁</div><div class="a-bub a-ns">🐢</div><div class="a-bub a-ex">🦅</div>
+      </div>
+      <h1 class="intro-title">Fin<span>Persona</span></h1>
+      <p class="intro-sub">Kamu tipe keuangan apa, sih?</p>
+      <p class="intro-desc">Kuesioner dari <strong>HMD Matematika FMIPA UI</strong> untuk memetakan kebiasaan finansial mahasiswa. <strong>4 bagian</strong>, anonim, dan hasilmu keluar langsung — termasuk persona keuanganmu dari 4 tipe berikut.</p>
+      <div class="pills-row">
+        <span class="pill pill-r">🦊 Si Rubah</span>
+        <span class="pill pill-o">🦁 Si Singa</span>
+        <span class="pill pill-r">🐢 Si Kura-kura</span>
+        <span class="pill pill-o">🦅 Si Elang</span>
+      </div>
+    </div>
+    <div class="intro-body">
+      <button class="btn-main" onclick="goToSection(2)">Mulai Sekarang</button>
+      <div class="meta-row">
+        <span class="meta-item"><span class="meta-dot"></span>4 bagian</span>
+        <span class="meta-item"><span class="meta-dot"></span>~8 menit</span>
+        <span class="meta-item"><span class="meta-dot"></span>Hasil langsung</span>
+      </div>
+    </div>
+  </div>
+  <div class="footer">FinPersona &copy; 2026 &nbsp;&middot;&nbsp; HMD Matematika FMIPA UI</div>
+</div>
+
+<!-- ===== SECTION SCREEN ===== -->
+<div class="screen" id="screenSection">
+  <div id="stepperWrap" class="stepper-wrap"></div>
+  <div class="card">
+    <div class="sec-header">
+      <div class="sec-num" id="secNum">Bagian 1 dari 4</div>
+      <div class="sec-title" id="secTitle">Identitas</div>
+      <div class="sec-desc" id="secDesc"></div>
+    </div>
+    <div class="sec-body" id="secBody"></div>
+  </div>
+  <div id="valError" class="val-error">Ada pertanyaan yang belum diisi. Yuk lengkapi dulu!</div>
+  <div class="sec-nav">
+    <button class="btn-back" id="secBtnBack" onclick="prevSection()">Kembali</button>
+    <button class="btn-lanjut" id="secBtnNext" onclick="nextSection()">Lanjut</button>
+  </div>
+</div>
+
+<!-- ===== PRIZE SCREEN ===== -->
+<div class="screen" id="screenPrize">
+  <div class="card">
+    <div class="prize-pad">
+      <h2 class="prize-title">Mau ikut berhadiah?</h2>
+      <p class="prize-desc">Hampir selesai! Sebelum lihat hasilmu, kamu punya kesempatan ikut <strong>undian berhadiah</strong> dari HMD Matematika FMIPA UI. Isi NPM dan ID Line kamu — data ini <em>hanya</em> digunakan untuk keperluan undian, tidak memengaruhi hasil analisismu.</p>
+      <div class="prize-form" id="prizeForm">
+        <div class="prize-form-inner">
+          <div class="q-block" id="qblock-npm">
+            <p class="q-label">NPM &nbsp;<span class="req">*</span></p>
+            <input type="text" class="input-text" id="inp-npm" placeholder="Contoh: 2106xxxxxx" maxlength="15"/>
+          </div>
+          <div class="q-block" id="qblock-idline">
+            <p class="q-label">ID Line &nbsp;<span class="req">*</span></p>
+            <input type="text" class="input-text" id="inp-idline" placeholder="Contoh: johndoe"/>
+          </div>
+        </div>
+        <div id="prizeErr" class="val-error"></div>
+        <div class="prize-continue show" id="prizeContinue">
+          <button class="btn-prize-yes" onclick="submitPrize()">Lanjut Lihat Hasil</button>
+          <button class="btn-prize-skip" onclick="skipPrize()">Batal, lewati saja</button>
+        </div>
+      </div>
+      <div class="prize-btns" id="prizeBtns">
+        <button class="btn-prize-yes" onclick="showPrizeForm()">Ya, saya mau ikut undian!</button>
+        <button class="btn-prize-skip" onclick="skipPrize()">Lewati, langsung lihat hasil</button>
+      </div>
+    </div>
+  </div>
+  <div class="sec-nav" style="justify-content:flex-start;">
+    <button class="btn-back" onclick="goToSection(5)">Kembali ke Pertanyaan</button>
+  </div>
+</div>
+
+<!-- ===== LOADING ===== -->
+<div class="screen" id="screenLoading">
+  <div class="card">
+    <div class="ld-dots">
+      <div class="ld-dot"></div><div class="ld-dot"></div>
+      <div class="ld-dot"></div><div class="ld-dot"></div>
+    </div>
+    <h2 class="ld-title">Menganalisis jawabanmu…</h2>
+    <p class="ld-sub">Sebentar ya, lagi diperhitungin nih</p>
+    <div class="ld-steps">
+      <div class="ld-step" id="ldS1"><span class="ld-step-dot"></span><span>Mengumpulkan seluruh jawabanmu…</span></div>
+      <div class="ld-step" id="ldS2"><span class="ld-step-dot"></span><span>Memetakan pola perilaku keuanganmu…</span></div>
+      <div class="ld-step" id="ldS3"><span class="ld-step-dot"></span><span>Mencocokkan dengan 4 tipe kepribadian…</span></div>
+      <div class="ld-step" id="ldS4"><span class="ld-step-dot"></span><span>Hasilmu sudah siap!</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== RESULT ===== -->
+<div class="screen" id="screenResult">
+  <div class="card">
+    <div class="result-hero" id="resultHero">
+      <span class="result-badge">Tipe Kepribadian Keuanganmu</span>
+      <span class="result-icon" id="rIcon">🦊</span>
+      <h2 class="result-name" id="rName">Si Rubah</h2>
+      <div class="hl-bar"></div>
+      <p class="result-tag" id="rTag">Cerdik &amp; Kalkulatif</p>
+    </div>
+    <div class="result-body">
+
+      <!-- Deskripsi -->
+      <div class="result-desc" id="rDesc"></div>
+
+      <!-- Snapshot Finansial -->
+      <div class="res-sec-ttl">Snapshot Finansial Bulanan</div>
+      <div class="snapshot-grid" id="snapshotGrid"></div>
+
+      <!-- Social Influence Gauge -->
+      <div class="gauge-wrap">
+        <div class="res-sec-ttl">Indeks Pengaruh Sosial</div>
+        <div class="gauge-track">
+          <div class="gauge-thumb" id="gaugeThumb" style="left:50%;"></div>
+        </div>
+        <div class="gauge-scale">
+          <span>Sangat Independen</span><span>Sangat Terpengaruh</span>
+        </div>
+        <div class="gauge-status" id="gaugeStatus"></div>
+      </div>
+
+      <!-- 3 Keputusan Kunci -->
+      <div class="res-sec-ttl">3 Keputusan Kunci Keuanganmu</div>
+      <div class="decisions-wrap" id="decisionsWrap"></div>
+
+      <!-- Kekuatan & Area Berkembang -->
+      <div class="traits-grid">
+        <div class="trait-box trait-str">
+          <div class="trait-ttl">Kekuatanmu</div>
+          <div id="rStrengths"></div>
+        </div>
+        <div class="trait-box trait-cau">
+          <div class="trait-ttl">Area Berkembang</div>
+          <div id="rGrowth"></div>
+        </div>
+      </div>
+
+      <!-- Tip -->
+      <div class="tip-box">
+        <div class="tip-ttl" id="rTipTtl">Tips untuk Kamu</div>
+        <p class="tip-txt" id="rTipTxt"></p>
+      </div>
+
+      <!-- Tipe Lainnya -->
+      <div class="others-ttl">Tipe Kepribadian Lainnya</div>
+      <div class="others-row" id="othersRow"></div>
+
+      <div class="save-status" id="saveStatus"></div>
+      <button class="btn-retry" onclick="restart()">Isi Ulang dari Awal</button>
+    </div>
+  </div>
+  <div class="footer">FinPersona &copy; 2026 &nbsp;&middot;&nbsp; HMD Matematika FMIPA UI</div>
+</div>
+
+</div><!-- /wrap -->
+<script>
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxCK5mmZBdhZFa5DV3zuUffZLzfbrLp6k_9SyIDlsiQl7UNc38Mp9jx3hHg3egmgZuv/exec";
+
+/* ================================================================
+   SECTIONS DATA — Section 2 tanpa nama/ID Line (ditanyakan di prize screen)
+================================================================ */
+const SECTIONS = [
+  {
+    num:2, title:"Identitas Responden",
+    desc:"Informasi ini bersifat anonim dan hanya digunakan untuk keperluan analisis demografis.",
+    questions:[
+      {id:"prodi",         type:"mc",  label:"Program Studi", required:true,
+       opts:["Matematika","Statistika","Ilmu Aktuaria"]},
+      {id:"angkatan",      type:"mc",  label:"Angkatan", required:true,
+       opts:["2025","2024","2023"]},
+      {id:"status_tinggal",type:"mc",  label:"Status Tempat Tinggal Saat Ini", required:true,
+       opts:["Rumah Orang Tua / Saudara","Kos","Apartemen","Asrama"]}
+    ]
+  },
+  {
+    num:3, title:"Kondisi Finansial Bulanan",
+    desc:"Membantu memetakan rata-rata pemasukan dan pengeluaran sebagai dasar evaluasi keuangan.",
+    questions:[
+      {id:"sumber_pemasukan", type:"mc",
+       label:"Sumber pemasukan utama", required:true,
+       opts:["Orang Tua","Beasiswa","Pekerjaan Sampingan","Bisnis","Lainnya"]},
+      {id:"avg_pemasukan", type:"mc",
+       label:"Rata-rata total pemasukan bulanan (termasuk uang saku, beasiswa, dan kerja sampingan)",
+       required:true,
+       opts:["< Rp1.000.000","Rp1.000.000 – Rp2.000.000","Rp2.000.000 – Rp3.000.000","> Rp3.000.000"]},
+      {id:"avg_pengeluaran", type:"mc",
+       label:"Rata-rata total pengeluaran bulanan", required:true,
+       opts:["< Rp500.000","Rp500.000 – Rp1.000.000","Rp1.000.000 – Rp1.500.000","Rp1.500.000 – Rp2.000.000","> Rp2.000.000"]},
+      {id:"selisih", type:"mc",
+       label:"Secara umum, kondisi keuanganmu di akhir bulan?", required:true,
+       opts:["Selalu ada sisa yang cukup (Surplus)",
+             "Habis untuk kebutuhan operasional (Seimbang)",
+             "Sering tidak cukup menutupi pengeluaran (Defisit)"]},
+      {id:"komponen_pengeluaran", type:"checkbox",
+       label:"Komponen pengeluaran utama", note:"Pilih maksimal 3", max:3, required:true,
+       opts:["Makanan dan minuman","Transportasi",
+             "Kebutuhan kuliah (buku, alat tulis, cetak tugas)",
+             "Pendidikan di luar kuliah (lomba, course)",
+             "Kebutuhan tempat tinggal (listrik, air, laundry)",
+             "Hobi dan hiburan","Lainnya"]}
+    ]
+  },
+  {
+    num:4, title:"Pengaruh Lingkungan dan Mobilitas",
+    desc:"Berfokus pada transportasi dan intensitas kegiatan sosial yang memengaruhi kondisi finansialmu.",
+    questions:[
+      {id:"transportasi", type:"mc",
+       label:"Moda transportasi utama menuju kampus", required:true,
+       opts:["Kendaraan pribadi (Motor / Mobil)",
+             "Transportasi umum berbayar (KRL, TransJakarta)",
+             "Transportasi umum gratis (Bis Kuning, Jaklingko)",
+             "Layanan transportasi daring (Ojek / Taksi Online)",
+             "Jalan kaki"]},
+      {id:"frekuensi_sosial", type:"mc",
+       label:"Dalam satu minggu, berapa kali kamu mengeluarkan biaya untuk aktivitas di luar? (makan bareng, nongkrong, menonton)",
+       required:true,
+       opts:["0 – 1 kali","2 – 3 kali","> 3 kali"]},
+      {id:"scale_sesuaikan", type:"scale", scalePoints:6,
+       scaleMin:"Sangat Tidak Setuju", scaleMax:"Sangat Setuju", required:true,
+       label:"Saya merasa perlu menyesuaikan tempat makan atau nongkrong dengan pilihan mayoritas teman-teman saya."},
+      {id:"scale_ajakan", type:"scale", scalePoints:6,
+       scaleMin:"Sangat Tidak Setuju", scaleMax:"Sangat Setuju", required:true,
+       label:"Sebagian besar pengeluaran tidak terduga saya dipicu oleh ajakan beraktivitas bersama teman."},
+      {id:"scale_tolak", type:"scale", scalePoints:6,
+       scaleMin:"Sangat Tidak Setuju", scaleMax:"Sangat Setuju", required:true,
+       label:"Saya merasa nyaman menolak ajakan kegiatan sosial jika anggaran saya sedang terbatas."},
+      {id:"scale_diskusi", type:"scale", scalePoints:6,
+       scaleMin:"Sangat Tidak Setuju", scaleMax:"Sangat Setuju", required:true,
+       label:"Lingkungan pertemanan saya sering mendiskusikan cara mengelola keuangan atau investasi."}
+    ]
+  },
+  {
+    num:5, title:"Pola Menabung dan Alokasi Sisa Dana",
+    desc:"Mengidentifikasi persona keuanganmu, kebiasaan menyisihkan uang, serta hambatan yang dihadapi.",
+    questions:[
+      {id:"alokasi_sisa", type:"mc", scoring:true,
+       label:"Jika terdapat sisa dana di akhir bulan, ke mana alokasi utamanya?", required:true,
+       opts:["Diinvestasikan ke dalam instrumen keuangan (reksa dana, saham, dll.)",
+             "Dibelanjakan langsung untuk barang keinginan atau hiburan",
+             "Dipindahkan ke rekening tabungan khusus secara otomatis",
+             "Dibiarkan mengendap di rekening untuk kebutuhan bulan berikutnya"]},
+      {id:"prioritas_dana", type:"mc", scoring:true,
+       label:"Jika tiba-tiba dapat dana tidak terduga sebesar Rp5.000.000, prioritas utamamu?", required:true,
+       opts:["Menabung atau menginvestasikan seluruh dana tersebut",
+             "Membeli barang impian yang sudah lama diinginkan (gawai, fesyen, dll.)",
+             "Membayar cicilan atau utang yang sedang berjalan",
+             "Sebagian untuk pengalaman (liburan) dan sebagian lagi ditabung"]},
+      {id:"cara_belanja", type:"mc", scoring:true,
+       label:"Cara paling sering kamu berbelanja?", required:true,
+       opts:["Cek beberapa toko, bandingkan harga, pilih kualitas terbaik untuk harganya",
+             "Langsung beli yang paling keren dan terkenal, harga mahal biasanya sepadan",
+             "Pilih yang paling murah, atau tunda kalau yang lama masih bisa dipakai",
+             "Beli kalau memang butuh untuk aktivitas tertentu, tidak pusing soal harga atau merek"]},
+      {id:"hambatan_menabung", type:"checkbox",
+       label:"Hambatan utama dalam merutinkan kebiasaan menabung", note:"Pilih maksimal 3", max:3, required:true,
+       opts:["Pemasukan yang terbatas","Pengeluaran kebutuhan sehari-hari yang tinggi",
+             "Pengeluaran sosial atau gaya hidup yang sulit dikontrol",
+             "Pengeluaran mendadak / tidak terduga","Sulit disiplin atau konsisten menabung",
+             "Belum memahami cara mengatur keuangan dengan baik",
+             "Tergoda belanja impulsif atau promo","Belum merasa menabung menjadi prioritas",
+             "Tidak memiliki tujuan keuangan yang jelas","Lainnya"]},
+      {id:"instrumen_investasi", type:"checkbox",
+       label:"Instrumen investasi yang kamu miliki saat ini", note:"Pilih maksimal 3", max:3, required:true,
+       opts:["Belum memiliki","Saham","Reksa Dana","Obligasi / Surat Berharga Negara (SBN)",
+             "Logam Mulia / Emas","Deposito Bank","Properti","Kripto / Crypto Asset","Lainnya"]},
+      {id:"topik_edukasi", type:"checkbox",
+       label:"Topik edukasi keuangan yang paling ingin kamu pelajari saat ini", note:"Pilih maksimal 3", max:3, required:true,
+       opts:["Cara menyusun budget dan mengatur pengeluaran sehari-hari",
+             "Strategi menabung dan membangun dana darurat",
+             "Cara mulai investasi untuk pemula",
+             "Cara memilih instrumen investasi sesuai profil risiko",
+             "Cara menghindari pengeluaran impulsif dan mengontrol gaya hidup",
+             "Cara mengelola keuangan saat pemasukan terbatas atau tidak tetap",
+             "Cara mencari tambahan pemasukan atau side hustle",
+             "Cara memahami utang, cicilan, dan risiko finansial",
+             "Perencanaan keuangan jangka panjang untuk masa depan",
+             "Saya belum tertarik mempelajari topik keuangan secara khusus"]}
+    ]
+  }
+];
+
+/* ================================================================
+   TIPE KEPRIBADIAN
+================================================================ */
+const TYPES = {
+  A:{
+    icon:"🦊", code:"VS", name:"Si Rubah", tag:"Cerdik & Kalkulatif",
+    color:"#d32f2f", chipBg:"#fdecea", chipColor:"#c62828", heroBg:"#fdf5f5",
+    snapBg:"#fdecea",
+    desc:"Seperti rubah yang selalu punya trik, kamu tidak pernah ambil keputusan finansial tanpa diperhitungkan matang. Kamu analisis, bandingin, dan kalkulasi, dan hampir selalu dapat yang paling optimal dari setiap rupiah. Bukan pelit. Ini cerdik.",
+    strengths:["Sangat teliti sebelum keputusan finansial","Selalu cari nilai terbaik dari setiap rupiah","Tidak mudah tergoda marketing atau tren sesaat","Instingtif dalam membandingkan pilihan"],
+    growth:["Jangan overthink sampai missed opportunity","Sesekali boleh langsung beli tanpa riset marathon","Arahkan skill analisis ke instrumen investasi aktif"],
+    tip:"Kecerdikan analitismu itu aset besar! Arahkan ke instrumen investasi, bukan hanya untuk cari harga murah, tapi untuk grow asetmu secara aktif. Coba mulai dengan reksa dana indeks yang return-nya konsisten jangka panjang."
+  },
+  B:{
+    icon:"🦁", code:"BS", name:"Si Singa", tag:"Berani & Percaya Diri",
+    color:"#fb8c00", chipBg:"#fff3e0", chipColor:"#bf5000", heroBg:"#fffbf5",
+    snapBg:"#fff3e0",
+    desc:"Seperti singa yang melangkah dengan percaya diri, kamu tidak ragu menikmati hasil kerja kerasmu. Kamu tahu apa yang kamu mau, punya selera, dan nggak segan upgrade kualitas hidup. Hidup cuma sekali, dan kamu merayakannya.",
+    strengths:["Menghargai kualitas di atas segalanya","Tahu cara menikmati hasil kerja sendiri","Berani berinvestasi pada pengalaman dan diri sendiri","Tidak overthink setiap keputusan kecil"],
+    growth:["Masa depan juga perlu dijaga, nggak cuma hari ini","Coba sisihkan minimal 10–20% sebelum spend","Buat spending budget agar tetap dalam kendali"],
+    tip:"Keberanian dan seleramu itu keren! Tapi pastikan keuangan masa depan juga ikut naik kelas. Coba sistem pay yourself first: sebelum belanja apapun, auto-debit dulu ke rekening investasi. Sisanya? Spend dengan bebas!"
+  },
+  C:{
+    icon:"🐢", code:"NS", name:"Si Kura-kura", tag:"Hati-hati & Terlindungi",
+    color:"#2e7d32", chipBg:"#e8f5e9", chipColor:"#1b5e20", heroBg:"#f5fdf6",
+    snapBg:"#e8f5e9",
+    desc:"Seperti kura-kura yang selalu terlindungi cangkangnya, kamu tidak pernah terburu-buru dalam keputusan finansial. Kamu yang paling tenang saat orang lain panik tanggal tua. Tidak impulsif, selalu ada cadangan. Itu rare banget!",
+    strengths:["Sangat disiplin dan tidak impulsif","Selalu punya dana cadangan saat genting","Nggak mudah terpengaruh peer pressure finansial","Fondasi finansial yang sangat solid"],
+    growth:["Uang diam terlalu lama bisa termakan inflasi","Sesekali reward diri sendiri, kamu layak!","Pertimbangkan instrumen investasi agar uang tumbuh aktif"],
+    tip:"Fondasi keuanganmu sudah kuat banget! Saatnya biarkan uangmu bekerja lebih keras. Coba mulai dari reksa dana pasar uang atau deposito. Aman, tapi return-nya jauh lebih baik dari tabungan biasa."
+  },
+  D:{
+    icon:"🦅", code:"EX", name:"Si Elang", tag:"Bebas & Petualang",
+    color:"#3949ab", chipBg:"#e8eaf6", chipColor:"#283593", heroBg:"#f5f6fd",
+    snapBg:"#e8eaf6",
+    desc:"Seperti elang yang terbang bebas menjelajahi cakrawala, buat kamu uang paling bermakna saat jadi cerita dan pengalaman. Kamu tahu cara balance antara menikmati hari ini dan tetap waras secara finansial. Itu skill langka!",
+    strengths:["Sangat balance antara enjoyment dan saving","Kaya pengalaman yang tak ternilai harganya","Keputusan keuangan fleksibel sesuai situasi","Tidak ekstrem ke salah satu sisi"],
+    growth:["Tetapkan tujuan keuangan yang lebih konkret","Catat pengeluaran pengalaman, bisa lebih dari perkiraan!","Mulai investasi rutin meski kecil, yang penting konsisten"],
+    tip:"Mindset-mu sudah tepat! Tinggal satu langkah: buat experience fund khusus di rekening terpisah. Jadi kamu tetap bisa menikmati hidup tanpa rasa bersalah, dan tujuan jangka panjang tetap aman."
+  }
+};
+
+const SCORING_LABELS = [
+  "Alokasi sisa dana akhir bulan",
+  "Prioritas dana tidak terduga",
+  "Cara berbelanja"
+];
+
+/* Skor multi-dimensi 0-10 per tipe untuk setiap opsi 3 pertanyaan kunci.
+   Setiap jawaban memberi kontribusi ke SEMUA tipe agar skor tersebar merata. */
+const SCORING_MATRIX = {
+  /* alokasi_sisa: 4 opsi, tiap baris total = 25, min = 2 */
+  alokasi_sisa: [
+    {A:10, B:3,  C:7,  D:5},  /* Diinvestasikan */
+    {A:3,  B:10, C:2,  D:8},  /* Dibelanjakan langsung */
+    {A:6,  B:2,  C:10, D:7},  /* Tabungan otomatis */
+    {A:5,  B:4,  C:8,  D:2}   /* Dibiarkan mengendap */
+  ],
+  /* prioritas_dana: total = 25, min = 2 */
+  prioritas_dana: [
+    {A:8,  B:2,  C:10, D:5},  /* Nabung/investasi semua */
+    {A:3,  B:10, C:2,  D:7},  /* Beli barang impian */
+    {A:6,  B:2,  C:9,  D:4},  /* Bayar cicilan/utang */
+    {A:5,  B:6,  C:3,  D:10} /* Pengalaman + tabung */
+  ],
+  /* cara_belanja: total = 25, min = 2 */
+  cara_belanja: [
+    {A:10, B:3,  C:6,  D:6},  /* Bandingkan & pilih terbaik */
+    {A:2,  B:10, C:3,  D:7},  /* Beli yang terkenal */
+    {A:5,  B:2,  C:10, D:4},  /* Pilih paling murah */
+    {A:7,  B:4,  C:5,  D:9}   /* Beli kalau butuh */
+  ]
+};
+
+/* ================================================================
+   STATE
+================================================================ */
+let currentSec = 2;
+let responses  = {};
+let quizStart  = null;
+
+function getOrCreateUUID(){
+  const K = "finpersona_uid";
+  let u = localStorage.getItem(K);
+  if(!u){
+    u = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, c=>{
+      const r = Math.random()*16|0;
+      return (c==="x"?r:(r&0x3|0x8)).toString(16);
+    });
+    localStorage.setItem(K, u);
+  }
+  return u;
+}
+function incSubCount(){
+  const K = "finpersona_sub_count";
+  const n = parseInt(localStorage.getItem(K)||"0")+1;
+  localStorage.setItem(K, String(n));
+  return n;
+}
+const SESSION_UUID = getOrCreateUUID();
+
+/* ================================================================
+   SCREEN NAVIGATION
+================================================================ */
+function show(id){
+  document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+
+/* ================================================================
+   SECTION NAVIGATION
+================================================================ */
+function goToSection(num){
+  currentSec = num;
+  if(num === 2) quizStart = Date.now();
+
+  const sec = SECTIONS.find(s=>s.num===num);
+  document.getElementById("secNum").textContent   = "Bagian " + (num-1) + " dari 4";
+  document.getElementById("secTitle").textContent = sec.title;
+  document.getElementById("secDesc").textContent  = sec.desc || "";
+
+  const body = document.getElementById("secBody");
+  body.innerHTML = "";
+  sec.questions.forEach(q => body.appendChild(buildQuestion(q)));
+
+  document.getElementById("secBtnBack").style.display = num===2 ? "none" : "";
+  document.getElementById("secBtnNext").textContent   = num===5 ? "Lanjut" : "Lanjut";
+
+  buildStepper(num);
+  document.getElementById("valError").classList.remove("show");
+  show("screenSection");
+}
+
+function buildStepper(current){
+  const labels = ["","","Identitas","Finansial","Lingkungan","Menabung"];
+  const c = document.getElementById("stepperWrap");
+  c.innerHTML = "";
+  for(let i=2; i<=5; i++){
+    if(i>2){
+      const line = document.createElement("div");
+      line.className = "step-line" + (i<=current?" done":"");
+      c.appendChild(line);
+    }
+    const item = document.createElement("div"); item.className = "step-item";
+    const circle = document.createElement("div");
+    circle.className = "step-circle" + (i<current?" done":i===current?" current":"");
+    circle.textContent = i - 1;  /* display 1-4 */
+    const lbl = document.createElement("div");
+    lbl.className = "step-label" + (i<current?" done":i===current?" current":"");
+    lbl.textContent = labels[i];
+    item.appendChild(circle); item.appendChild(lbl);
+    c.appendChild(item);
+  }
+}
+
+/* ================================================================
+   BUILD QUESTIONS
+================================================================ */
+const LTR = ["A","B","C","D","E","F"];
+
+function buildQuestion(q){
+  const block = document.createElement("div");
+  block.className = "q-block"; block.id = "qblock-"+q.id;
+
+  if(q.type !== "scale"){
+    const lbl = document.createElement("p"); lbl.className = "q-label";
+    lbl.innerHTML = q.label + (q.required ? "&nbsp;<span class='req'>*</span>" : "");
+    block.appendChild(lbl);
+  }
+  if(q.note){
+    const note = document.createElement("p"); note.className = "q-note";
+    note.textContent = q.note;
+    block.appendChild(note);
+  }
+
+  if(q.type==="mc")       block.appendChild(buildMC(q));
+  if(q.type==="checkbox") block.appendChild(buildCheckbox(q));
+  if(q.type==="scale")    block.appendChild(buildScale(q));
+  return block;
+}
+
+function buildMC(q){
+  const wrap = document.createElement("div"); wrap.className = "mc-opts";
+  q.opts.forEach((opt,i)=>{
+    const btn = document.createElement("button"); btn.className = "mc-opt";
+    if(responses[q.id]===i) btn.classList.add("sel");
+    btn.innerHTML = "<span class='mc-opt-ltr'>"+LTR[i]+"</span><span>"+opt+"</span>";
+    btn.addEventListener("click",()=>{
+      responses[q.id] = i;
+      wrap.querySelectorAll(".mc-opt").forEach((b,j)=>b.classList.toggle("sel",j===i));
+      clearErr(q.id);
+    });
+    wrap.appendChild(btn);
+  });
+  return wrap;
+}
+
+function buildCheckbox(q){
+  const saved = Array.isArray(responses[q.id]) ? responses[q.id] : [];
+  if(!responses[q.id]) responses[q.id] = saved;
+  const max = q.max || 999;
+  const wrap = document.createElement("div"); wrap.className = "cb-opts";
+
+  function refreshMaxed(){
+    const count = saved.length;
+    wrap.querySelectorAll(".cb-opt").forEach(b=>{
+      b.classList.toggle("maxed", count>=max && !saved.includes(parseInt(b.dataset.v)));
+    });
+  }
+
+  q.opts.forEach((opt,i)=>{
+    const btn = document.createElement("button"); btn.className = "cb-opt";
+    btn.dataset.v = i;
+    if(saved.includes(i)) btn.classList.add("sel");
+    btn.innerHTML = "<span class='cb-box'>"+(saved.includes(i)?"✓":"")+"</span><span>"+opt+"</span>";
+    btn.addEventListener("click",()=>{
+      if(saved.includes(i)){
+        saved.splice(saved.indexOf(i),1);
+        btn.classList.remove("sel");
+        btn.querySelector(".cb-box").textContent = "";
+      } else {
+        if(saved.length>=max) return;
+        saved.push(i);
+        btn.classList.add("sel");
+        btn.querySelector(".cb-box").textContent = "✓";
+      }
+      responses[q.id] = [...saved];
+      refreshMaxed();
+      clearErr(q.id);
+    });
+    wrap.appendChild(btn);
+  });
+  refreshMaxed();
+  return wrap;
+}
+
+function buildScale(q){
+  const pts = q.scalePoints || 6;
+  const wrap = document.createElement("div");
+
+  const stmt = document.createElement("div"); stmt.className = "scale-stmt";
+  stmt.innerHTML = q.label + (q.required ? "&nbsp;<span class='req' style='font-size:12px;'>*</span>" : "");
+  wrap.appendChild(stmt);
+
+  const track = document.createElement("div"); track.className = "scale-track";
+  for(let v=1; v<=pts; v++){
+    const btn = document.createElement("button"); btn.className = "scale-btn";
+    if(responses[q.id]===v) btn.classList.add("sel");
+    btn.textContent = v; btn.dataset.v = v;
+    btn.addEventListener("click",()=>{
+      responses[q.id] = v;
+      track.querySelectorAll(".scale-btn").forEach(b=>b.classList.toggle("sel",parseInt(b.dataset.v)===v));
+      clearErr(q.id);
+    });
+    track.appendChild(btn);
+  }
+  wrap.appendChild(track);
+
+  const labels = document.createElement("div"); labels.className = "scale-labels";
+  labels.innerHTML = "<span>"+q.scaleMin+"</span><span>"+q.scaleMax+"</span>";
+  wrap.appendChild(labels);
+  return wrap;
+}
+
+/* ================================================================
+   VALIDATION
+================================================================ */
+function validateSection(num){
+  const sec = SECTIONS.find(s=>s.num===num);
+  const errors = [];
+  sec.questions.forEach(q=>{
+    if(!q.required) return;
+    const v = responses[q.id];
+    if((q.type==="mc"||q.type==="scale") && (v===undefined||v===null)) errors.push(q.id);
+    if(q.type==="checkbox" && (!Array.isArray(v)||v.length===0)) errors.push(q.id);
+  });
+  return errors;
+}
+
+function showErrors(errors){
+  errors.forEach(id=>{
+    const b = document.getElementById("qblock-"+id);
+    if(b) b.classList.add("error");
+  });
+  document.getElementById("valError").classList.toggle("show", errors.length>0);
+  if(errors.length>0){
+    const first = document.getElementById("qblock-"+errors[0]);
+    if(first) first.scrollIntoView({behavior:"smooth",block:"center"});
+  }
+}
+function clearErr(id){
+  const b = document.getElementById("qblock-"+id);
+  if(b) b.classList.remove("error");
+  if(!document.querySelector(".q-block.error"))
+    document.getElementById("valError").classList.remove("show");
+}
+
+/* ================================================================
+   NEXT / PREV SECTION
+================================================================ */
+function nextSection(){
+  const errors = validateSection(currentSec);
+  if(errors.length>0){ showErrors(errors); return; }
+  if(currentSec < 5)  goToSection(currentSec+1);
+  else                 showPrizeScreen();
+}
+function prevSection(){
+  if(currentSec > 2) goToSection(currentSec-1);
+  else               show("screenIntro");
+}
+
+/* ================================================================
+   PRIZE SCREEN
+================================================================ */
+function showPrizeScreen(){
+  /* Reset state */
+  document.getElementById("prizeForm").classList.remove("show");
+  document.getElementById("prizeBtns").style.display = "";
+  document.getElementById("prizeContinue").classList.remove("show");
+  document.getElementById("prizeErr").classList.remove("show");
+  document.getElementById("prizeErr").textContent = "";
+  document.getElementById("inp-npm").value = "";
+  document.getElementById("inp-idline").value = "";
+  show("screenPrize");
+}
+
+function showPrizeForm(){
+  document.getElementById("prizeBtns").style.display = "none";
+  document.getElementById("prizeForm").classList.add("show");
+  document.getElementById("prizeContinue").classList.add("show");
+  document.getElementById("inp-npm").focus();
+}
+
+function submitPrize(){
+  const npm    = document.getElementById("inp-npm").value.trim();
+  const idline = document.getElementById("inp-idline").value.trim();
+  const errEl  = document.getElementById("prizeErr");
+
+  if(!npm){
+    errEl.textContent = "NPM belum diisi.";
+    errEl.classList.add("show");
+    document.getElementById("qblock-npm").classList.add("error");
+    return;
+  }
+  if(!idline){
+    errEl.textContent = "ID Line belum diisi.";
+    errEl.classList.add("show");
+    document.getElementById("qblock-idline").classList.add("error");
+    return;
+  }
+
+  responses.npm     = npm;
+  responses.id_line = idline;
+  responses.ikut_hadiah = true;
+  runLoading();
+}
+
+function skipPrize(){
+  responses.npm     = "";
+  responses.id_line = "";
+  responses.ikut_hadiah = false;
+  runLoading();
+}
+
+/* ================================================================
+   CLASSIFICATION — SCORING_MATRIX (multi-dimensional 0-10)
+================================================================ */
+function classify(){
+  const qIds = ["alokasi_sisa","prioritas_dana","cara_belanja"];
+  const rawScores = {A:[], B:[], C:[], D:[]};
+  const picks = [];
+
+  qIds.forEach(id=>{
+    const v = responses[id];
+    const matrix = SCORING_MATRIX[id];
+    if(v!==null && v!==undefined && matrix && matrix[v]){
+      const m = matrix[v];
+      Object.keys(rawScores).forEach(t => rawScores[t].push(m[t]||0));
+      /* Dominant type for this answer = highest scorer */
+      const dominant = Object.entries(m).sort((a,b)=>b[1]-a[1])[0][0];
+      picks.push({qId:id, answerIdx:v, type:dominant, scores:m});
+    } else {
+      Object.keys(rawScores).forEach(t => rawScores[t].push(0));
+      picks.push({qId:id, answerIdx:v, type:null, scores:{A:0,B:0,C:0,D:0}});
+    }
+  });
+
+  /* Average score per type (0–10) */
+  const scores = {};
+  Object.keys(rawScores).forEach(t=>{
+    const arr = rawScores[t];
+    scores[t] = parseFloat((arr.reduce((s,v)=>s+v,0)/Math.max(arr.length,1)).toFixed(1));
+  });
+
+  /* Winner = highest average */
+  let maxS = -1, winner = "A", ties = [];
+  Object.entries(scores).forEach(([t,s])=>{
+    if(s>maxS){maxS=s; winner=t; ties=[t];}
+    else if(s===maxS) ties.push(t);
+  });
+
+  /* Tiebreaker: social scale signals */
+  if(ties.length>1){
+    const pressure = ((responses.scale_sesuaikan||3)+(responses.scale_ajakan||3))/2;
+    const decline  = responses.scale_tolak||3;
+    const peerFin  = responses.scale_diskusi||3;
+    if(ties.includes("B") && pressure>=4)     winner="B";
+    else if(ties.includes("A") && peerFin>=4) winner="A";
+    else if(ties.includes("C") && decline>=4) winner="C";
+    else winner=ties[0];
+  }
+
+  return {winner, scores, picks};
+}
+
+/* ================================================================
+   LOADING
+================================================================ */
+function runLoading(){
+  ["ldS1","ldS2","ldS3","ldS4"].forEach(id=>document.getElementById(id).classList.remove("active","done"));
+  show("screenLoading");
+  const steps = ["ldS1","ldS2","ldS3","ldS4"]; let i=0;
+  function tick(){
+    if(i>0){ document.getElementById(steps[i-1]).classList.remove("active"); document.getElementById(steps[i-1]).classList.add("done"); }
+    if(i<steps.length){ document.getElementById(steps[i]).classList.add("active"); i++; setTimeout(tick,820); }
+    else{ setTimeout(()=>renderResult(classify()),400); }
+  }
+  tick();
+}
+
+/* ================================================================
+   RENDER RESULT
+================================================================ */
+function renderResult(result){
+  const p = TYPES[result.winner];
+
+  /* Hero section */
+  document.getElementById("resultHero").style.background = p.heroBg;
+  document.getElementById("rIcon").textContent = p.icon;
+  document.getElementById("rName").textContent = p.name;
+  document.getElementById("rTag").textContent  = p.tag;
+  document.getElementById("rDesc").textContent = p.desc;
+
+  /* Strengths & Growth */
+  document.getElementById("rStrengths").innerHTML =
+    p.strengths.map(s => "<div class='trait-li'>" + s + "</div>").join("");
+  document.getElementById("rGrowth").innerHTML =
+    p.growth.map(g => "<div class='trait-li'>" + g + "</div>").join("");
+
+  /* Tip */
+  document.getElementById("rTipTtl").textContent = "Tips untuk " + p.name;
+  document.getElementById("rTipTxt").textContent = p.tip;
+
+  /* Financial snapshot */
+  renderSnapshot();
+
+  /* Social gauge */
+  renderGauge();
+
+  /* Decision cards */
+  renderDecisions(result.picks);
+
+  /* Other types */
+  const row = document.getElementById("othersRow");
+  row.innerHTML = "";
+  ["A","B","C","D"].filter(t => t !== result.winner).forEach(t => {
+    const tp   = TYPES[t];
+    const chip = document.createElement("div");
+    chip.className        = "oc";
+    chip.style.border     = "1.5px solid " + tp.color;
+    chip.style.color      = tp.color;
+    chip.style.background = "transparent";
+    chip.innerHTML =
+      "<span class='oc-icon'>" + tp.icon + "</span>" + tp.name;
+    row.appendChild(chip);
+  });
+
+  show("screenResult");
+  launchConfetti();
+  saveData(result);
+}
+
+
+/* ================================================================
+   RADAR CHART — 4-axis SVG spider chart
+================================================================ */
+
+
+/* ================================================================
+   FINANCIAL SNAPSHOT CARDS
+================================================================ */
+function renderSnapshot(){
+  const sec3 = SECTIONS.find(s=>s.num===3);
+  const pIdx = responses.avg_pemasukan;
+  const eIdx = responses.avg_pengeluaran;
+  const sIdx = responses.selisih;
+
+  const pText = pIdx!==undefined ? sec3.questions[1].opts[pIdx] : "-";
+  const eText = eIdx!==undefined ? sec3.questions[2].opts[eIdx] : "-";
+  const sText = sIdx!==undefined ? ["Surplus","Seimbang","Defisit"][sIdx] : "-";
+
+  const sColors = ["background:#e8f5e9;color:#1b5e20;",
+                   "background:#fff8e1;color:#e65100;",
+                   "background:#fdecea;color:#c62828;"];
+  const sColor  = sIdx!==undefined ? sColors[sIdx] : "background:#f5f5f5;color:#888;";
+
+  const grid = document.getElementById("snapshotGrid"); grid.innerHTML="";
+  [
+    {icon:"",  label:"Pemasukan",  value:pText, bg:"background:#e8f4fd;"},
+    {icon:"",  label:"Pengeluaran", value:eText, bg:"background:#fff3e0;"},
+    {icon:"",  label:"Status",      value:sText, bg:sColor}
+  ].forEach(c=>{
+    const card = document.createElement("div"); card.className="snap-card";
+    card.setAttribute("style",c.bg);
+    card.innerHTML="<div class='snap-label'>"+c.label+"</div><div class='snap-value'>"+c.value+"</div>";
+    grid.appendChild(card);
+  });
+}
+
+/* ================================================================
+   SOCIAL INFLUENCE GAUGE
+================================================================ */
+function renderGauge(){
+  /* Social pressure score: sesuaikan + ajakan + (7-tolak) → avg → scale to 1-6 */
+  const s1 = responses.scale_sesuaikan || 3;
+  const s2 = responses.scale_ajakan    || 3;
+  const s3 = 7 - (responses.scale_tolak || 3);  /* invert: nyaman tolak = low pressure */
+  const avg = (s1+s2+s3)/3;
+  const pct = Math.round((avg-1)/5*100);
+
+  const thumb = document.getElementById("gaugeThumb");
+  setTimeout(()=>{ thumb.style.left = Math.min(95,Math.max(5,pct))+"%" }, 400);
+
+  let statusText, statusStyle;
+  if(avg<=2.5){
+    statusText="Sangat Independen: Keputusan finansialmu jarang dipengaruhi teman";
+    statusStyle="background:#e8f5e9;color:#1b5e20;";
+  } else if(avg<=3.5){
+    statusText="Cukup Independen: Terkadang lingkungan memengaruhi pengeluaranmu";
+    statusStyle="background:#fff8e1;color:#e65100;";
+  } else if(avg<=4.5){
+    statusText="Cukup Terpengaruh: Lingkungan sosial punya andil dalam keputusan belanjamu";
+    statusStyle="background:#fff3e0;color:#bf5000;";
+  } else {
+    statusText="Sangat Terpengaruh: Pengeluaran sosial jadi salah satu tantangan utamamu";
+    statusStyle="background:#fdecea;color:#c62828;";
+  }
+
+  const el = document.getElementById("gaugeStatus");
+  el.textContent = statusText;
+  el.setAttribute("style",statusStyle);
+}
+
+/* ================================================================
+   DECISION CARDS
+================================================================ */
+function renderDecisions(picks){
+  const sec5   = SECTIONS.find(s=>s.num===5);
+  const qIds   = ["alokasi_sisa","prioritas_dana","cara_belanja"];
+  const wrap   = document.getElementById("decisionsWrap"); wrap.innerHTML="";
+
+  picks.forEach((pk,i)=>{
+    const q     = sec5.questions.find(q=>q.id===qIds[i]);
+    const tp    = pk.type ? TYPES[pk.type] : null;
+    const ansText = (pk.answerIdx!==undefined && q) ? q.opts[pk.answerIdx] : "-";
+
+    const card = document.createElement("div"); card.className="decision-card";
+    if(tp) card.style.borderLeftColor = tp.color;
+    card.style.borderLeftWidth = "3px";
+
+    card.innerHTML =
+      "<div class='decision-q-num'>Pertanyaan kunci "+(i+1)+"</div>"+
+      "<div class='decision-q-txt'>"+SCORING_LABELS[i]+"</div>"+
+      "<div class='decision-a-txt'>"+ansText+"</div>"+
+      (tp ? "<span class='decision-badge' style='background:"+tp.chipBg+";color:"+tp.chipColor+"'>"+tp.icon+" "+tp.name+"</span>" : "");
+
+    wrap.appendChild(card);
+  });
+}
+
+/* ================================================================
+   SAVE DATA
+================================================================ */
+function saveData(result){
+  const el = document.getElementById("saveStatus");
+  if(!SCRIPT_URL) return;
+  const subCount = incSubCount();
+  const timeSec  = quizStart ? Math.round((Date.now()-quizStart)/1000) : null;
+
+  function fmtArr(id, sec, qIdx){
+    const opts = SECTIONS.find(s=>s.num===sec).questions[qIdx].opts;
+    return (responses[id]||[]).map(i=>opts[i]).join("; ");
+  }
+
+  const s3 = SECTIONS.find(s=>s.num===3);
+  const s4 = SECTIONS.find(s=>s.num===4);
+  const s5 = SECTIONS.find(s=>s.num===5);
+
+  const payload = {
+    timestamp:        new Date().toISOString(),
+    session_uuid:     SESSION_UUID,
+    local_sub_count:  subCount,
+    time_seconds:     timeSec,
+    npm:              responses.npm||"",
+    id_line:          responses.id_line||"",
+    ikut_hadiah:      responses.ikut_hadiah ? "Ya" : "Tidak",
+    prodi:            responses.prodi!==undefined ? ["Matematika","Statistika","Ilmu Aktuaria"][responses.prodi] : "",
+    angkatan:         responses.angkatan!==undefined ? ["2025","2024","2023"][responses.angkatan] : "",
+    status_tinggal:   responses.status_tinggal!==undefined ? ["Rumah Orang Tua/Saudara","Kos","Apartemen","Asrama"][responses.status_tinggal] : "",
+    sumber_pemasukan: responses.sumber_pemasukan!==undefined ? s3.questions[0].opts[responses.sumber_pemasukan] : "",
+    avg_pemasukan:    responses.avg_pemasukan!==undefined    ? s3.questions[1].opts[responses.avg_pemasukan]    : "",
+    avg_pengeluaran:  responses.avg_pengeluaran!==undefined  ? s3.questions[2].opts[responses.avg_pengeluaran]  : "",
+    selisih:          responses.selisih!==undefined           ? s3.questions[3].opts[responses.selisih]          : "",
+    komponen_pengeluaran: fmtArr("komponen_pengeluaran",3,4),
+    transportasi:     responses.transportasi!==undefined ? s4.questions[0].opts[responses.transportasi] : "",
+    frekuensi_sosial: responses.frekuensi_sosial!==undefined ? s4.questions[1].opts[responses.frekuensi_sosial] : "",
+    scale_sesuaikan:  responses.scale_sesuaikan||"",
+    scale_ajakan:     responses.scale_ajakan||"",
+    scale_tolak:      responses.scale_tolak||"",
+    scale_diskusi:    responses.scale_diskusi||"",
+    alokasi_sisa:     responses.alokasi_sisa!==undefined ? s5.questions[0].opts[responses.alokasi_sisa] : "",
+    prioritas_dana:   responses.prioritas_dana!==undefined ? s5.questions[1].opts[responses.prioritas_dana] : "",
+    cara_belanja:     responses.cara_belanja!==undefined ? s5.questions[2].opts[responses.cara_belanja] : "",
+    hambatan_menabung:    fmtArr("hambatan_menabung",5,3),
+    instrumen_investasi:  fmtArr("instrumen_investasi",5,4),
+    topik_edukasi:        fmtArr("topik_edukasi",5,5),
+    result_type:  result.winner,
+    result_name:  TYPES[result.winner].name,
+    score_A:      result.scores.A,
+    score_B:      result.scores.B,
+    score_C:      result.scores.C,
+    score_D:      result.scores.D,
+    browser_lang: navigator.language||"",
+    browser_tz:   Intl.DateTimeFormat().resolvedOptions().timeZone||"",
+    screen_res:   screen.width+"x"+screen.height
+  };
+
+  el.textContent="Menyimpan data..."; el.className="save-status";
+  fetch(SCRIPT_URL,{method:"POST",mode:"no-cors",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)})
+    .then(()=>{ el.textContent="Data berhasil disimpan"; el.className="save-status ok"; setTimeout(()=>{el.textContent="";},3500); })
+    .catch(()=>{ el.textContent="Gagal menyimpan, coba lagi nanti"; el.className="save-status err"; });
+}
+
+/* ================================================================
+   RESTART + CONFETTI
+================================================================ */
+function restart(){ responses={}; show("screenIntro"); }
+
+function launchConfetti(){
+  const host=document.getElementById("confetti-host"); host.innerHTML="";
+  const colors=["#d32f2f","#fb8c00","#ffd702","#efdaab","#ef9a9a","#ffe082"];
+  for(let i=0;i<80;i++){
+    const el=document.createElement("div"); el.className="conf";
+    const size=7+Math.random()*9;
+    el.style.cssText="left:"+Math.random()*100+"%;width:"+size+"px;height:"+size+"px;background:"+colors[Math.floor(Math.random()*colors.length)]+";border-radius:"+(Math.random()>.45?"50%":"3px")+";animation-duration:"+(1.4+Math.random()*1.8)+"s;animation-delay:"+Math.random()*.6+"s;opacity:1;";
+    host.appendChild(el);
+  }
+  setTimeout(()=>{host.innerHTML="";},3800);
+}
+  
+</script>
+</body>
+</html>
