@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>FinPersona — Kuesioner Kepribadian Keuangan</title>
+<title>FinPersona Kuesioner Kepribadian Keuangan</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
@@ -55,7 +55,8 @@ body{
 .intro-title{font-family:"Fredoka One",sans-serif;font-size:42px;color:var(--dark);margin-bottom:4px;}
 .intro-title span{color:var(--red);}
 .intro-sub{font-size:13px;color:var(--muted);font-weight:700;margin-bottom:18px;}
-.intro-desc{font-size:14px;color:var(--mid);line-height:1.8;margin-bottom:22px;}
+.intro-desc{font-size:14px;color:var(--mid);line-height:1.8;margin-bottom:10px;}
+.intro-note{font-size:13px;color:var(--red);font-weight:700;line-height:1.6;margin-bottom:20px;text-align:center;}
 .intro-desc strong{color:var(--dark);}
 .pills-row{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;}
 .pill{padding:6px 16px;border-radius:50px;font-size:12px;font-weight:800;}
@@ -283,7 +284,7 @@ body{
   <div class="topnav-div"></div>
   <div>
     <div class="topnav-org">Himpunan Mahasiswa Departemen Matematika FMIPA UI</div>
-    <div class="topnav-name">FinPersona — Kuesioner Kepribadian Keuangan</div>
+    <div class="topnav-name">FinPersona Kuesioner Kepribadian Keuangan</div>
   </div>
 </nav>
 
@@ -294,16 +295,17 @@ body{
   <div class="card">
     <div class="intro-hero">
       <div class="animal-row">
-        <div class="a-bub a-vs">🦊</div><div class="a-bub a-bs">🦁</div><div class="a-bub a-ns">🐢</div><div class="a-bub a-ex">🦅</div>
+        <div class="a-bub a-vs">🦊</div><div class="a-bub a-bs">🦩</div><div class="a-bub a-ns">🦥</div><div class="a-bub a-ex">🐬</div>
       </div>
       <h1 class="intro-title">Fin<span>Persona</span></h1>
       <p class="intro-sub">Kamu tipe keuangan apa, sih?</p>
-      <p class="intro-desc">Kuesioner dari <strong>HMD Matematika FMIPA UI</strong> untuk memetakan kebiasaan finansial mahasiswa. <strong>4 bagian</strong>, anonim, dan hasilmu keluar langsung — termasuk persona keuanganmu dari 4 tipe berikut.</p>
+      <p class="intro-desc">Kuesioner dari <strong>HMD Matematika FMIPA UI</strong> untuk memetakan kebiasaan finansial mahasiswa. <strong>4 bagian</strong>, anonim, dan hasilmu keluar langsung termasuk persona keuanganmu dari 4 tipe berikut.</p>
+      <p class="intro-note">Isi nama/inisial dan data pribadi untuk laporan. Di akhir formulir, ada kesempatan ikut undian berhadiah dengan isi ID Line.</p>
       <div class="pills-row">
-        <span class="pill pill-r">🦊 Si Rubah</span>
-        <span class="pill pill-o">🦁 Si Singa</span>
-        <span class="pill pill-r">🐢 Si Kura-kura</span>
-        <span class="pill pill-o">🦅 Si Elang</span>
+        <span class="pill pill-r">🦊 Value Seeker</span>
+        <span class="pill pill-o">🦩 Big Spender</span>
+        <span class="pill pill-r">🦥 Non Spender</span>
+        <span class="pill pill-o">🐬 Experiencer</span>
       </div>
     </div>
     <div class="intro-body">
@@ -340,28 +342,24 @@ body{
 <div class="screen" id="screenPrize">
   <div class="card">
     <div class="prize-pad">
-      <h2 class="prize-title">Mau ikut berhadiah?</h2>
-      <p class="prize-desc">Hampir selesai! Sebelum lihat hasilmu, kamu punya kesempatan ikut <strong>undian berhadiah</strong> dari HMD Matematika FMIPA UI. Isi NPM dan ID Line kamu — data ini <em>hanya</em> digunakan untuk keperluan undian, tidak memengaruhi hasil analisismu.</p>
+      <h2 class="prize-title">Kamu sudah selesai!</h2>
+      <p class="prize-desc">Terima kasih sudah mengisi survei ini! Kamu berkesempatan untuk memenangkan hadiah menarik dari HMD Matematika FMIPA UI. Tertarik? Bagikan ID Line kamu untuk ikut undian.</p>
       <div class="prize-form" id="prizeForm">
         <div class="prize-form-inner">
-          <div class="q-block" id="qblock-npm">
-            <p class="q-label">NPM &nbsp;<span class="req">*</span></p>
-            <input type="text" class="input-text" id="inp-npm" placeholder="Contoh: 2106xxxxxx" maxlength="15"/>
-          </div>
           <div class="q-block" id="qblock-idline">
-            <p class="q-label">ID Line &nbsp;<span class="req">*</span></p>
+            <p class="q-label">ID Line <span class="q-note">(opsional)</span></p>
             <input type="text" class="input-text" id="inp-idline" placeholder="Contoh: johndoe"/>
           </div>
         </div>
         <div id="prizeErr" class="val-error"></div>
         <div class="prize-continue show" id="prizeContinue">
-          <button class="btn-prize-yes" onclick="submitPrize()">Lanjut Lihat Hasil</button>
-          <button class="btn-prize-skip" onclick="skipPrize()">Batal, lewati saja</button>
+          <button class="btn-prize-yes" onclick="submitPrizeWithID()">Lanjut Lihat Hasil</button>
+          <button class="btn-prize-skip" onclick="submitPrizeNoID()">Lewati undian, lihat hasil</button>
         </div>
       </div>
       <div class="prize-btns" id="prizeBtns">
         <button class="btn-prize-yes" onclick="showPrizeForm()">Ya, saya mau ikut undian!</button>
-        <button class="btn-prize-skip" onclick="skipPrize()">Lewati, langsung lihat hasil</button>
+        <button class="btn-prize-skip" onclick="skipPrizeDirectly()">Tidak, langsung lihat hasil</button>
       </div>
     </div>
   </div>
@@ -394,9 +392,9 @@ body{
     <div class="result-hero" id="resultHero">
       <span class="result-badge">Tipe Kepribadian Keuanganmu</span>
       <span class="result-icon" id="rIcon">🦊</span>
-      <h2 class="result-name" id="rName">Si Rubah</h2>
+      <h2 class="result-name" id="rName">Value Seeker</h2>
       <div class="hl-bar"></div>
-      <p class="result-tag" id="rTag">Cerdik &amp; Kalkulatif</p>
+      <p class="result-tag" id="rTag">Bijak &amp; Berorientasi Nilai</p>
     </div>
     <div class="result-body">
 
@@ -457,13 +455,15 @@ body{
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxCK5mmZBdhZFa5DV3zuUffZLzfbrLp6k_9SyIDlsiQl7UNc38Mp9jx3hHg3egmgZuv/exec";
 
 /* ================================================================
-   SECTIONS DATA — Section 2 tanpa nama/ID Line (ditanyakan di prize screen)
+   SECTIONS DATA Section 2 tanpa nama/ID Line (ditanyakan di prize screen)
 ================================================================ */
 const SECTIONS = [
   {
     num:2, title:"Identitas Responden",
     desc:"Informasi ini bersifat anonim dan hanya digunakan untuk keperluan analisis demografis.",
     questions:[
+      {id:"nama", type:"text", label:"Nama / Inisial", required:true,
+       placeholder:"Contoh: N.N. atau Nikko"},
       {id:"prodi",         type:"mc",  label:"Program Studi", required:true,
        opts:["Matematika","Statistika","Ilmu Aktuaria"]},
       {id:"angkatan",      type:"mc",  label:"Angkatan", required:true,
@@ -482,10 +482,10 @@ const SECTIONS = [
       {id:"avg_pemasukan", type:"mc",
        label:"Rata-rata total pemasukan bulanan (termasuk uang saku, beasiswa, dan kerja sampingan)",
        required:true,
-       opts:["< Rp1.000.000","Rp1.000.000 – Rp2.000.000","Rp2.000.000 – Rp3.000.000","> Rp3.000.000"]},
+       opts:["< Rp1.000.000","Rp1.000.000 - Rp2.000.000","Rp2.000.000 - Rp3.000.000","> Rp3.000.000"]},
       {id:"avg_pengeluaran", type:"mc",
        label:"Rata-rata total pengeluaran bulanan", required:true,
-       opts:["< Rp500.000","Rp500.000 – Rp1.000.000","Rp1.000.000 – Rp1.500.000","Rp1.500.000 – Rp2.000.000","> Rp2.000.000"]},
+       opts:["< Rp500.000","Rp500.000 - Rp1.000.000","Rp1.000.000 - Rp1.500.000","Rp1.500.000 - Rp2.000.000","> Rp2.000.000"]},
       {id:"selisih", type:"mc",
        label:"Secara umum, kondisi keuanganmu di akhir bulan?", required:true,
        opts:["Selalu ada sisa yang cukup (Surplus)",
@@ -514,7 +514,7 @@ const SECTIONS = [
       {id:"frekuensi_sosial", type:"mc",
        label:"Dalam satu minggu, berapa kali kamu mengeluarkan biaya untuk aktivitas di luar? (makan bareng, nongkrong, menonton)",
        required:true,
-       opts:["0 – 1 kali","2 – 3 kali","> 3 kali"]},
+       opts:["0-1 kali","2-3 kali","> 3 kali"]},
       {id:"scale_sesuaikan", type:"scale", scalePoints:6,
        scaleMin:"Sangat Tidak Setuju", scaleMax:"Sangat Setuju", required:true,
        label:"Saya merasa perlu menyesuaikan tempat makan atau nongkrong dengan pilihan mayoritas teman-teman saya."},
@@ -584,37 +584,36 @@ const SECTIONS = [
 ================================================================ */
 const TYPES = {
   A:{
-    icon:"🦊", code:"VS", name:"Si Rubah", tag:"Cerdik & Kalkulatif",
+    icon:"🦊", code:"VS", name:"Value Seeker", tag:"Bijak & Berorientasi Nilai",
     color:"#d32f2f", chipBg:"#fdecea", chipColor:"#c62828", heroBg:"#fdf5f5",
     snapBg:"#fdecea",
-    desc:"Seperti rubah yang selalu punya trik, kamu tidak pernah ambil keputusan finansial tanpa diperhitungkan matang. Kamu analisis, bandingin, dan kalkulasi, dan hampir selalu dapat yang paling optimal dari setiap rupiah. Bukan pelit. Ini cerdik.",
+    desc:"Kamu selalu mencari nilai terbaik di setiap pengeluaran. Fokusmu adalah mendapatkan kualitas dan manfaat optimal, bukan sekadar harga murah atau gaya hidup mewah.",
     strengths:["Sangat teliti sebelum keputusan finansial","Selalu cari nilai terbaik dari setiap rupiah","Tidak mudah tergoda marketing atau tren sesaat","Instingtif dalam membandingkan pilihan"],
     growth:["Jangan overthink sampai missed opportunity","Sesekali boleh langsung beli tanpa riset marathon","Arahkan skill analisis ke instrumen investasi aktif"],
     tip:"Kecerdikan analitismu itu aset besar! Arahkan ke instrumen investasi, bukan hanya untuk cari harga murah, tapi untuk grow asetmu secara aktif. Coba mulai dengan reksa dana indeks yang return-nya konsisten jangka panjang."
   },
   B:{
-    icon:"🦁", code:"BS", name:"Si Singa", tag:"Berani & Percaya Diri",
+    icon:"🦩", code:"BS", name:"Big Spender", tag:"Flamboyan & Berani",
     color:"#fb8c00", chipBg:"#fff3e0", chipColor:"#bf5000", heroBg:"#fffbf5",
     snapBg:"#fff3e0",
-    desc:"Seperti singa yang melangkah dengan percaya diri, kamu tidak ragu menikmati hasil kerja kerasmu. Kamu tahu apa yang kamu mau, punya selera, dan nggak segan upgrade kualitas hidup. Hidup cuma sekali, dan kamu merayakannya.",
+    desc:"Kamu tidak ragu menikmati hasil kerja kerasmu. Kehidupan yang menyenangkan dan pengalaman berharga lebih penting daripada menahan diri di setiap kesempatan.",
     strengths:["Menghargai kualitas di atas segalanya","Tahu cara menikmati hasil kerja sendiri","Berani berinvestasi pada pengalaman dan diri sendiri","Tidak overthink setiap keputusan kecil"],
-    growth:["Masa depan juga perlu dijaga, nggak cuma hari ini","Coba sisihkan minimal 10–20% sebelum spend","Buat spending budget agar tetap dalam kendali"],
+    growth:["Masa depan juga perlu dijaga, nggak cuma hari ini","Coba sisihkan minimal 10-20% sebelum spend","Buat spending budget agar tetap dalam kendali"],
     tip:"Keberanian dan seleramu itu keren! Tapi pastikan keuangan masa depan juga ikut naik kelas. Coba sistem pay yourself first: sebelum belanja apapun, auto-debit dulu ke rekening investasi. Sisanya? Spend dengan bebas!"
   },
   C:{
-    icon:"🐢", code:"NS", name:"Si Kura-kura", tag:"Hati-hati & Terlindungi",
+    icon:"🦥", code:"NS", name:"Non Spender", tag:"Hemat & Stabil",
     color:"#2e7d32", chipBg:"#e8f5e9", chipColor:"#1b5e20", heroBg:"#f5fdf6",
     snapBg:"#e8f5e9",
-    desc:"Seperti kura-kura yang selalu terlindungi cangkangnya, kamu tidak pernah terburu-buru dalam keputusan finansial. Kamu yang paling tenang saat orang lain panik tanggal tua. Tidak impulsif, selalu ada cadangan. Itu rare banget!",
-    strengths:["Sangat disiplin dan tidak impulsif","Selalu punya dana cadangan saat genting","Nggak mudah terpengaruh peer pressure finansial","Fondasi finansial yang sangat solid"],
+    desc:"Kamu lebih memilih menjaga cadangan dan hidup dengan tenang. Keputusan finansialmu cenderung konservatif, supaya kebutuhan dasar tetap aman setiap saat.",    strengths:["Sangat disiplin dan tidak impulsif","Selalu punya dana cadangan saat genting","Nggak mudah terpengaruh peer pressure finansial","Fondasi finansial yang sangat solid"],
     growth:["Uang diam terlalu lama bisa termakan inflasi","Sesekali reward diri sendiri, kamu layak!","Pertimbangkan instrumen investasi agar uang tumbuh aktif"],
     tip:"Fondasi keuanganmu sudah kuat banget! Saatnya biarkan uangmu bekerja lebih keras. Coba mulai dari reksa dana pasar uang atau deposito. Aman, tapi return-nya jauh lebih baik dari tabungan biasa."
   },
   D:{
-    icon:"🦅", code:"EX", name:"Si Elang", tag:"Bebas & Petualang",
+    icon:"🐬", code:"EX", name:"Experiencer", tag:"Pengalaman & Kebebasan",
     color:"#3949ab", chipBg:"#e8eaf6", chipColor:"#283593", heroBg:"#f5f6fd",
     snapBg:"#e8eaf6",
-    desc:"Seperti elang yang terbang bebas menjelajahi cakrawala, buat kamu uang paling bermakna saat jadi cerita dan pengalaman. Kamu tahu cara balance antara menikmati hari ini dan tetap waras secara finansial. Itu skill langka!",
+    desc:"Uang paling bermakna saat dapat dipakai untuk pengalaman hidup. Kamu ingin cerita dan kebebasan, jadi keputusan finansialmu fleksibel namun tetap ada batas yang masuk akal.",
     strengths:["Sangat balance antara enjoyment dan saving","Kaya pengalaman yang tak ternilai harganya","Keputusan keuangan fleksibel sesuai situasi","Tidak ekstrem ke salah satu sisi"],
     growth:["Tetapkan tujuan keuangan yang lebih konkret","Catat pengeluaran pengalaman, bisa lebih dari perkiraan!","Mulai investasi rutin meski kecil, yang penting konsisten"],
     tip:"Mindset-mu sudah tepat! Tinggal satu langkah: buat experience fund khusus di rekening terpisah. Jadi kamu tetap bisa menikmati hidup tanpa rasa bersalah, dan tujuan jangka panjang tetap aman."
@@ -758,7 +757,24 @@ function buildQuestion(q){
   if(q.type==="mc")       block.appendChild(buildMC(q));
   if(q.type==="checkbox") block.appendChild(buildCheckbox(q));
   if(q.type==="scale")    block.appendChild(buildScale(q));
+  if(q.type==="text")     block.appendChild(buildText(q));
   return block;
+}
+
+function buildText(q){
+  const wrap = document.createElement("div");
+  const inp = document.createElement("input");
+  inp.type = "text";
+  inp.className = "input-text";
+  inp.placeholder = q.placeholder || "";
+  inp.maxLength = q.maxlength || "100";
+  inp.value = responses[q.id] || "";
+  inp.addEventListener("input", ()=>{
+    responses[q.id] = inp.value;
+    clearErr(q.id);
+  });
+  wrap.appendChild(inp);
+  return wrap;
 }
 
 function buildMC(q){
@@ -855,6 +871,7 @@ function validateSection(num){
     const v = responses[q.id];
     if((q.type==="mc"||q.type==="scale") && (v===undefined||v===null)) errors.push(q.id);
     if(q.type==="checkbox" && (!Array.isArray(v)||v.length===0)) errors.push(q.id);
+    if(q.type==="text" && (!v||v.trim()==="")) errors.push(q.id);
   });
   return errors;
 }
@@ -896,12 +913,11 @@ function prevSection(){
 ================================================================ */
 function showPrizeScreen(){
   /* Reset state */
+  document.getElementById("prizeBtns").style.display = "block";
   document.getElementById("prizeForm").classList.remove("show");
-  document.getElementById("prizeBtns").style.display = "";
   document.getElementById("prizeContinue").classList.remove("show");
   document.getElementById("prizeErr").classList.remove("show");
   document.getElementById("prizeErr").textContent = "";
-  document.getElementById("inp-npm").value = "";
   document.getElementById("inp-idline").value = "";
   show("screenPrize");
 }
@@ -910,42 +926,30 @@ function showPrizeForm(){
   document.getElementById("prizeBtns").style.display = "none";
   document.getElementById("prizeForm").classList.add("show");
   document.getElementById("prizeContinue").classList.add("show");
-  document.getElementById("inp-npm").focus();
+  document.getElementById("inp-idline").focus();
 }
 
-function submitPrize(){
-  const npm    = document.getElementById("inp-npm").value.trim();
+function submitPrizeWithID(){
   const idline = document.getElementById("inp-idline").value.trim();
-  const errEl  = document.getElementById("prizeErr");
-
-  if(!npm){
-    errEl.textContent = "NPM belum diisi.";
-    errEl.classList.add("show");
-    document.getElementById("qblock-npm").classList.add("error");
-    return;
-  }
-  if(!idline){
-    errEl.textContent = "ID Line belum diisi.";
-    errEl.classList.add("show");
-    document.getElementById("qblock-idline").classList.add("error");
-    return;
-  }
-
-  responses.npm     = npm;
   responses.id_line = idline;
   responses.ikut_hadiah = true;
   runLoading();
 }
 
-function skipPrize(){
-  responses.npm     = "";
+function submitPrizeNoID(){
+  responses.id_line = "";
+  responses.ikut_hadiah = false;
+  runLoading();
+}
+
+function skipPrizeDirectly(){
   responses.id_line = "";
   responses.ikut_hadiah = false;
   runLoading();
 }
 
 /* ================================================================
-   CLASSIFICATION — SCORING_MATRIX (multi-dimensional 0-10)
+   CLASSIFICATION SCORING_MATRIX (multi-dimensional 0-10)
 ================================================================ */
 function classify(){
   const qIds = ["alokasi_sisa","prioritas_dana","cara_belanja"];
@@ -967,7 +971,7 @@ function classify(){
     }
   });
 
-  /* Average score per type (0–10) */
+  /* Average score per type (0-10) */
   const scores = {};
   Object.keys(rawScores).forEach(t=>{
     const arr = rawScores[t];
@@ -1064,7 +1068,7 @@ function renderResult(result){
 
 
 /* ================================================================
-   RADAR CHART — 4-axis SVG spider chart
+   RADAR CHART 4-axis SVG spider chart
 ================================================================ */
 
 
@@ -1183,7 +1187,8 @@ function saveData(result){
     session_uuid:     SESSION_UUID,
     local_sub_count:  subCount,
     time_seconds:     timeSec,
-    npm:              responses.npm||"",
+    npm:              "",
+    nama:             responses.nama||"",
     id_line:          responses.id_line||"",
     ikut_hadiah:      responses.ikut_hadiah ? "Ya" : "Tidak",
     prodi:            responses.prodi!==undefined ? ["Matematika","Statistika","Ilmu Aktuaria"][responses.prodi] : "",
