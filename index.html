@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>FinPersona Kuesioner Kepribadian Keuangan</title>
+<title>Research Center Vol. 13 — Spending Behavior Mahasiswa Matematika FMIPA UI</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
@@ -39,7 +39,7 @@ body{
 @keyframes screenIn{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
 .card{background:var(--white);border-radius:24px;box-shadow:0 4px 28px rgba(180,80,0,.11),0 1px 4px rgba(0,0,0,.05);overflow:hidden;}
 /* INTRO */
-.intro-hero{background:var(--crm-bg);border-bottom:1.5px solid var(--border);padding:36px 32px 28px;text-align:center;}
+.intro-hero{background:var(--crm-bg);border-bottom:1.5px solid var(--border);padding:28px 32px 22px;text-align:center;}
 .animal-row{display:flex;justify-content:center;gap:10px;margin-bottom:22px;}
 .a-bub{width:58px;height:58px;border-radius:50%;font-size:28px;display:flex;align-items:center;justify-content:center;border:1.5px solid var(--border);animation:floatBub 2.8s ease-in-out infinite;}
 .a-bub:nth-child(1){background:#fff0f0;animation-delay:0s;}
@@ -55,8 +55,7 @@ body{
 .intro-title{font-family:"Fredoka One",sans-serif;font-size:42px;color:var(--dark);margin-bottom:4px;}
 .intro-title span{color:var(--red);}
 .intro-sub{font-size:13px;color:var(--muted);font-weight:700;margin-bottom:18px;}
-.intro-desc{font-size:14px;color:var(--mid);line-height:1.8;margin-bottom:10px;}
-.intro-note{font-size:13px;color:var(--red);font-weight:700;line-height:1.6;margin-bottom:20px;text-align:center;}
+.intro-desc{font-size:14px;color:var(--mid);line-height:1.8;margin-bottom:22px;}
 .intro-desc strong{color:var(--dark);}
 .pills-row{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;}
 .pill{padding:6px 16px;border-radius:50px;font-size:12px;font-weight:800;}
@@ -158,9 +157,9 @@ body{
 
 .prize-title{font-family:"Fredoka One",sans-serif;font-size:26px;color:var(--dark);margin-bottom:10px;}
 .prize-desc{font-size:14px;color:var(--mid);line-height:1.78;margin-bottom:26px;}
-.prize-form{text-align:left;display:none;animation:screenIn .35s ease;}
-.prize-form.show{display:block;}
-.prize-form-inner{display:flex;flex-direction:column;gap:16px;margin-bottom:20px;}
+
+
+
 .prize-btns{display:flex;flex-direction:column;gap:10px;}
 .btn-prize-yes{display:block;width:100%;padding:16px;border:none;border-radius:14px;
   font-family:"Nunito",sans-serif;font-size:15px;font-weight:900;color:var(--white);
@@ -170,8 +169,8 @@ body{
   font-family:"Nunito",sans-serif;font-size:14px;font-weight:800;color:var(--muted);
   cursor:pointer;background:var(--white);transition:all .16s;}
 .btn-prize-skip:hover{border-color:#ccc;color:#666;}
-.prize-continue{display:none;margin-top:0;}
-.prize-continue.show{display:flex;flex-direction:column;gap:10px;}
+
+
 /* LOADING */
 #screenLoading .card{padding:56px 32px;text-align:center;}
 .ld-dots{display:flex;justify-content:center;gap:14px;margin-bottom:28px;}
@@ -274,6 +273,22 @@ body{
   .step-label{display:none;}
 }
 
+
+/* INTRO EXTENDED */
+.intro-vol { font-family:"Fredoka One",sans-serif; font-size:28px; color:var(--orange); display:block; line-height:1.1; }
+.intro-title { font-family:"Fredoka One",sans-serif; font-size:34px; color:var(--dark); margin-bottom:6px; line-height:1.15; }
+.intro-title span { color:var(--red); }
+
+.intro-desc-wrap { text-align:left; margin-bottom:18px; }
+.intro-desc { font-size:13.5px; color:var(--mid); line-height:1.75; margin-bottom:10px; }
+.intro-desc:first-of-type { margin-top:10px; }
+.intro-note { font-size:12.5px; color:var(--red); font-weight:700; line-height:1.65;
+  background:var(--red-lt); border-radius:12px; padding:12px 14px; margin-bottom:14px; }
+.intro-contact { font-size:12px; color:var(--muted); font-weight:700;
+  background:var(--crm-lt); border-radius:10px; padding:10px 14px;
+  display:flex; flex-direction:column; gap:3px; }
+.intro-contact-label { font-size:10px; font-weight:900; letter-spacing:1.2px;
+  text-transform:uppercase; color:var(--orange); }
 </style>
 </head>
 <body>
@@ -284,7 +299,7 @@ body{
   <div class="topnav-div"></div>
   <div>
     <div class="topnav-org">Himpunan Mahasiswa Departemen Matematika FMIPA UI</div>
-    <div class="topnav-name">FinPersona Kuesioner Kepribadian Keuangan</div>
+    <div class="topnav-name">Research Center Vol. 13 &nbsp;·&nbsp; HMD Matematika FMIPA UI</div>
   </div>
 </nav>
 
@@ -297,10 +312,20 @@ body{
       <div class="animal-row">
         <div class="a-bub a-vs">🦊</div><div class="a-bub a-bs">🦩</div><div class="a-bub a-ns">🦥</div><div class="a-bub a-ex">🐬</div>
       </div>
-      <h1 class="intro-title">Fin<span>Persona</span></h1>
-      <p class="intro-sub">Kamu tipe keuangan apa, sih?</p>
-      <p class="intro-desc">Kuesioner dari <strong>HMD Matematika FMIPA UI</strong> untuk memetakan kebiasaan finansial mahasiswa. <strong>4 bagian</strong>, anonim, dan hasilmu keluar langsung termasuk persona keuanganmu dari 4 tipe berikut.</p>
-      <p class="intro-note">Isi nama/inisial dan data pribadi untuk laporan. Di akhir formulir, ada kesempatan ikut undian berhadiah dengan isi ID Line.</p>
+      <h1 class="intro-title"><span>Research Center</span><br><span class="intro-vol">Vol. 13</span></h1>
+      <p class="intro-sub">Spending Behavior &amp; Kondisi Finansial Mahasiswa</p>
+      <div class="intro-desc-wrap">
+        <p class="intro-desc">Halo, Departemen Matematika FMIPA UI!</p>
+        <p class="intro-desc">Mengatur keuangan sebagai mahasiswa sering kali tidak sesederhana "hemat" atau "boros". Mulai dari kebutuhan sehari-hari, gaya hidup sosial, hingga kebiasaan <em>spending</em> dapat memengaruhi kondisi finansial setiap mahasiswa dengan cara yang berbeda-beda.</p>
+        <p class="intro-desc">Dalam kesempatan ini, Biro Variansi kembali menghadirkan <em>Research Center</em> Vol. 13 dengan topik "<strong>Spending Behavior dan Kondisi Finansial</strong> Mahasiswa Departemen Matematika FMIPA UI"!</p>
+        <p class="intro-desc">Penelitian ini bertujuan untuk memahami kondisi finansial, pola pengeluaran, kebiasaan menabung, serta pengaruh lingkungan sosial terhadap perilaku finansial mahasiswa. Hasil penelitian juga akan digunakan untuk memetakan berbagai tipe <em>spending behaviour</em> serta memberikan insight dan rekomendasi yang relevan.</p>
+        <p class="intro-desc"><strong>Kamu termasuk tipe spender seperti apa?</strong></p>
+        <p class="intro-note">Survei ini hanya memerlukan waktu sekitar 2–5 menit. <strong>Seluruh data responden akan dirahasiakan dan hanya digunakan untuk keperluan penelitian.</strong> Tersedia <strong>hadiah menarik</strong> untuk responden yang beruntung!</p>
+        <div class="intro-contact">
+          <span class="intro-contact-label">Narahubung</span>
+          <span>Sultan &nbsp;·&nbsp; 0882003915453 &nbsp;·&nbsp; LINE: inisultansahal</span>
+        </div>
+      </div>
       <div class="pills-row">
         <span class="pill pill-r">🦊 Value Seeker</span>
         <span class="pill pill-o">🦩 Big Spender</span>
@@ -312,12 +337,12 @@ body{
       <button class="btn-main" onclick="goToSection(2)">Mulai Sekarang</button>
       <div class="meta-row">
         <span class="meta-item"><span class="meta-dot"></span>4 bagian</span>
-        <span class="meta-item"><span class="meta-dot"></span>~8 menit</span>
-        <span class="meta-item"><span class="meta-dot"></span>Hasil langsung</span>
+        <span class="meta-item"><span class="meta-dot"></span>2–5 menit</span>
+        <span class="meta-item"><span class="meta-dot"></span>Anonim &amp; Gratis</span>
       </div>
     </div>
   </div>
-  <div class="footer">FinPersona &copy; 2026 &nbsp;&middot;&nbsp; HMD Matematika FMIPA UI</div>
+  <div class="footer">Research Center Vol. 13 &copy; 2026 &nbsp;&middot;&nbsp; HMD Matematika FMIPA UI</div>
 </div>
 
 <!-- ===== SECTION SCREEN ===== -->
@@ -344,27 +369,27 @@ body{
     <div class="prize-pad">
       <h2 class="prize-title">Kamu sudah selesai!</h2>
       <p class="prize-desc">Terima kasih sudah mengisi survei ini! Kamu berkesempatan untuk memenangkan hadiah menarik dari HMD Matematika FMIPA UI. Tertarik? Bagikan ID Line kamu untuk ikut undian.</p>
-      <div class="prize-form" id="prizeForm">
-        <div class="prize-form-inner">
-          <div class="q-block" id="qblock-idline">
-            <p class="q-label">ID Line <span class="q-note">(opsional)</span></p>
-            <input type="text" class="input-text" id="inp-idline" placeholder="Contoh: johndoe"/>
-          </div>
-        </div>
-        <div id="prizeErr" class="val-error"></div>
-        <div class="prize-continue show" id="prizeContinue">
-          <button class="btn-prize-yes" onclick="submitPrizeWithID()">Lanjut Lihat Hasil</button>
-          <button class="btn-prize-skip" onclick="submitPrizeNoID()">Lewati undian, lihat hasil</button>
-        </div>
-      </div>
       <div class="prize-btns" id="prizeBtns">
-        <button class="btn-prize-yes" onclick="showPrizeForm()">Ya, saya mau ikut undian!</button>
+        <button class="btn-prize-yes" onclick="showIDLineModal()">Ya, saya mau ikut undian!</button>
         <button class="btn-prize-skip" onclick="skipPrizeDirectly()">Tidak, langsung lihat hasil</button>
       </div>
     </div>
   </div>
   <div class="sec-nav" style="justify-content:flex-start;">
     <button class="btn-back" onclick="goToSection(5)">Kembali ke Pertanyaan</button>
+  </div>
+</div>
+
+<!-- ===== MODAL ID LINE ===== -->
+<div id="idLineModal" style="display:none;position:fixed;inset:0;z-index:9000;background:rgba(0,0,0,.45);align-items:center;justify-content:center;padding:24px;">
+  <div style="background:#fff;border-radius:22px;padding:28px 26px 24px;width:100%;max-width:420px;box-shadow:0 12px 48px rgba(0,0,0,.2);">
+    <h3 style="font-family:'Fredoka One',sans-serif;font-size:20px;color:#1a1a1a;margin-bottom:6px;">ID Line (opsional)</h3>
+    <p style="font-size:13px;color:#888;font-weight:700;margin-bottom:16px;">Isi ID Line kamu untuk ikut undian hadiah.</p>
+    <input type="text" id="inp-idline" class="input-text" placeholder="Contoh: nikko2571" style="margin-bottom:14px;"/>
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <button class="btn-prize-yes" onclick="submitIDLine()">Lanjut Lihat Hasil</button>
+      <button class="btn-prize-skip" onclick="cancelIDLine()">Batal</button>
+    </div>
   </div>
 </div>
 
@@ -392,9 +417,9 @@ body{
     <div class="result-hero" id="resultHero">
       <span class="result-badge">Tipe Kepribadian Keuanganmu</span>
       <span class="result-icon" id="rIcon">🦊</span>
-      <h2 class="result-name" id="rName">Value Seeker</h2>
+      <h2 class="result-name" id="rName">Si Rubah</h2>
       <div class="hl-bar"></div>
-      <p class="result-tag" id="rTag">Bijak &amp; Berorientasi Nilai</p>
+      <p class="result-tag" id="rTag">Cerdik &amp; Kalkulatif</p>
     </div>
     <div class="result-body">
 
@@ -447,7 +472,7 @@ body{
       <button class="btn-retry" onclick="restart()">Isi Ulang dari Awal</button>
     </div>
   </div>
-  <div class="footer">FinPersona &copy; 2026 &nbsp;&middot;&nbsp; HMD Matematika FMIPA UI</div>
+  <div class="footer">Research Center Vol. 13 &copy; 2026 &nbsp;&middot;&nbsp; HMD Matematika FMIPA UI</div>
 </div>
 
 </div><!-- /wrap -->
@@ -455,7 +480,7 @@ body{
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxCK5mmZBdhZFa5DV3zuUffZLzfbrLp6k_9SyIDlsiQl7UNc38Mp9jx3hHg3egmgZuv/exec";
 
 /* ================================================================
-   SECTIONS DATA Section 2 tanpa nama/ID Line (ditanyakan di prize screen)
+   SECTIONS DATA — Section 2 tanpa nama/ID Line (ditanyakan di prize screen)
 ================================================================ */
 const SECTIONS = [
   {
@@ -463,7 +488,7 @@ const SECTIONS = [
     desc:"Informasi ini bersifat anonim dan hanya digunakan untuk keperluan analisis demografis.",
     questions:[
       {id:"nama", type:"text", label:"Nama / Inisial", required:true,
-       placeholder:"Contoh: N.N. atau Nikko"},
+       placeholder:"Contoh: N.N.V. atau Nikko"},
       {id:"prodi",         type:"mc",  label:"Program Studi", required:true,
        opts:["Matematika","Statistika","Ilmu Aktuaria"]},
       {id:"angkatan",      type:"mc",  label:"Angkatan", required:true,
@@ -482,10 +507,10 @@ const SECTIONS = [
       {id:"avg_pemasukan", type:"mc",
        label:"Rata-rata total pemasukan bulanan (termasuk uang saku, beasiswa, dan kerja sampingan)",
        required:true,
-       opts:["< Rp1.000.000","Rp1.000.000 - Rp2.000.000","Rp2.000.000 - Rp3.000.000","> Rp3.000.000"]},
+       opts:["< Rp1.000.000","Rp1.000.000 – Rp2.000.000","Rp2.000.000 – Rp3.000.000","> Rp3.000.000"]},
       {id:"avg_pengeluaran", type:"mc",
        label:"Rata-rata total pengeluaran bulanan", required:true,
-       opts:["< Rp500.000","Rp500.000 - Rp1.000.000","Rp1.000.000 - Rp1.500.000","Rp1.500.000 - Rp2.000.000","> Rp2.000.000"]},
+       opts:["< Rp500.000","Rp500.000 – Rp1.000.000","Rp1.000.000 – Rp1.500.000","Rp1.500.000 – Rp2.000.000","> Rp2.000.000"]},
       {id:"selisih", type:"mc",
        label:"Secara umum, kondisi keuanganmu di akhir bulan?", required:true,
        opts:["Selalu ada sisa yang cukup (Surplus)",
@@ -514,7 +539,7 @@ const SECTIONS = [
       {id:"frekuensi_sosial", type:"mc",
        label:"Dalam satu minggu, berapa kali kamu mengeluarkan biaya untuk aktivitas di luar? (makan bareng, nongkrong, menonton)",
        required:true,
-       opts:["0-1 kali","2-3 kali","> 3 kali"]},
+       opts:["0 – 1 kali","2 – 3 kali","> 3 kali"]},
       {id:"scale_sesuaikan", type:"scale", scalePoints:6,
        scaleMin:"Sangat Tidak Setuju", scaleMax:"Sangat Setuju", required:true,
        label:"Saya merasa perlu menyesuaikan tempat makan atau nongkrong dengan pilihan mayoritas teman-teman saya."},
@@ -584,36 +609,37 @@ const SECTIONS = [
 ================================================================ */
 const TYPES = {
   A:{
-    icon:"🦊", code:"VS", name:"Value Seeker", tag:"Bijak & Berorientasi Nilai",
+    icon:"🦊", code:"VS", name:"Si Rubah", tag:"Cerdik & Kalkulatif",
     color:"#d32f2f", chipBg:"#fdecea", chipColor:"#c62828", heroBg:"#fdf5f5",
     snapBg:"#fdecea",
-    desc:"Kamu selalu mencari nilai terbaik di setiap pengeluaran. Fokusmu adalah mendapatkan kualitas dan manfaat optimal, bukan sekadar harga murah atau gaya hidup mewah.",
+    desc:"Seperti rubah yang selalu punya trik, kamu tidak pernah ambil keputusan finansial tanpa diperhitungkan matang. Kamu analisis, bandingin, dan kalkulasi, dan hampir selalu dapat yang paling optimal dari setiap rupiah. Bukan pelit. Ini cerdik.",
     strengths:["Sangat teliti sebelum keputusan finansial","Selalu cari nilai terbaik dari setiap rupiah","Tidak mudah tergoda marketing atau tren sesaat","Instingtif dalam membandingkan pilihan"],
     growth:["Jangan overthink sampai missed opportunity","Sesekali boleh langsung beli tanpa riset marathon","Arahkan skill analisis ke instrumen investasi aktif"],
     tip:"Kecerdikan analitismu itu aset besar! Arahkan ke instrumen investasi, bukan hanya untuk cari harga murah, tapi untuk grow asetmu secara aktif. Coba mulai dengan reksa dana indeks yang return-nya konsisten jangka panjang."
   },
   B:{
-    icon:"🦩", code:"BS", name:"Big Spender", tag:"Flamboyan & Berani",
+    icon:"🦩", code:"BS", name:"Si Singa", tag:"Berani & Percaya Diri",
     color:"#fb8c00", chipBg:"#fff3e0", chipColor:"#bf5000", heroBg:"#fffbf5",
     snapBg:"#fff3e0",
-    desc:"Kamu tidak ragu menikmati hasil kerja kerasmu. Kehidupan yang menyenangkan dan pengalaman berharga lebih penting daripada menahan diri di setiap kesempatan.",
+    desc:"Seperti singa yang melangkah dengan percaya diri, kamu tidak ragu menikmati hasil kerja kerasmu. Kamu tahu apa yang kamu mau, punya selera, dan nggak segan upgrade kualitas hidup. Hidup cuma sekali, dan kamu merayakannya.",
     strengths:["Menghargai kualitas di atas segalanya","Tahu cara menikmati hasil kerja sendiri","Berani berinvestasi pada pengalaman dan diri sendiri","Tidak overthink setiap keputusan kecil"],
-    growth:["Masa depan juga perlu dijaga, nggak cuma hari ini","Coba sisihkan minimal 10-20% sebelum spend","Buat spending budget agar tetap dalam kendali"],
+    growth:["Masa depan juga perlu dijaga, nggak cuma hari ini","Coba sisihkan minimal 10–20% sebelum spend","Buat spending budget agar tetap dalam kendali"],
     tip:"Keberanian dan seleramu itu keren! Tapi pastikan keuangan masa depan juga ikut naik kelas. Coba sistem pay yourself first: sebelum belanja apapun, auto-debit dulu ke rekening investasi. Sisanya? Spend dengan bebas!"
   },
   C:{
-    icon:"🦥", code:"NS", name:"Non Spender", tag:"Hemat & Stabil",
+    icon:"🦥", code:"NS", name:"Si Kura-kura", tag:"Hati-hati & Terlindungi",
     color:"#2e7d32", chipBg:"#e8f5e9", chipColor:"#1b5e20", heroBg:"#f5fdf6",
     snapBg:"#e8f5e9",
-    desc:"Kamu lebih memilih menjaga cadangan dan hidup dengan tenang. Keputusan finansialmu cenderung konservatif, supaya kebutuhan dasar tetap aman setiap saat.",    strengths:["Sangat disiplin dan tidak impulsif","Selalu punya dana cadangan saat genting","Nggak mudah terpengaruh peer pressure finansial","Fondasi finansial yang sangat solid"],
+    desc:"Seperti kura-kura yang selalu terlindungi cangkangnya, kamu tidak pernah terburu-buru dalam keputusan finansial. Kamu yang paling tenang saat orang lain panik tanggal tua. Tidak impulsif, selalu ada cadangan. Itu rare banget!",
+    strengths:["Sangat disiplin dan tidak impulsif","Selalu punya dana cadangan saat genting","Nggak mudah terpengaruh peer pressure finansial","Fondasi finansial yang sangat solid"],
     growth:["Uang diam terlalu lama bisa termakan inflasi","Sesekali reward diri sendiri, kamu layak!","Pertimbangkan instrumen investasi agar uang tumbuh aktif"],
     tip:"Fondasi keuanganmu sudah kuat banget! Saatnya biarkan uangmu bekerja lebih keras. Coba mulai dari reksa dana pasar uang atau deposito. Aman, tapi return-nya jauh lebih baik dari tabungan biasa."
   },
   D:{
-    icon:"🐬", code:"EX", name:"Experiencer", tag:"Pengalaman & Kebebasan",
+    icon:"🐬", code:"EX", name:"Si Elang", tag:"Bebas & Petualang",
     color:"#3949ab", chipBg:"#e8eaf6", chipColor:"#283593", heroBg:"#f5f6fd",
     snapBg:"#e8eaf6",
-    desc:"Uang paling bermakna saat dapat dipakai untuk pengalaman hidup. Kamu ingin cerita dan kebebasan, jadi keputusan finansialmu fleksibel namun tetap ada batas yang masuk akal.",
+    desc:"Seperti elang yang terbang bebas menjelajahi cakrawala, buat kamu uang paling bermakna saat jadi cerita dan pengalaman. Kamu tahu cara balance antara menikmati hari ini dan tetap waras secara finansial. Itu skill langka!",
     strengths:["Sangat balance antara enjoyment dan saving","Kaya pengalaman yang tak ternilai harganya","Keputusan keuangan fleksibel sesuai situasi","Tidak ekstrem ke salah satu sisi"],
     growth:["Tetapkan tujuan keuangan yang lebih konkret","Catat pengeluaran pengalaman, bisa lebih dari perkiraan!","Mulai investasi rutin meski kecil, yang penting konsisten"],
     tip:"Mindset-mu sudah tepat! Tinggal satu langkah: buat experience fund khusus di rekening terpisah. Jadi kamu tetap bisa menikmati hidup tanpa rasa bersalah, dan tujuan jangka panjang tetap aman."
@@ -757,24 +783,7 @@ function buildQuestion(q){
   if(q.type==="mc")       block.appendChild(buildMC(q));
   if(q.type==="checkbox") block.appendChild(buildCheckbox(q));
   if(q.type==="scale")    block.appendChild(buildScale(q));
-  if(q.type==="text")     block.appendChild(buildText(q));
   return block;
-}
-
-function buildText(q){
-  const wrap = document.createElement("div");
-  const inp = document.createElement("input");
-  inp.type = "text";
-  inp.className = "input-text";
-  inp.placeholder = q.placeholder || "";
-  inp.maxLength = q.maxlength || "100";
-  inp.value = responses[q.id] || "";
-  inp.addEventListener("input", ()=>{
-    responses[q.id] = inp.value;
-    clearErr(q.id);
-  });
-  wrap.appendChild(inp);
-  return wrap;
 }
 
 function buildMC(q){
@@ -871,7 +880,6 @@ function validateSection(num){
     const v = responses[q.id];
     if((q.type==="mc"||q.type==="scale") && (v===undefined||v===null)) errors.push(q.id);
     if(q.type==="checkbox" && (!Array.isArray(v)||v.length===0)) errors.push(q.id);
-    if(q.type==="text" && (!v||v.trim()==="")) errors.push(q.id);
   });
   return errors;
 }
@@ -912,44 +920,38 @@ function prevSection(){
    PRIZE SCREEN
 ================================================================ */
 function showPrizeScreen(){
-  /* Reset state */
-  document.getElementById("prizeBtns").style.display = "block";
-  document.getElementById("prizeForm").classList.remove("show");
-  document.getElementById("prizeContinue").classList.remove("show");
-  document.getElementById("prizeErr").classList.remove("show");
-  document.getElementById("prizeErr").textContent = "";
-  document.getElementById("inp-idline").value = "";
+  document.getElementById("prizeBtns").style.display = "flex";
   show("screenPrize");
 }
 
-function showPrizeForm(){
-  document.getElementById("prizeBtns").style.display = "none";
-  document.getElementById("prizeForm").classList.add("show");
-  document.getElementById("prizeContinue").classList.add("show");
-  document.getElementById("inp-idline").focus();
+function showIDLineModal(){
+  const modal = document.getElementById("idLineModal");
+  modal.style.display = "flex";
+  document.getElementById("inp-idline").value = "";
+  setTimeout(()=>document.getElementById("inp-idline").focus(), 100);
 }
 
-function submitPrizeWithID(){
+function submitIDLine(){
   const idline = document.getElementById("inp-idline").value.trim();
-  responses.id_line = idline;
+  responses.id_line     = idline;
   responses.ikut_hadiah = true;
+  document.getElementById("idLineModal").style.display = "none";
   runLoading();
 }
 
-function submitPrizeNoID(){
-  responses.id_line = "";
-  responses.ikut_hadiah = false;
-  runLoading();
+function cancelIDLine(){
+  document.getElementById("idLineModal").style.display = "none";
 }
 
 function skipPrizeDirectly(){
-  responses.id_line = "";
+  responses.id_line     = "";
   responses.ikut_hadiah = false;
   runLoading();
 }
 
+
 /* ================================================================
-   CLASSIFICATION SCORING_MATRIX (multi-dimensional 0-10)
+   CLASSIFICATION — SCORING_MATRIX (multi-dimensional 0-10)
 ================================================================ */
 function classify(){
   const qIds = ["alokasi_sisa","prioritas_dana","cara_belanja"];
@@ -971,7 +973,7 @@ function classify(){
     }
   });
 
-  /* Average score per type (0-10) */
+  /* Average score per type (0–10) */
   const scores = {};
   Object.keys(rawScores).forEach(t=>{
     const arr = rawScores[t];
@@ -1068,7 +1070,7 @@ function renderResult(result){
 
 
 /* ================================================================
-   RADAR CHART 4-axis SVG spider chart
+   RADAR CHART — 4-axis SVG spider chart
 ================================================================ */
 
 
@@ -1187,8 +1189,7 @@ function saveData(result){
     session_uuid:     SESSION_UUID,
     local_sub_count:  subCount,
     time_seconds:     timeSec,
-    npm:              "",
-    nama:             responses.nama||"",
+    npm:              responses.npm||"",
     id_line:          responses.id_line||"",
     ikut_hadiah:      responses.ikut_hadiah ? "Ya" : "Tidak",
     prodi:            responses.prodi!==undefined ? ["Matematika","Statistika","Ilmu Aktuaria"][responses.prodi] : "",
@@ -1246,5 +1247,19 @@ function launchConfetti(){
 }
   
 </script>
+
+<!-- ===== MODAL: ID LINE ===== -->
+<div id="modalOverlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:9000;align-items:center;justify-content:center;padding:20px;">
+  <div style="background:#fff;border-radius:22px;padding:30px 28px;width:100%;max-width:420px;box-shadow:0 16px 48px rgba(0,0,0,.18);animation:screenIn .35s cubic-bezier(.22,1,.36,1);">
+    <h3 style="font-family:'Fredoka One',sans-serif;font-size:22px;color:#1a1a1a;margin-bottom:8px;">ID Line (opsional)</h3>
+    <p style="font-size:13px;color:#888;font-weight:700;margin-bottom:20px;line-height:1.6;">Isi ID Line kamu untuk ikut undian hadiah. Data ini hanya digunakan untuk keperluan pengumuman pemenang.</p>
+    <input type="text" id="modalIDLine" class="input-text" placeholder="Contoh: nikko2571" style="margin-bottom:18px;"/>
+    <div id="modalErr" style="display:none;background:#fdecea;border:1px solid #f5b8b8;border-radius:10px;padding:9px 13px;font-size:12px;font-weight:700;color:#d32f2f;margin-bottom:14px;"></div>
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <button onclick="confirmIDLine()" style="display:block;width:100%;padding:15px;border:none;border-radius:13px;font-family:'Nunito',sans-serif;font-size:15px;font-weight:900;color:#fff;background:#d32f2f;cursor:pointer;">Lanjut Lihat Hasil</button>
+      <button onclick="closeModal()" style="display:block;width:100%;padding:13px;border:1.5px solid #e8d8c8;border-radius:13px;font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;color:#888;background:#fff;cursor:pointer;">Batal</button>
+    </div>
+  </div>
+</div>
 </body>
 </html>
