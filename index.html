@@ -42,15 +42,15 @@ body{
 .intro-hero{background:var(--crm-bg);border-bottom:1.5px solid var(--border);padding:28px 32px 22px;text-align:center;}
 .animal-row{display:flex;justify-content:center;gap:10px;margin-bottom:22px;}
 .a-bub{width:58px;height:58px;border-radius:50%;font-size:28px;display:flex;align-items:center;justify-content:center;border:1.5px solid var(--border);animation:floatBub 2.8s ease-in-out infinite;}
-.a-bub:nth-child(1){background:#fff0f0;animation-delay:0s;}
-.a-bub:nth-child(2){background:#fffde8;animation-delay:.2s;}
-.a-bub:nth-child(3){background:#fff3e0;animation-delay:.4s;}
-.a-bub:nth-child(4){background:#f0fff4;animation-delay:.6s;}
+.a-bub:nth-child(1){animation-delay:0s;}
+.a-bub:nth-child(2){animation-delay:.2s;}
+.a-bub:nth-child(3){animation-delay:.4s;}
+.a-bub:nth-child(4){animation-delay:.6s;}
 .a-bub { font-family:"Fredoka One",sans-serif; font-size:20px; font-weight:900; }
-.a-vs { background:#fdecea; color:#d32f2f; }
-.a-bs { background:#fff3e0; color:#fb8c00; }
-.a-ns { background:#e8f5e9; color:#2e7d32; }
-.a-ex { background:#e8eaf6; color:#3949ab; }
+.a-vs { color:#d32f2f; }
+.a-bs { color:#fb8c00; }
+.a-ns { color:#2e7d32; }
+.a-ex { color:#3949ab; }
 @keyframes floatBub{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
 .intro-title{font-family:"Fredoka One",sans-serif;font-size:42px;color:var(--dark);margin-bottom:4px;}
 .intro-title span{color:var(--red);}
@@ -364,7 +364,7 @@ body{
     <div class="intro-hero">
       <h1 class="intro-title"><span>Research Center</span><br><span class="intro-vol">Vol. 13</span></h1>
       <p class="intro-sub">Spending Behavior &amp; Kondisi Finansial Mahasiswa</p>
-      <p class="intro-desc intro-tagline">Kamu tipe <em>spender</em> yang mana?</p>
+      <p class="intro-desc intro-tagline">Kamu termasuk tipe spender seperti apa?</p>
       <div class="animal-row-labeled">
         <div class="a-bub-labeled a-vs"><span class="a-emoji">🦊</span><span class="a-name">Si Rubah</span></div>
         <div class="a-bub-labeled a-bs"><span class="a-emoji">🦩</span><span class="a-name">Si Flamingo</span></div>
@@ -372,9 +372,11 @@ body{
         <div class="a-bub-labeled a-ex"><span class="a-emoji">🐬</span><span class="a-name">Si Lumba-lumba</span></div>
       </div>
       <div class="intro-desc-wrap">
-        <p class="intro-desc">Tanpa disadari, kebiasaan finansial kita terbentuk dari pilihan-pilihan kecil sehari-hari, mulai dari cara belanja, reaksi saat ada sisa uang, sampai seberapa besar lingkungan teman memengaruhi pengeluaran kita.</p>
-        <p class="intro-desc"><strong>Spending Behavior dan Kondisi Finansial</strong> Mahasiswa Departemen Matematika FMIPA UI adalah topik riset dari <em>Research Center</em> Vol. 13 oleh Biro Variansi HMD Matematika FMIPA UI.</p>
-        <p class="intro-desc">Jawab beberapa pertanyaan singkat dan temukan persona finansialmu dari 4 tipe di atas!</p>
+        <p class="intro-desc">Mengatur keuangan sebagai mahasiswa sering kali tidak sesederhana "hemat" atau "boros". Mulai dari kebutuhan sehari-hari, gaya hidup sosial, hingga kebiasaan spending dapat memengaruhi kondisi finansial setiap mahasiswa dengan cara yang berbeda-beda.</p>
+        <p class="intro-desc">Dalam kesempatan ini, Biro Variansi kembali menghadirkan <strong>Research Center Vol. 13</strong> dengan topik <em>"Spending Behavior dan Kondisi Finansial Mahasiswa Departemen Matematika FMIPA UI"</em>!</p>
+        <p class="intro-desc">Penelitian ini bertujuan untuk memahami kondisi finansial, pola pengeluaran, kebiasaan menabung, serta pengaruh lingkungan sosial terhadap perilaku finansial mahasiswa. Hasil penelitian juga akan digunakan untuk memetakan berbagai tipe spending behaviour serta memberikan insight dan rekomendasi yang relevan.</p>
+        <p class="intro-desc">Survei ini hanya memerlukan waktu sekitar 2–5 menit. Seluruh data responden akan dirahasiakan dan hanya digunakan untuk keperluan penelitian. Tersedia hadiah menarik untuk responden yang beruntung!</p>
+        <p class="intro-desc"><strong>Narahubung</strong><br>Sultan &nbsp;&middot;&nbsp; 0882003915453 &nbsp;&middot;&nbsp; LINE: inisultansahal</p>
       </div>
     </div>
     <div class="intro-body">
@@ -387,7 +389,6 @@ body{
     </div>
   </div>
   <div class="footer">Research Center Vol. 13 &copy; 2026 &nbsp;&middot;&nbsp; HMD Matematika FMIPA UI</div>
-  <div class="footer" style="margin-top:4px;font-size:11px;">Narahubung: Sultan &nbsp;&middot;&nbsp; 0882003915453 &nbsp;&middot;&nbsp; LINE: inisultansahal</div>
 </div>
 
 <!-- ===== SECTION SCREEN ===== -->
