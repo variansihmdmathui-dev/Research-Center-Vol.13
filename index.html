@@ -1338,93 +1338,137 @@ function renderDecisions(picks){
 /* ================================================================
    SAVE DATA (Promise-based with retry logic)
 ================================================================ */
+/* ================================================================
+   SAVE DATA — versi perbaikan
+   Drop-in replacement: ganti seluruh fungsi saveData() di index.html
+   dengan blok ini (dari baris "function saveData(result){" sampai
+   closing brace "}" terakhirnya).
+
+   Bug yang diperbaiki vs kode lama:
+   1. transportasi  → checkbox, harus fmtArr(,4,0) bukan .opts[idx]
+   2. sosial_nongkrong / sosial_topik_keuangan / sosial_pengeluaran
+      → sudah benar pakai fmtArr, tinggal index section yg disesuaikan
+   3. instrumen_investasi → fmtArr(,5,7)  [lama: ,5,4 → salah idx]
+   4. topik_edukasi      → fmtArr(,5,8)  [lama: ,5,5 → salah idx]
+   5. utang_cicilan, pandangan_barang, aktifitas_akhir_minggu,
+      alokasi_sisa_akhir_bulan → 4 pertanyaan scoring baru, sebelumnya
+      tidak dikirim ke sheet sama sekali
+   6. nama  → field baru (text), sebelumnya tidak dikirim
+   7. npm   → field dihapus dari form, dihapus dari payload
+================================================================ */
 function saveData(result){
   const el = document.getElementById("saveStatus");
   if(!SCRIPT_URL) return Promise.resolve("success");
+
   const subCount = incSubCount();
   const timeSec  = quizStart ? Math.round((Date.now()-quizStart)/1000) : null;
 
-  function fmtArr(id, sec, qIdx){
-    const opts = SECTIONS.find(s=>s.num===sec).questions[qIdx].opts;
+  /* Helper: ambil teks jawaban checkbox dari array index */
+  function fmtArr(id, secNum, qIdx){
+    const opts = SECTIONS.find(s=>s.num===secNum).questions[qIdx].opts;
     return (responses[id]||[]).map(i=>opts[i]).join("; ");
   }
 
+  const s2 = SECTIONS.find(s=>s.num===2);
   const s3 = SECTIONS.find(s=>s.num===3);
   const s4 = SECTIONS.find(s=>s.num===4);
   const s5 = SECTIONS.find(s=>s.num===5);
 
   const payload = {
-    timestamp:        new Date().toISOString(),
-    session_uuid:     SESSION_UUID,
-    local_sub_count:  subCount,
-    time_seconds:     timeSec,
-    npm:              responses.npm||"",
-    id_line:          responses.id_line||"",
-    ikut_hadiah:      responses.ikut_hadiah ? "Ya" : "Tidak",
-    prodi:            responses.prodi!==undefined ? ["Matematika","Statistika","Ilmu Aktuaria"][responses.prodi] : "",
-    angkatan:         responses.angkatan!==undefined ? ["2025","2024","2023"][responses.angkatan] : "",
-    status_tinggal:   responses.status_tinggal!==undefined ? ["Rumah Orang Tua/Saudara","Kos","Apartemen","Asrama"][responses.status_tinggal] : "",
-    sumber_pemasukan: responses.sumber_pemasukan!==undefined ? s3.questions[0].opts[responses.sumber_pemasukan] : "",
-    avg_pemasukan:    responses.avg_pemasukan!==undefined    ? s3.questions[1].opts[responses.avg_pemasukan]    : "",
-    avg_pengeluaran:  responses.avg_pengeluaran!==undefined  ? s3.questions[2].opts[responses.avg_pengeluaran]  : "",
-    selisih:          responses.selisih!==undefined           ? s3.questions[3].opts[responses.selisih]          : "",
-    komponen_pengeluaran: fmtArr("komponen_pengeluaran",3,4),
-    transportasi:     responses.transportasi!==undefined ? s4.questions[0].opts[responses.transportasi] : "",
-    frekuensi_sosial: responses.frekuensi_sosial!==undefined ? s4.questions[1].opts[responses.frekuensi_sosial] : "",
-    sosial_nongkrong: fmtArr("sosial_nongkrong",4,2),
-    sosial_topik_keuangan: fmtArr("sosial_topik_keuangan",4,3),
-    sosial_pengeluaran: fmtArr("sosial_pengeluaran",4,4),
-    scale_sesuaikan:  responses.scale_sesuaikan||"",
-    scale_ajakan:     responses.scale_ajakan||"",
-    scale_tolak:      responses.scale_tolak||"",
-    scale_diskusi:    responses.scale_diskusi||"",
-    alokasi_sisa:     responses.alokasi_sisa!==undefined ? s5.questions[0].opts[responses.alokasi_sisa] : "",
-    prioritas_dana:   responses.prioritas_dana!==undefined ? s5.questions[1].opts[responses.prioritas_dana] : "",
-    utang_cicilan:    responses.utang_cicilan!==undefined ? s5.questions[2].opts[responses.utang_cicilan] : "",
-    pandangan_barang: responses.pandangan_barang!==undefined ? s5.questions[3].opts[responses.pandangan_barang] : "",
-    aktifitas_akhir_minggu: responses.aktifitas_akhir_minggu!==undefined ? s5.questions[4].opts[responses.aktifitas_akhir_minggu] : "",
-    alokasi_sisa_akhir_bulan: responses.alokasi_sisa_akhir_bulan!==undefined ? s5.questions[5].opts[responses.alokasi_sisa_akhir_bulan] : "",
-    hambatan_menabung:    fmtArr("hambatan_menabung",5,6),
-    instrumen_investasi:  fmtArr("instrumen_investasi",5,4),
-    topik_edukasi:        fmtArr("topik_edukasi",5,5),
-    result_type:  result.winner,
-    result_name:  TYPES[result.winner].name,
-    score_A:      result.scores.A,
-    score_B:      result.scores.B,
-    score_C:      result.scores.C,
-    score_D:      result.scores.D,
-    browser_lang: navigator.language||"",
-    browser_tz:   Intl.DateTimeFormat().resolvedOptions().timeZone||"",
-    screen_res:   screen.width+"x"+screen.height
+    /* ── Meta ── */
+    timestamp:       new Date().toISOString(),
+    session_uuid:    SESSION_UUID,
+    local_sub_count: subCount,
+    time_seconds:    timeSec,
+    ikut_hadiah:     responses.ikut_hadiah ? "Ya" : "Tidak",
+
+    /* ── Hasil klasifikasi ── */
+    result_type: result.winner,
+    result_name: TYPES[result.winner].name,
+    score_A:     result.scores.A,
+    score_B:     result.scores.B,
+    score_C:     result.scores.C,
+    score_D:     result.scores.D,
+
+    /* ── Section 2 — Identitas ── */
+    nama:          responses.nama          || "",
+    id_line:       responses.id_line       || "",
+    prodi:         responses.prodi         !== undefined ? s2.questions[1].opts[responses.prodi]         : "",
+    angkatan:      responses.angkatan      !== undefined ? s2.questions[2].opts[responses.angkatan]      : "",
+    status_tinggal:responses.status_tinggal!== undefined ? s2.questions[3].opts[responses.status_tinggal]: "",
+
+    /* ── Section 3 — Kondisi Finansial ── */
+    sumber_pemasukan:     responses.sumber_pemasukan  !== undefined ? s3.questions[0].opts[responses.sumber_pemasukan]  : "",
+    avg_pemasukan:        responses.avg_pemasukan      !== undefined ? s3.questions[1].opts[responses.avg_pemasukan]      : "",
+    avg_pengeluaran:      responses.avg_pengeluaran    !== undefined ? s3.questions[2].opts[responses.avg_pengeluaran]    : "",
+    selisih:              responses.selisih             !== undefined ? s3.questions[3].opts[responses.selisih]             : "",
+    komponen_pengeluaran: fmtArr("komponen_pengeluaran", 3, 4),   /* checkbox, max 3 */
+
+    /* ── Section 4 — Lingkungan & Mobilitas ── */
+    /* FIX #1: transportasi adalah checkbox, bukan mc */
+    transportasi:          fmtArr("transportasi",          4, 0),  /* checkbox, max 2 */
+    frekuensi_sosial:      responses.frekuensi_sosial !== undefined ? s4.questions[1].opts[responses.frekuensi_sosial] : "",
+    sosial_nongkrong:      fmtArr("sosial_nongkrong",      4, 2),  /* checkbox, max 2 */
+    sosial_topik_keuangan: fmtArr("sosial_topik_keuangan", 4, 3),  /* checkbox, max 2 */
+    sosial_pengeluaran:    fmtArr("sosial_pengeluaran",    4, 4),  /* checkbox, max 2 */
+
+    /* ── Section 5 — Pola Menabung & Scoring ── */
+    /* FIX #5: 4 pertanyaan scoring baru yang sebelumnya hilang */
+    alokasi_sisa:             responses.alokasi_sisa             !== undefined ? s5.questions[0].opts[responses.alokasi_sisa]             : "",
+    prioritas_dana:           responses.prioritas_dana           !== undefined ? s5.questions[1].opts[responses.prioritas_dana]           : "",
+    utang_cicilan:            responses.utang_cicilan            !== undefined ? s5.questions[2].opts[responses.utang_cicilan]            : "",
+    pandangan_barang:         responses.pandangan_barang         !== undefined ? s5.questions[3].opts[responses.pandangan_barang]         : "",
+    aktifitas_akhir_minggu:   responses.aktifitas_akhir_minggu   !== undefined ? s5.questions[4].opts[responses.aktifitas_akhir_minggu]   : "",
+    alokasi_sisa_akhir_bulan: responses.alokasi_sisa_akhir_bulan !== undefined ? s5.questions[5].opts[responses.alokasi_sisa_akhir_bulan] : "",
+    /* FIX #3 & #4: index checkbox diperbaiki ke idx aslinya */
+    hambatan_menabung:   fmtArr("hambatan_menabung",   5, 6),    /* checkbox, max 3 — idx 6 */
+    instrumen_investasi: fmtArr("instrumen_investasi", 5, 7),    /* checkbox, max 3 — idx 7 (lama: 4 = SALAH) */
+    topik_edukasi:       fmtArr("topik_edukasi",       5, 8),    /* checkbox, max 3 — idx 8 (lama: 5 = SALAH) */
+
+    /* ── Browser metadata ── */
+    browser_lang: navigator.language || "",
+    browser_tz:   Intl.DateTimeFormat().resolvedOptions().timeZone || "",
+    screen_res:   screen.width + "x" + screen.height
   };
 
+  /* ── Retry logic (max 3x) ── */
   const maxRetries = 3;
-  const delays = [1000, 2000, 4000];
-  let attemptCount = 0;
+  const delays     = [1000, 2000, 4000];
+  let   attemptCount = 0;
+
   function attemptSave(){
     attemptCount++;
-    el.textContent = attemptCount===1 ? "Menyimpan data..." : "Menyimpan data (percobaan "+attemptCount+"/3)...";
+    el.textContent = attemptCount === 1
+      ? "Menyimpan data..."
+      : "Menyimpan data (percobaan " + attemptCount + "/3)...";
     el.className = "save-status";
-    return fetch(SCRIPT_URL,{method:"POST",mode:"no-cors",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)})
-    .then(()=>{
-      el.textContent="Data berhasil disimpan";
-      el.className="save-status ok";
-      setTimeout(()=>{el.textContent="";},3500);
+
+    return fetch(SCRIPT_URL, {
+      method:  "POST",
+      mode:    "no-cors",
+      headers: { "Content-Type": "application/json" },
+      body:    JSON.stringify(payload)
+    })
+    .then(() => {
+      el.textContent = "Data berhasil disimpan";
+      el.className   = "save-status ok";
+      setTimeout(() => { el.textContent = ""; }, 3500);
       return "success";
     })
-    .catch(err=>{
-      if(attemptCount<maxRetries){
-        return new Promise(resolve=>{
-          setTimeout(()=>{attemptSave().then(resolve);},delays[attemptCount-1]);
+    .catch(() => {
+      if(attemptCount < maxRetries){
+        return new Promise(resolve => {
+          setTimeout(() => { attemptSave().then(resolve); }, delays[attemptCount - 1]);
         });
       } else {
-        el.textContent="Gagal menyimpan (coba lagi nanti)";
-        el.className="save-status err";
-        setTimeout(()=>{el.textContent="";},4000);
+        el.textContent = "Gagal menyimpan (coba lagi nanti)";
+        el.className   = "save-status err";
+        setTimeout(() => { el.textContent = ""; }, 4000);
         return "save_failed";
       }
     });
   }
+
   return attemptSave();
 }
 
