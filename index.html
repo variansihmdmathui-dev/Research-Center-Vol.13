@@ -187,6 +187,8 @@ body{
 .ld-step.active{color:var(--red);}
 .ld-step.done{color:#5cb85c;}
 .ld-step-dot{width:9px;height:9px;border-radius:50%;background:currentColor;flex-shrink:0;}
+.ld-progress-wrap{margin:20px auto 8px;width:100%;max-width:320px;background:rgba(0,0,0,.05);border-radius:999px;height:10px;overflow:hidden;}
+.ld-progress{width:0%;height:100%;background:linear-gradient(90deg,var(--red),var(--orange));transition:width .23s ease-out;}
 /* RESULT HERO */
 .result-hero{border-bottom:1.5px solid var(--border);padding:36px 32px 28px;text-align:center;}
 .result-badge{display:inline-block;padding:4px 14px;border-radius:50px;font-size:10px;font-weight:900;letter-spacing:1.6px;text-transform:uppercase;background:var(--red-lt);color:var(--red);margin-bottom:16px;}
@@ -458,6 +460,7 @@ body{
       <div class="ld-step" id="ldS3"><span class="ld-step-dot"></span><span>Mencocokkan dengan 4 tipe kepribadian…</span></div>
       <div class="ld-step" id="ldS4"><span class="ld-step-dot"></span><span>Hasilmu sudah siap!</span></div>
     </div>
+    <div class="ld-progress-wrap"><div class="ld-progress" id="ldProgressBar"></div></div>
     <div class="ld-save-status" id="ldSaveStatus"></div>
   </div>
 </div>
@@ -555,16 +558,16 @@ const SECTIONS = [
        label:"Sumber pemasukan utama", required:true,
        opts:["Orang Tua","Beasiswa","Pekerjaan Sampingan","Bisnis","Lainnya"]},
       {id:"avg_pemasukan", type:"mc",
-       label:"Rata-rata total pemasukan bulanan (termasuk uang saku, beasiswa, dan kerja sampingan)",
+       label:"Berapa rata-rata total pemasukan bulanan Anda? (Termasuk uang saku, beasiswa, dan pekerjaan sampingan)",
        required:true,
        opts:["< Rp1.000.000","Rp1.000.000 – Rp2.000.000","Rp2.000.000 – Rp3.000.000","> Rp3.000.000"]},
       {id:"avg_pengeluaran", type:"mc",
-       label:"Rata-rata total pengeluaran bulanan", required:true,
+       label:"Berapa rata-rata total pengeluaran bulanan Anda?", required:true,
        opts:["< Rp500.000","Rp500.000 – Rp1.000.000","Rp1.000.000 – Rp1.500.000","Rp1.500.000 – Rp2.000.000","> Rp2.000.000"]},
       {id:"selisih", type:"mc",
-       label:"Secara umum, kondisi keuanganmu di akhir bulan?", required:true,
+       label:"Secara umum, bagaimana selisih pemasukan dan pengeluaran Anda di akhir bulan?", required:true,
        opts:["Selalu ada sisa yang cukup (Surplus)",
-             "Habis untuk kebutuhan operasional (Seimbang)",
+             "Habis seluruhnya untuk kebutuhan operasional (Seimbang/pas-pasan)",
              "Sering tidak cukup menutupi pengeluaran (Defisit)"]},
       {id:"komponen_pengeluaran", type:"checkbox",
        label:"Komponen pengeluaran utama", note:"Pilih maksimal 3", max:3, required:true,
@@ -579,29 +582,38 @@ const SECTIONS = [
     num:4, title:"Pengaruh Lingkungan dan Mobilitas",
     desc:"Berfokus pada transportasi dan intensitas kegiatan sosial yang memengaruhi kondisi finansialmu.",
     questions:[
-      {id:"transportasi", type:"mc",
-       label:"Moda transportasi utama menuju kampus", required:true,
+      {id:"transportasi", type:"checkbox",
+       label:"Apa moda transportasi utama yang paling sering Anda gunakan menuju kampus?", note:"Pilih maksimal 2", max:2, required:true,
        opts:["Kendaraan pribadi (Motor / Mobil)",
              "Transportasi umum berbayar (KRL, TransJakarta)",
              "Transportasi umum gratis (Bis Kuning, Jaklingko)",
              "Layanan transportasi daring (Ojek / Taksi Online)",
              "Jalan kaki"]},
       {id:"frekuensi_sosial", type:"mc",
-       label:"Dalam satu minggu, berapa kali kamu mengeluarkan biaya untuk aktivitas di luar? (makan bareng, nongkrong, menonton)",
+       label:"Dalam satu minggu, berapa kali Anda mengeluarkan biaya untuk aktivitas di luar (contoh: makan bersama teman, nongkrong, menonton)?",
        required:true,
        opts:["0 – 1 kali","2 – 3 kali","> 3 kali"]},
-      {id:"scale_sesuaikan", type:"scale", scalePoints:6,
-       scaleMin:"Sangat Tidak Setuju", scaleMax:"Sangat Setuju", required:true,
-       label:"Saya merasa perlu menyesuaikan tempat makan atau nongkrong dengan pilihan mayoritas teman-teman saya."},
-      {id:"scale_ajakan", type:"scale", scalePoints:6,
-       scaleMin:"Sangat Tidak Setuju", scaleMax:"Sangat Setuju", required:true,
-       label:"Sebagian besar pengeluaran tidak terduga saya dipicu oleh ajakan beraktivitas bersama teman."},
-      {id:"scale_tolak", type:"scale", scalePoints:6,
-       scaleMin:"Sangat Tidak Setuju", scaleMax:"Sangat Setuju", required:true,
-       label:"Saya merasa nyaman menolak ajakan kegiatan sosial jika anggaran saya sedang terbatas."},
-      {id:"scale_diskusi", type:"scale", scalePoints:6,
-       scaleMin:"Sangat Tidak Setuju", scaleMax:"Sangat Setuju", required:true,
-       label:"Lingkungan pertemanan saya sering mendiskusikan cara mengelola keuangan atau investasi."}
+      {id:"sosial_nongkrong", type:"checkbox",
+       label:"Saat teman mengajak nongkrong atau makan di tempat yang cukup mahal, biasanya kamu", note:"Pilih maksimal 2", max:2, required:true,
+       opts:["Tetap ikut tanpa terlalu memikirkan biaya",
+             "Ikut, tetapi menyesuaikan pengeluaran lain",
+             "Mempertimbangkan kondisi keuangan terlebih dahulu",
+             "Mengusulkan tempat yang lebih terjangkau",
+             "Menolak jika memang tidak sesuai budget"]},
+      {id:"sosial_topik_keuangan", type:"checkbox",
+       label:"Dalam lingkungan pertemananmu, topik terkait keuangan biasanya…", note:"Pilih maksimal 2", max:2, required:true,
+       opts:["Hampir tidak pernah dibahas",
+             "Lebih sering membahas gaya hidup/barang konsumsi",
+             "Kadang membahas cara berhemat atau budgeting",
+             "Cukup sering membahas tabungan atau investasi",
+             "Sangat terbuka membahas pengelolaan keuangan"]},
+      {id:"sosial_pengeluaran", type:"checkbox",
+       label:"Saat berkegiatan sosial dengan teman, biasanya kamu…", note:"Pilih maksimal 2", max:2, required:true,
+       opts:["Mengikuti pola pengeluaran teman-teman",
+             "Menyesuaikan dengan budget pribadi",
+             "Menentukan batas pengeluaran sejak awal",
+             "Mencari opsi yang paling hemat",
+             "Tidak terlalu memikirkan pengeluaran"]}
     ]
   },
   {
@@ -609,25 +621,43 @@ const SECTIONS = [
     desc:"Mengidentifikasi persona keuanganmu, kebiasaan menyisihkan uang, serta hambatan yang dihadapi.",
     questions:[
       {id:"alokasi_sisa", type:"mc", scoring:true,
-       label:"Jika terdapat sisa dana di akhir bulan, ke mana alokasi utamanya?", required:true,
-       opts:["Diinvestasikan ke dalam instrumen keuangan (reksa dana, saham, dll.)",
-             "Dibelanjakan langsung untuk barang keinginan atau hiburan",
-             "Dipindahkan ke rekening tabungan khusus secara otomatis",
-             "Dibiarkan mengendap di rekening untuk kebutuhan bulan berikutnya"]},
-      {id:"prioritas_dana", type:"mc", scoring:true,
-       label:"Jika tiba-tiba dapat dana tidak terduga sebesar Rp5.000.000, prioritas utamamu?", required:true,
-       opts:["Menabung atau menginvestasikan seluruh dana tersebut",
-             "Membeli barang impian yang sudah lama diinginkan (gawai, fesyen, dll.)",
-             "Membayar cicilan atau utang yang sedang berjalan",
-             "Sebagian untuk pengalaman (liburan) dan sebagian lagi ditabung"]},
-      {id:"cara_belanja", type:"mc", scoring:true,
-       label:"Cara paling sering kamu berbelanja?", required:true,
+       label:"Bagaimana cara paling sering Anda berbelanja?", required:true,
        opts:["Cek beberapa toko, bandingkan harga, pilih kualitas terbaik untuk harganya",
-             "Langsung beli yang paling keren dan terkenal, harga mahal biasanya sepadan",
-             "Pilih yang paling murah, atau tunda kalau yang lama masih bisa dipakai",
-             "Beli kalau memang butuh untuk aktivitas tertentu, tidak pusing soal harga atau merek"]},
+             "Langsung beli yang paling keren dan terkenal, harga mahal biasanya layak",
+             "Pilih yang paling murah, atau tunda beli kalau yang lama masih bisa dipakai",
+             "Beli kalau butuh untuk aktivitas tertentu, tidak pusing soal harga atau merek"]},
+      {id:"prioritas_dana", type:"mc", scoring:true,
+       label:"Jika Anda tiba-tiba mendapatkan dana tidak terduga sebesar Rp5.000.000, apa prioritas utama Anda?", required:true,
+       opts:["Pakai sebagian untuk beli barang yang benar-benar dibutuhkan, terutama saat ada diskon",
+             "Segera beli barang trendy yang sudah kamu mau",
+             "Tabung semuanya",
+             "Gunakan untuk liburan, kursus, atau pengalaman berkesan"]},
+      {id:"utang_cicilan", type:"mc", scoring:true,
+       label:"Bagaimana pandanganmu terhadap utang/cicilan?", required:true,
+       opts:["Tidak apa-apa, terutama untuk barang bernilai tinggi dan ada promonya, tapi tetap hati-hati",
+             "Sangat tidak masalah, menikmati sekarang dan bayar belakangan itu wajar",
+             "Sangat tidak nyaman, selalu menghindari utang dalam bentuk apapun",
+             "Jarang pakai cicilan karena tidak terlalu banyak beli barang materi"]},
+      {id:"pandangan_barang", type:"mc", scoring:true,
+       label:"Bagaimana pandanganmu terhadap barang yang kamu miliki?", required:true,
+       opts:["Suka punya barang bagus, tapi bangga kalau bisa dapat dengan harga terbaik",
+             "Punya barang berkualitas dan bermerek bikin merasa berhasil dan percaya diri",
+             "Tidak terlalu peduli dengan barang, yang penting fungsional dan tidak perlu banyak",
+             "Barang hanya alat, yang lebih penting adalah pengalaman dan kenangan"]},
+      {id:"aktifitas_akhir_minggu", type:"mc", scoring:true,
+       label:"Bagaimana aktivitas akhir pekan yang ideal bagimu?", required:true,
+       opts:["Berburu promo atau flash sale, senang menemukan \"deal\" yang bagus",
+             "Pergi ke mal atau online shopping sebagai bentuk self-reward atau mengikuti tren",
+             "Di rumah saja atau aktivitas gratis, tidak perlu keluar uang ekstra",
+             "Ikut workshop, hiking, nonton konser, atau eksplorasi hal baru"]},
+      {id:"alokasi_sisa_akhir_bulan", type:"mc", scoring:true,
+       label:"Jika ada dana sisa di akhir bulan, ke mana alokasi utamanya?", required:true,
+       opts:["Disimpan di rekening utama (tidak dipisah)",
+             "Dipindahkan ke rekening tabungan khusus/celengan",
+             "Diinvestasikan (Reksadana, Saham, Emas, dll)",
+             "Digunakan untuk pembelian barang keinginan di bulan berikutnya"]},
       {id:"hambatan_menabung", type:"checkbox",
-       label:"Hambatan utama dalam merutinkan kebiasaan menabung", note:"Pilih maksimal 3", max:3, required:true,
+       label:"Menurut Anda, apa hambatan utama dalam merutinkan kebiasaan menabung?", note:"Pilih maksimal 3", max:3, required:true,
        opts:["Pemasukan yang terbatas","Pengeluaran kebutuhan sehari-hari yang tinggi",
              "Pengeluaran sosial atau gaya hidup yang sulit dikontrol",
              "Pengeluaran mendadak / tidak terduga","Sulit disiplin atau konsisten menabung",
@@ -635,11 +665,11 @@ const SECTIONS = [
              "Tergoda belanja impulsif atau promo","Belum merasa menabung menjadi prioritas",
              "Tidak memiliki tujuan keuangan yang jelas","Lainnya"]},
       {id:"instrumen_investasi", type:"checkbox",
-       label:"Instrumen investasi yang kamu miliki saat ini", note:"Pilih maksimal 3", max:3, required:true,
+       label:"Apa instrumen investasi utamamu saat ini?", note:"Pilih maksimal 3", max:3, required:true,
        opts:["Belum memiliki","Saham","Reksa Dana","Obligasi / Surat Berharga Negara (SBN)",
              "Logam Mulia / Emas","Deposito Bank","Properti","Kripto / Crypto Asset","Lainnya"]},
       {id:"topik_edukasi", type:"checkbox",
-       label:"Topik edukasi keuangan yang paling ingin kamu pelajari saat ini", note:"Pilih maksimal 3", max:3, required:true,
+       label:"Topik edukasi keuangan apa yang paling relevan dan ingin Anda pelajari saat ini?", note:"Pilih maksimal 3", max:3, required:true,
        opts:["Cara menyusun budget dan mengatur pengeluaran sehari-hari",
              "Strategi menabung dan membangun dana darurat",
              "Cara mulai investasi untuk pemula",
@@ -699,7 +729,10 @@ const TYPES = {
 const SCORING_LABELS = [
   "Alokasi sisa dana akhir bulan",
   "Prioritas dana tidak terduga",
-  "Cara berbelanja"
+  "Pandangan terhadap utang/cicilan",
+  "Pandangan terhadap barang yang dimiliki",
+  "Aktivitas akhir pekan ideal",
+  "Alokasi sisa akhir bulan"
 ];
 
 /* Skor multi-dimensi 0-10 per tipe untuk setiap opsi 3 pertanyaan kunci.
@@ -719,12 +752,33 @@ const SCORING_MATRIX = {
     {A:6,  B:2,  C:9,  D:4},  /* Bayar cicilan/utang */
     {A:5,  B:6,  C:3,  D:10} /* Pengalaman + tabung */
   ],
-  /* cara_belanja: total = 25, min = 2 */
-  cara_belanja: [
-    {A:10, B:3,  C:6,  D:6},  /* Bandingkan & pilih terbaik */
-    {A:2,  B:10, C:3,  D:7},  /* Beli yang terkenal */
-    {A:5,  B:2,  C:10, D:4},  /* Pilih paling murah */
-    {A:7,  B:4,  C:5,  D:9}   /* Beli kalau butuh */
+    /* utang_cicilan: total = 25, min = 2 */
+  utang_cicilan: [
+    {A:7,  B:6,  C:4,  D:8},  /* Tidak apa-apa, hati-hati */
+    {A:3,  B:10, C:2,  D:5},  /* Bayar belakangan wajar */
+    {A:4,  B:2,  C:10, D:6},  /* Menghindari utang */
+    {A:5,  B:3,  C:6,  D:10}  /* Jarang pakai cicilan */
+  ],
+  /* pandangan_barang: total = 25, min = 2 */
+  pandangan_barang: [
+    {A:10, B:6,  C:3,  D:7},  /* Barang bagus dengan harga terbaik */
+    {A:3,  B:10, C:2,  D:6},  /* Kualitas & merek penting */
+    {A:5,  B:2,  C:10, D:6},  /* Fungsional dan sederhana */
+    {A:4,  B:7,  C:3,  D:10}  /* Barang alat, pengalaman utama */
+  ],
+  /* aktifitas_akhir_minggu: total = 25, min = 2 */
+  aktifitas_akhir_minggu: [
+    {A:10, B:6,  C:2,  D:7},  /* Berburu promo */
+    {A:3,  B:10, C:2,  D:6},  /* Mal / shopping */
+    {A:2,  B:3,  C:10, D:5},  /* Di rumah saja */
+    {A:4,  B:7,  C:3,  D:10}  /* Workshop / eksplorasi */
+  ],
+  /* alokasi_sisa_akhir_bulan: total = 25, min = 2 */
+  alokasi_sisa_akhir_bulan: [
+    {A:3,  B:4,  C:2,  D:5},  /* Rekening utama */
+    {A:6,  B:3,  C:8,  D:7},  /* Tabungan khusus */
+    {A:8,  B:5,  C:3,  D:6},  /* Diinvestasikan */
+    {A:4,  B:10, C:2,  D:6}  /* Belanja keinginan */
   ]
 };
 
@@ -873,7 +927,7 @@ function buildCheckbox(q){
   const wrap = document.createElement("div"); wrap.className = "cb-opts";
 
   /* Opsi yang bersifat eksklusif — tidak bisa dipilih bersamaan dgn opsi lain */
-  const exclusiveLabels = ["Belum memiliki", "Lainnya"];
+  const exclusiveLabels = ["Belum memiliki", "Lainnya", "Saya belum tertarik mempelajari topik keuangan secara khusus"];
   const exclusiveIdxs = q.opts
     .map((opt, i) => exclusiveLabels.includes(opt) ? i : -1)
     .filter(i => i >= 0);
@@ -1043,12 +1097,19 @@ function skipPrizeDirectly(){
   runLoading();
 }
 
+function socialScore(qId, scoreMap){
+  const values = responses[qId];
+  if(!Array.isArray(values) || values.length === 0) return 3;
+  const scores = values.map(i => scoreMap[i] !== undefined ? scoreMap[i] : 3);
+  return scores.reduce((sum,v)=>sum+v,0) / scores.length;
+}
+
 
 /* ================================================================
    CLASSIFICATION, SCORING_MATRIX (multi-dimensional 0-10)
 ================================================================ */
 function classify(){
-  const qIds = ["alokasi_sisa","prioritas_dana","cara_belanja"];
+  const qIds = ["alokasi_sisa","prioritas_dana","utang_cicilan","pandangan_barang","aktifitas_akhir_minggu","alokasi_sisa_akhir_bulan"];
   const rawScores = {A:[], B:[], C:[], D:[]};
   const picks = [];
 
@@ -1083,9 +1144,9 @@ function classify(){
 
   /* Tiebreaker: social scale signals */
   if(ties.length>1){
-    const pressure = ((responses.scale_sesuaikan||3)+(responses.scale_ajakan||3))/2;
-    const decline  = responses.scale_tolak||3;
-    const peerFin  = responses.scale_diskusi||3;
+    const pressure = socialScore("sosial_nongkrong", {0:5,1:4,2:3,3:2,4:1});
+    const decline  = socialScore("sosial_pengeluaran", {0:5,1:3,2:1,3:2,4:4});
+    const peerFin  = socialScore("sosial_topik_keuangan", {0:5,1:4,2:3,3:2,4:1});
     if(ties.includes("B") && pressure>=4)     winner="B";
     else if(ties.includes("A") && peerFin>=4) winner="A";
     else if(ties.includes("C") && decline>=4) winner="C";
@@ -1101,16 +1162,30 @@ function classify(){
 function runLoading(){
   ["ldS1","ldS2","ldS3","ldS4"].forEach(id=>document.getElementById(id).classList.remove("active","done"));
   show("screenLoading");
+  const progressEl = document.getElementById("ldProgressBar");
+  if(progressEl) progressEl.style.width = "8%";
   const steps = ["ldS1","ldS2","ldS3","ldS4"]; let i=0;
+  let saveInterval;
   function tick(){
     if(i>0){ document.getElementById(steps[i-1]).classList.remove("active"); document.getElementById(steps[i-1]).classList.add("done"); }
-    if(i<steps.length){ document.getElementById(steps[i]).classList.add("active"); i++; setTimeout(tick,820); }
-    else{
+    if(i<steps.length){ document.getElementById(steps[i]).classList.add("active");
+      if(progressEl) progressEl.style.width = (12 + i * 18) + "%";
+      i++; setTimeout(tick,820);
+    } else {
+      if(progressEl) progressEl.style.width = "80%";
+      if(progressEl){
+        let progressValue = 80;
+        saveInterval = setInterval(()=>{
+          if(progressValue < 94){ progressValue += 1; progressEl.style.width = progressValue + "%"; }
+        }, 140);
+      }
       setTimeout(async ()=>{
         const result = classify();
         const statusEl = document.getElementById("ldSaveStatus");
         if(statusEl){ statusEl.textContent = "Menyimpan data..."; }
         const saveStatus = await saveData(result);
+        if(saveInterval) clearInterval(saveInterval);
+        if(progressEl) progressEl.style.width = "100%";
         if(statusEl){
           statusEl.textContent = saveStatus === "success"
             ? "Data tersimpan. Menampilkan hasil..."
@@ -1204,12 +1279,11 @@ function renderSnapshot(){
    SOCIAL INFLUENCE GAUGE
 ================================================================ */
 function renderGauge(){
-  /* Social pressure score: sesuaikan + ajakan + (7-tolak) → avg → scale to 1-6 */
-  const s1 = responses.scale_sesuaikan || 3;
-  const s2 = responses.scale_ajakan    || 3;
-  const s3 = 7 - (responses.scale_tolak || 3);  /* invert: nyaman tolak = low pressure */
+  const s1 = socialScore("sosial_nongkrong", {0:5,1:4,2:3,3:2,4:1});
+  const s2 = socialScore("sosial_pengeluaran", {0:5,1:3,2:1,3:2,4:4});
+  const s3 = socialScore("sosial_topik_keuangan", {0:5,1:4,2:3,3:2,4:1});
   const avg = (s1+s2+s3)/3;
-  const pct = Math.round((avg-1)/5*100);
+  const pct = Math.round((avg-1)/4*100);
 
   const thumb = document.getElementById("gaugeThumb");
   setTimeout(()=>{ thumb.style.left = Math.min(95,Math.max(5,pct))+"%" }, 400);
@@ -1239,7 +1313,7 @@ function renderGauge(){
 ================================================================ */
 function renderDecisions(picks){
   const sec5   = SECTIONS.find(s=>s.num===5);
-  const qIds   = ["alokasi_sisa","prioritas_dana","cara_belanja"];
+  const qIds   = ["alokasi_sisa","prioritas_dana","utang_cicilan","pandangan_barang","aktifitas_akhir_minggu","alokasi_sisa_akhir_bulan"];
   const wrap   = document.getElementById("decisionsWrap"); wrap.innerHTML="";
 
   picks.forEach((pk,i)=>{
@@ -1297,14 +1371,20 @@ function saveData(result){
     komponen_pengeluaran: fmtArr("komponen_pengeluaran",3,4),
     transportasi:     responses.transportasi!==undefined ? s4.questions[0].opts[responses.transportasi] : "",
     frekuensi_sosial: responses.frekuensi_sosial!==undefined ? s4.questions[1].opts[responses.frekuensi_sosial] : "",
+    sosial_nongkrong: fmtArr("sosial_nongkrong",4,2),
+    sosial_topik_keuangan: fmtArr("sosial_topik_keuangan",4,3),
+    sosial_pengeluaran: fmtArr("sosial_pengeluaran",4,4),
     scale_sesuaikan:  responses.scale_sesuaikan||"",
     scale_ajakan:     responses.scale_ajakan||"",
     scale_tolak:      responses.scale_tolak||"",
     scale_diskusi:    responses.scale_diskusi||"",
     alokasi_sisa:     responses.alokasi_sisa!==undefined ? s5.questions[0].opts[responses.alokasi_sisa] : "",
     prioritas_dana:   responses.prioritas_dana!==undefined ? s5.questions[1].opts[responses.prioritas_dana] : "",
-    cara_belanja:     responses.cara_belanja!==undefined ? s5.questions[2].opts[responses.cara_belanja] : "",
-    hambatan_menabung:    fmtArr("hambatan_menabung",5,3),
+    utang_cicilan:    responses.utang_cicilan!==undefined ? s5.questions[2].opts[responses.utang_cicilan] : "",
+    pandangan_barang: responses.pandangan_barang!==undefined ? s5.questions[3].opts[responses.pandangan_barang] : "",
+    aktifitas_akhir_minggu: responses.aktifitas_akhir_minggu!==undefined ? s5.questions[4].opts[responses.aktifitas_akhir_minggu] : "",
+    alokasi_sisa_akhir_bulan: responses.alokasi_sisa_akhir_bulan!==undefined ? s5.questions[5].opts[responses.alokasi_sisa_akhir_bulan] : "",
+    hambatan_menabung:    fmtArr("hambatan_menabung",5,6),
     instrumen_investasi:  fmtArr("instrumen_investasi",5,4),
     topik_edukasi:        fmtArr("topik_edukasi",5,5),
     result_type:  result.winner,
